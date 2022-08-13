@@ -51,7 +51,15 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
             </select>
             <div id="dbentukpendidikan" style="display:inline-block;">
             <select class="combobox1" id="bentuk_pendidikan" name="bentuk_pendidikan">
-                <option <?=$piljalur1?> value="all">-Semua Bentuk-</option>
+                <?php if (sizeof($daftarbentuk)==0)
+                { ?>
+                    <option <?=$piljalur1?> value="all">-tidak ada-</option>
+                <?php }
+                else
+                { ?>
+                    <option <?=$piljalur1?> value="all">-Semua Bentuk-</option>
+                <?php }
+                ?>  
                 <?php foreach ($daftarbentuk as $key => $value) :?>
                     <option <?php 
                     if ($bentuk==$value->bentuk_pendidikan_id)
@@ -165,9 +173,17 @@ function getdaftarbentuk() {
             isihtml1 = '<select class="combobox1" id="bentuk_pendidikan" name="bentuk_pendidikan">'+
                '<option value="all">-Semua Bentuk-</option>';
             isihtml2 = "";
+            var total=0;
             $.each(result, function (i, result) {
+                total++;
                 isihtml2 = isihtml2 + "<option value='" + result.bentuk_pendidikan_id + "'>" + result.nama + "</option>";
             });
+            if (total==0)
+            {
+                isihtml1 = '<select class="combobox1" id="bentuk_pendidikan" name="bentuk_pendidikan">'+
+               '<option value="all">-tidak ada-</option>';
+            }
+
             $('#dbentukpendidikan').html(isihtml1 + isihtml2 + isihtml3);
         }
     });
