@@ -83,7 +83,6 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <th>KB (Sederajat)</th>
                     <th>TPA</th>
                     <th>SPS</th>
-                    <th>Lainnya</th>
                     <th>Total</th>
                     <?php endif; 
                     if ($jalur=="jf") :?>
@@ -114,25 +113,25 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <td class="link1"><a href="<?=site_url('pendidikan/paud/'.trim($value->kode_wilayah).'/'.($level+1).$cekjalurbentukstatus)?>"><?=$value->nama?></a></td>
                     <?php if ($bentuk=="all" || $bentuk==null) {?>
                     <?php if ($jalur=="all" || $jalur==null) :?>
-                    <td><?=$value->tk?></td>
-                    <td><?=$value->kb?></td>
-                    <td><?=$value->tpa?></td>
-                    <td><?=$value->sps?></td>
-                    <td><?=$value->lain?></td>
+                    <td><?=number_format($value->tk,0,",",".")?></td>
+                    <td><?=number_format($value->kb,0,",",".")?></td>
+                    <td><?=number_format($value->tpa,0,",",".")?></td>
+                    <td><?=number_format($value->sps,0,",",".")?></td>
+
                     <?php endif; if ($jalur=="jf") :?>
-                    <td><?=$value->tk?></td>
-                    <td><?=$value->tklb?></td>
-                    <td><?=$value->spkpg?></td>
-                    <td><?=$value->spktk?></td>
-                    <td><?=$value->lain?></td>
+                    <td><?=number_format($value->tk,0,",",".")?></td>
+                    <td><?=number_format($value->tklb,0,",",".")?></td>
+                    <td><?=number_format($value->spkpg,0,",",".")?></td>
+                    <td><?=number_format($value->spktk,0,",",".")?></td>
+                    <td><?=number_format($value->lain,0,",",".")?></td>
                     <?php endif; if ($jalur=="jn") :?>
-                    <td><?=$value->kb?></td>
-                    <td><?=$value->tpa?></td>
-                    <td><?=$value->sps?></td>
-                    <td><?=$value->lain?></td>
+                    <td><?=number_format($value->kb,0,",",".")?></td>
+                    <td><?=number_format($value->tpa,0,",",".")?></td>
+                    <td><?=number_format($value->sps,0,",",".")?></td>
+                    <td><?=number_format($value->lain,0,",",".")?></td>
                     <?php endif;?>
                     <?php } ?>
-                    <td><?=$value->total?></td>
+                    <td><?=number_format($value->total,0,",",".")?></td>
                 </tr>
                 
                 <?php endforeach;?>

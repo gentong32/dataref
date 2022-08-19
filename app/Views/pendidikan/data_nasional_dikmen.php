@@ -116,19 +116,19 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <td class="link1"><a href="<?=site_url('pendidikan/dikmen/'.trim($value->kode_wilayah).'/'.($level+1).$cekjalurbentukstatus)?>"><?=$value->nama?></a></td>
                     <?php if ($bentuk=="all" || $bentuk==null) {?>
                     <?php if ($jalur=="all" || $jalur==null) :?>
-                    <td><?=$value->sma?></td>
-                    <td><?=$value->smk?></td>
-                    <td><?=$value->ma?></td>
-                    <td><?=$value->lain?></td>
+                    <td><?=number_format($value->sma,0,",",".")?></td>
+                    <td><?=number_format($value->smk,0,",",".")?></td>
+                    <td><?=number_format($value->ma,0,",",".")?></td>
+                    <td><?=number_format($value->lain,0,",",".")?></td>
                     <?php endif; if ($jalur=="jf") :?>
-                    <td><?=$value->sma?></td>
-                    <td><?=$value->smk?></td>
-                    <td><?=$value->ma?></td>
-                    <td><?=$value->lain?></td>
+                    <td><?=number_format($value->sma,0,",",".")?></td>
+                    <td><?=number_format($value->smk,0,",",".")?></td>
+                    <td><?=number_format($value->ma,0,",",".")?></td>
+                    <td><?=number_format($value->lain,0,",",".")?></td>
                     <?php endif; if ($jalur=="jn") :?>
                     <?php endif;?>
                     <?php } ?>
-                    <td><?=$value->total?></td>
+                    <td><?=number_format($value->total,0,",",".")?></td>
                 </tr>
                 
                 <?php endforeach;?>

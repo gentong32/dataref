@@ -40,7 +40,7 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-    <div class="judulatas">JUMLAH DATA SATUAN PENDIDIKAN (DIKMEN) PER <?=$namapilihan?></div>
+    <div class="judulatas">JUMLAH DATA SATUAN PENDIDIKAN (DIKTI) PER <?=$namapilihan?></div>
     <div class="card-body p-0">
     <center>
         <div class="">
@@ -118,21 +118,21 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <td class="link1"><a href="<?=site_url('pendidikan/dikti/'.trim($value->kode_wilayah).'/'.($level+1).$cekjalurbentukstatus)?>"><?=$value->nama?></a></td>
                     <?php if ($bentuk=="all" || $bentuk==null) {?>
                     <?php if ($jalur=="all" || $jalur==null) :?>
-                    <td><?=$value->akademik?></td>
-                    <td><?=$value->politeknik?></td>
-                    <td><?=$value->sekolahtinggi?></td>
-                    <td><?=$value->universitas?></td>
-                    <td><?=$value->lain?></td>
+                    <td><?=number_format($value->akademik,0,",",".")?></td>
+                    <td><?=number_format($value->politeknik,0,",",".")?></td>
+                    <td><?=number_format($value->sekolahtinggi,0,",",".")?></td>
+                    <td><?=number_format($value->universitas,0,",",".")?></td>
+                    <td><?=number_format($value->lain,0,",",".")?></td>
                     <?php endif; if ($jalur=="jf") :?>
-                    <td><?=$value->akademik?></td>
-                    <td><?=$value->politeknik?></td>
-                    <td><?=$value->sekolahtinggi?></td>
-                    <td><?=$value->universitas?></td>
-                    <td><?=$value->lain?></td>
+                    <td><?=number_format($value->akademik,0,",",".")?></td>
+                    <td><?=number_format($value->politeknik,0,",",".")?></td>
+                    <td><?=number_format($value->sekolahtinggi,0,",",".")?></td>
+                    <td><?=number_format($value->universitas,0,",",".")?></td>
+                    <td><?=number_format($value->lain,0,",",".")?></td>
                     <?php endif; if ($jalur=="jn") :?>
                     <?php endif;?>
                     <?php } ?>
-                    <td><?=$value->total?></td>
+                    <td><?=number_format($value->total,0,",",".")?></td>
                 </tr>
                 
                 <?php endforeach;?>

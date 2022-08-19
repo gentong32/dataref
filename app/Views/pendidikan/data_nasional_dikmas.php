@@ -81,7 +81,7 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <?php if ($jalur=="all" || $jalur==null) :?>
                     <th>Kursus</th>
                     <th>Ponpes</th>
-                    <th>PDF</th>
+                    <th>PKBM</th>
                     <th>Lain</th>
                     <th>Total</th>
                     <?php endif; 
@@ -94,8 +94,8 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <?php endif; 
                     if ($jalur=="jn") :?>
                     <th>Kursus</th>
-                    <th>PKBM</th>
                     <th>Ponpes</th>
+                    <th>PKBM</th>
                     <th>Lain</th>
                     <th>Total</th>
                     <?php endif ?>
@@ -112,23 +112,23 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <td class="link1"><a href="<?=site_url('pendidikan/dikmas/'.trim($value->kode_wilayah).'/'.($level+1).$cekjalurbentukstatus)?>"><?=$value->nama?></a></td>
                     <?php if ($bentuk=="all" || $bentuk==null) {?>
                     <?php if ($jalur=="all" || $jalur==null) :?>
-                    <td><?=$value->kursus?></td>
-                    <td><?=$value->ponpes?></td>
-                    <td><?=$value->pdf?></td>
-                    <td><?=$value->lain?></td>
+                    <td><?=number_format($value->kursus,0,",",".")?></td>
+                    <td><?=number_format($value->ponpes,0,",",".")?></td>
+                    <td><?=number_format($value->pkbm,0,",",".")?></td>
+                    <td><?=number_format($value->lain,0,",",".")?></td>
                     <?php endif; if ($jalur=="jf") :?>
-                    <td><?=$value->pdfula?></td>
-                    <td><?=$value->pdfwustha?></td>
-                    <td><?=$value->pdfulya?></td>
-                    <td><?=$value->lain?></td>
+                    <td><?=number_format($value->pdfula,0,",",".")?></td>
+                    <td><?=number_format($value->pdfwustha,0,",",".")?></td>
+                    <td><?=number_format($value->pdfulya,0,",",".")?></td>
+                    <td><?=number_format($value->lain,0,",",".")?></td>
                     <?php endif; if ($jalur=="jn") :?>
-                    <td><?=$value->kursus?></td>
-                    <td><?=$value->pkbm?></td>
-                    <td><?=$value->ponpes?></td>
-                    <td><?=$value->lain?></td>
+                    <td><?=number_format($value->kursus,0,",",".")?></td>
+                    <td><?=number_format($value->ponpes,0,",",".")?></td>
+                    <td><?=number_format($value->pkbm,0,",",".")?></td>
+                    <td><?=number_format($value->lain,0,",",".")?></td>
                     <?php endif;?>
                     <?php } ?>
-                    <td><?=$value->total?></td>
+                    <td><?=number_format($value->total,0,",",".")?></td>
                 </tr>
                 
                 <?php endforeach;?>

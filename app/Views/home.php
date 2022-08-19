@@ -1,7 +1,7 @@
 <?= $this->extend('layout/default') ?>
 
 <?= $this->section('titel') ?>
-<title>Home &mdash; Budaya Kita</title>
+<title>Home &mdash; Data Pendidikan dan Kebudayaan</title>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>

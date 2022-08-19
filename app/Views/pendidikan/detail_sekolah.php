@@ -153,11 +153,11 @@
                 <td><?php
                 if ($datasekolah->luas_tanah_milik>0)
                 {
-                    echo $datasekolah->luas_tanah_milik;
+                    echo number_format($datasekolah->luas_tanah_milik,0,",",".");
                 }
                 else
                 {
-                    echo $datasekolah->luas_tanah_bukan_milik;
+                    echo number_format($datasekolah->luas_tanah_bukan_milik,0,",",".");
                 }
                 echo " m<sup>2</sup>";?></td>
             </tr>

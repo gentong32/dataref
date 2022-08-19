@@ -89,14 +89,14 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <?php if ($jalur=="all" || $jalur==null) :?>
                     <th>SD/MI</th>
                     <th>SMP/MTS</th>
-                    <th>SMPT</th>
+                    <th>SLB</th>
                     <th>Lainnya</th>
                     <th>Total</th>
                     <?php endif; 
                     if ($jalur=="jf") :?>
                     <th>SD/MI</th>
                     <th>SMP/MTS</th>
-                    <th>SMPT</th>
+                    <th>SLB</th>
                     <th>Lainnya</th>
                     <th>Total</th>
                     <?php endif; 
@@ -116,19 +116,19 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <td class="link1"><a href="<?=site_url('pendidikan/dikdas/'.trim($value->kode_wilayah).'/'.($level+1).$cekjalurbentukstatus)?>"><?=$value->nama?></a></td>
                     <?php if ($bentuk=="all" || $bentuk==null) {?>
                     <?php if ($jalur=="all" || $jalur==null) :?>
-                    <td><?=$value->sd?></td>
-                    <td><?=$value->smp?></td>
-                    <td><?=$value->smpt?></td>
-                    <td><?=$value->lain?></td>
+                    <td><?=number_format($value->sdall,0,",",".")?></td>
+                    <td><?=number_format($value->smpall,0,",",".")?></td>
+                    <td><?=number_format($value->slb,0,",",".")?></td>
+                    <td><?=number_format($value->lain,0,",",".")?></td>
                     <?php endif; if ($jalur=="jf") :?>
-                    <td><?=$value->sd?></td>
-                    <td><?=$value->smp?></td>
-                    <td><?=$value->smpt?></td>
-                    <td><?=$value->lain?></td>
+                    <td><?=number_format($value->sdall,0,",",".")?></td>
+                    <td><?=number_format($value->smpall,0,",",".")?></td>
+                    <td><?=number_format($value->slb,0,",",".")?></td>
+                    <td><?=number_format($value->lain,0,",",".")?></td>
                     <?php endif; if ($jalur=="jn") :?>
                     <?php endif;?>
                     <?php } ?>
-                    <td><?=$value->total?></td>
+                    <td><?=number_format($value->total,0,",",".")?></td>
                 </tr>
                 
                 <?php endforeach;?>
