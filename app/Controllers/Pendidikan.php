@@ -253,7 +253,7 @@ class Pendidikan extends BaseController
             $namabentuk = $hasilbentuk->nama; 
         }
 
-        $querybentuk = $this->datamodeldikmen->getDaftarBentukDikmen($jalur);
+        $querybentuk = $this->datamodeldikmas->getDaftarBentukDikmas($jalur);
         $data['daftarbentuk'] = $querybentuk->getResult();
         $data['namabentuk'] = $namabentuk;
 
@@ -326,26 +326,18 @@ class Pendidikan extends BaseController
             }
             else if ($tingkat=="DIKMEN")
             {
-                $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] 
-                WHERE ([jenjang_sma]=1) AND (
-                bentuk_pendidikan_id<>56 AND bentuk_pendidikan_id<>69 AND 
-                bentuk_pendidikan_id<>72)";
+                $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s
+                WHERE (".$this->datamodeldikmen->getbentukdikmensemua().")";
             }
             else if ($tingkat=="DIKTI")
             {
-                $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] 
-                WHERE [jenjang_tinggi]=1";
+                $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s
+                WHERE (".$this->datamodeldikti->getbentukdiktisemua().")";
             }
             else if ($tingkat=="DIKMAS")
             {
-                $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] 
-                WHERE (bentuk_pendidikan_id=24 OR bentuk_pendidikan_id=25 OR 
-                    bentuk_pendidikan_id=26 OR bentuk_pendidikan_id=27 OR 
-                    bentuk_pendidikan_id=28 OR bentuk_pendidikan_id=40 OR 
-                    bentuk_pendidikan_id=56 OR bentuk_pendidikan_id=67 OR 
-                    bentuk_pendidikan_id=68 OR bentuk_pendidikan_id=69 OR 
-                    bentuk_pendidikan_id=70 OR bentuk_pendidikan_id=71 OR
-                    bentuk_pendidikan_id=72)";
+                $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s
+                WHERE (".$this->datamodeldikmas->getbentukdikmassemua().")";
             }
         }
         else
@@ -366,26 +358,18 @@ class Pendidikan extends BaseController
             }
             else if ($tingkat=="DIKMEN")
             {
-                $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] 
-                WHERE ([jenjang_sma]=1) AND (
-                bentuk_pendidikan_id<>56 AND bentuk_pendidikan_id<>69 AND 
-                bentuk_pendidikan_id<>72) AND LOWER(direktorat_pembinaan) = ".$pilihan;
+                $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s
+                WHERE (".$this->datamodeldikmen->getbentukdikmensemua().") AND LOWER(direktorat_pembinaan) = ".$pilihan;
             }
             else if ($tingkat=="DIKTI")
             {
-                $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] 
-                WHERE ([jenjang_tinggi]=1) AND LOWER(direktorat_pembinaan) = ".$pilihan;
+                $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s
+                WHERE (".$this->datamodeldikti->getbentukdiktisemua().") AND LOWER(direktorat_pembinaan) = ".$pilihan;
             }
             else if ($tingkat=="DIKMAS")
             {
-                $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] 
-                WHERE (bentuk_pendidikan_id=24 OR bentuk_pendidikan_id=25 OR 
-                    bentuk_pendidikan_id=26 OR bentuk_pendidikan_id=27 OR 
-                    bentuk_pendidikan_id=28 OR bentuk_pendidikan_id=40 OR 
-                    bentuk_pendidikan_id=56 OR bentuk_pendidikan_id=67 OR 
-                    bentuk_pendidikan_id=68 OR bentuk_pendidikan_id=69 OR 
-                    bentuk_pendidikan_id=70 OR bentuk_pendidikan_id=71 OR
-                    bentuk_pendidikan_id=72) AND LOWER(direktorat_pembinaan) = ".$pilihan;
+                $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s
+                WHERE (".$this->datamodeldikmas->getbentukdikmassemua().") AND LOWER(direktorat_pembinaan) = ".$pilihan;
             }
         }
             
