@@ -9,7 +9,7 @@ if ($level==1)
 {
     $breadcrump1 = ">> ".$namalevel1;
 }
-else
+else if ($level>1)
 {
     $breadcrump1 = '>> <a href="'.$link1.'">'.$namalevel1.'</a>';
 }

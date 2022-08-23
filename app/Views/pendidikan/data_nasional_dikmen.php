@@ -8,7 +8,7 @@ if ($level==1)
 {
     $breadcrump1 = ">> ".$namalevel1;
 }
-else
+else if ($level>1)
 {
     $breadcrump1 = '>> <a href="'.$link1.'">'.$namalevel1.'</a>';
 }
@@ -63,10 +63,12 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
+    <?php if($level>0) {?>
     <div class="breadcrumps"><a href="<?=site_url('pendidikan/dikmen')?>">Indonesia</a> 
     <?=$breadcrump1;?>
     <?=$breadcrump2;?>
     </div>
+    <?php } ?>
     <div class="judulatas">JUMLAH DATA SATUAN PENDIDIKAN (DIKMEN) PER <?=$namapilihan?></div>
     <div class="card-body p-0">
     <center>

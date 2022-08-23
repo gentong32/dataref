@@ -38,7 +38,7 @@
   <!-- Colorbox -->
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/colorbox/colorbox.css">
   <!-- Template styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v1.2">
  <!-- Custom styles-->
  <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v1.2">
 </head>
@@ -48,7 +48,7 @@
 <!-- Header start -->
 <header id="header" class="header-one">
   <div class="bg-white">
-    <div class="container">
+    <div class="containerlogo">
       <div class="logo-area">
           <div class="row align-items-center">
             <div>
@@ -65,7 +65,7 @@
   </div>
 
   <div class="site-navigation">
-    <div class="container">
+    <div class="containerlogo">
         <div class="row">
           <div class="col-lg-12">
               <nav class="navbar navbar-expand-lg navbar-dark p-0">
