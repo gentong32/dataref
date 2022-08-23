@@ -40,7 +40,7 @@
   <!-- Template styles-->
   <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css">
  <!-- Custom styles-->
- <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css">
+ <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v1.2">
 </head>
 <body>
   <div class="body-inner">

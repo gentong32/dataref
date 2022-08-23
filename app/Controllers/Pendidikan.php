@@ -59,6 +59,15 @@ class Pendidikan extends BaseController
             $namapilihan = $this->datamodelpaud->getNamaPilihan($kode);
             $resultquery = $namapilihan->getResult();
             $data['namapilihan'] = strToUpper($resultquery[0]->nama);
+            $namalevel1 = $this->datamodelpaud->getNamaPilihan(substr($kode,0,2)."0000");
+            $result1 = $namalevel1->getResult();
+            $data['namalevel1'] = $result1[0]->nama;
+            $namalevel2 = $this->datamodelpaud->getNamaPilihan(substr($kode,0,4)."00");
+            $result2 = $namalevel2->getResult();
+            $data['namalevel2'] = $result2[0]->nama;
+            $namalevel3 = $this->datamodelpaud->getNamaPilihan(substr($kode,0,6));
+            $result3 = $namalevel3->getResult();
+            $data['namalevel3'] = $result3[0]->nama;
         }
 
         if ($bentuk=="all") {
@@ -73,6 +82,7 @@ class Pendidikan extends BaseController
         $querybentuk = $this->datamodelpaud->getDaftarBentukPaudTK($jalur);
         $data['daftarbentuk'] = $querybentuk->getResult();
         $data['namabentuk'] = $namabentuk;
+
 
         if ($level<3) {
             $query = $this->datamodelpaud->getTotalPaud($status,$kode,$level, $jalur, $bentuk);
@@ -104,6 +114,15 @@ class Pendidikan extends BaseController
             $namapilihan = $this->datamodeldikdas->getNamaPilihan($kode);
             $resultquery = $namapilihan->getResult();
             $data['namapilihan'] = strToUpper($resultquery[0]->nama);
+            $namalevel1 = $this->datamodeldikdas->getNamaPilihan(substr($kode,0,2)."0000");
+            $result1 = $namalevel1->getResult();
+            $data['namalevel1'] = $result1[0]->nama;
+            $namalevel2 = $this->datamodeldikdas->getNamaPilihan(substr($kode,0,4)."00");
+            $result2 = $namalevel2->getResult();
+            $data['namalevel2'] = $result2[0]->nama;
+            $namalevel3 = $this->datamodeldikdas->getNamaPilihan(substr($kode,0,6));
+            $result3 = $namalevel3->getResult();
+            $data['namalevel3'] = $result3[0]->nama;
         }
 
         if ($bentuk=="all") {
@@ -150,6 +169,15 @@ class Pendidikan extends BaseController
             $namapilihan = $this->datamodeldikmen->getNamaPilihan($kode);
             $resultquery = $namapilihan->getResult();
             $data['namapilihan'] = strToUpper($resultquery[0]->nama);
+            $namalevel1 = $this->datamodeldikmen->getNamaPilihan(substr($kode,0,2)."0000");
+            $result1 = $namalevel1->getResult();
+            $data['namalevel1'] = $result1[0]->nama;
+            $namalevel2 = $this->datamodeldikmen->getNamaPilihan(substr($kode,0,4)."00");
+            $result2 = $namalevel2->getResult();
+            $data['namalevel2'] = $result2[0]->nama;
+            $namalevel3 = $this->datamodeldikmen->getNamaPilihan(substr($kode,0,6));
+            $result3 = $namalevel3->getResult();
+            $data['namalevel3'] = $result3[0]->nama;
         }
 
         if ($bentuk=="all") {
@@ -158,7 +186,8 @@ class Pendidikan extends BaseController
         else {
             $querybentuk = $this->datamodeldikmen->getBentukPendidikan($bentuk);
             $hasilbentuk=$querybentuk->getRow();
-            $namabentuk = $hasilbentuk->nama; 
+            $namabentuk = $hasilbentuk->nama;
+            
         }
 
         $querybentuk = $this->datamodeldikmen->getDaftarBentukDikmen($jalur);
@@ -196,6 +225,15 @@ class Pendidikan extends BaseController
             $namapilihan = $this->datamodeldikti->getNamaPilihan($kode);
             $resultquery = $namapilihan->getResult();
             $data['namapilihan'] = strToUpper($resultquery[0]->nama);
+            $namalevel1 = $this->datamodeldikti->getNamaPilihan(substr($kode,0,2)."0000");
+            $result1 = $namalevel1->getResult();
+            $data['namalevel1'] = $result1[0]->nama;
+            $namalevel2 = $this->datamodeldikti->getNamaPilihan(substr($kode,0,4)."00");
+            $result2 = $namalevel2->getResult();
+            $data['namalevel2'] = $result2[0]->nama;
+            $namalevel3 = $this->datamodeldikti->getNamaPilihan(substr($kode,0,6));
+            $result3 = $namalevel3->getResult();
+            $data['namalevel3'] = $result3[0]->nama;
         }
 
         if ($bentuk=="all") {
@@ -242,6 +280,15 @@ class Pendidikan extends BaseController
             $namapilihan = $this->datamodeldikmas->getNamaPilihan($kode);
             $resultquery = $namapilihan->getResult();
             $data['namapilihan'] = strToUpper($resultquery[0]->nama);
+            $namalevel1 = $this->datamodeldikmas->getNamaPilihan(substr($kode,0,2)."0000");
+            $result1 = $namalevel1->getResult();
+            $data['namalevel1'] = $result1[0]->nama;
+            $namalevel2 = $this->datamodeldikmas->getNamaPilihan(substr($kode,0,4)."00");
+            $result2 = $namalevel2->getResult();
+            $data['namalevel2'] = $result2[0]->nama;
+            $namalevel3 = $this->datamodeldikmas->getNamaPilihan(substr($kode,0,6));
+            $result3 = $namalevel3->getResult();
+            $data['namalevel3'] = $result3[0]->nama;
         }
 
         if ($bentuk=="all") {

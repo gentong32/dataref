@@ -1,4 +1,27 @@
 <?php
+$link1 = site_url('pendidikan/dikmas')."/".substr($kode, 0, 2)."0000"."/1/".$jalur."/".$bentuk."/".$status;
+$link2 = site_url('pendidikan/dikmas')."/".substr($kode, 0, 4)."00"."/2/".$jalur."/".$bentuk."/".$status;
+$breadcrump1 = "";
+$breadcrump2 = "";
+
+if ($level==1)
+{
+    $breadcrump1 = ">> ".$namalevel1;
+}
+else
+{
+    $breadcrump1 = '>> <a href="'.$link1.'">'.$namalevel1.'</a>';
+}
+
+if ($level==2)
+{
+    $breadcrump2 = ">> ".$namalevel2;
+}
+else if ($level>2)
+{
+    $breadcrump2 = '>> <a href="'.$link2.'">'.$namalevel2.'</a>';
+}
+
 $piljalur1 = "";
 $piljalur2 = "";
 $piljalur3 = "";
@@ -40,6 +63,10 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
+    <div class="breadcrumps"><a href="<?=site_url('pendidikan/dikmas')?>">Indonesia</a> 
+    <?=$breadcrump1;?>
+    <?=$breadcrump2;?>
+    </div>
     <div class="judulatas">JUMLAH DATA SATUAN PENDIDIKAN (DIKMAS) PER <?=$namapilihan?></div>
     <div class="card-body p-0">
     <center>
@@ -82,21 +109,18 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <th>Kursus</th>
                     <th>Ponpes</th>
                     <th>PKBM</th>
-                    <th>Lain</th>
                     <th>Total</th>
                     <?php endif; 
                     if ($jalur=="jf") :?>
                     <th>PDF Ula</th>
                     <th>PDF Wustha</th>
                     <th>PDF Ulya</th>
-                    <th>Lain</th>
                     <th>Total</th>
                     <?php endif; 
                     if ($jalur=="jn") :?>
                     <th>Kursus</th>
                     <th>Ponpes</th>
                     <th>PKBM</th>
-                    <th>Lain</th>
                     <th>Total</th>
                     <?php endif ?>
                     <?php } else {?> 
@@ -115,17 +139,14 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <td><?=number_format($value->kursus,0,",",".")?></td>
                     <td><?=number_format($value->ponpes,0,",",".")?></td>
                     <td><?=number_format($value->pkbm,0,",",".")?></td>
-                    <td><?=number_format($value->lain,0,",",".")?></td>
                     <?php endif; if ($jalur=="jf") :?>
                     <td><?=number_format($value->pdfula,0,",",".")?></td>
                     <td><?=number_format($value->pdfwustha,0,",",".")?></td>
                     <td><?=number_format($value->pdfulya,0,",",".")?></td>
-                    <td><?=number_format($value->lain,0,",",".")?></td>
                     <?php endif; if ($jalur=="jn") :?>
                     <td><?=number_format($value->kursus,0,",",".")?></td>
                     <td><?=number_format($value->ponpes,0,",",".")?></td>
                     <td><?=number_format($value->pkbm,0,",",".")?></td>
-                    <td><?=number_format($value->lain,0,",",".")?></td>
                     <?php endif;?>
                     <?php } ?>
                     <td><?=number_format($value->total,0,",",".")?></td>

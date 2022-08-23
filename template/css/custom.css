@@ -1,3 +1,11 @@
+.breadcrumps {
+  margin:10px;
+}
+
+.breadcrumps a {
+  color:blue;
+}
+
 .link1 {
     color: #3055be;
   }

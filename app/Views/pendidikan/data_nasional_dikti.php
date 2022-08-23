@@ -1,4 +1,27 @@
 <?php
+$link1 = site_url('pendidikan/dikti')."/".substr($kode, 0, 2)."0000"."/1/".$jalur."/".$bentuk."/".$status;
+$link2 = site_url('pendidikan/dikti')."/".substr($kode, 0, 4)."00"."/2/".$jalur."/".$bentuk."/".$status;
+$breadcrump1 = "";
+$breadcrump2 = "";
+
+if ($level==1)
+{
+    $breadcrump1 = ">> ".$namalevel1;
+}
+else
+{
+    $breadcrump1 = '>> <a href="'.$link1.'">'.$namalevel1.'</a>';
+}
+
+if ($level==2)
+{
+    $breadcrump2 = ">> ".$namalevel2;
+}
+else if ($level>2)
+{
+    $breadcrump2 = '>> <a href="'.$link2.'">'.$namalevel2.'</a>';
+}
+
 $piljalur1 = "";
 $piljalur2 = "";
 $piljalur3 = "";
@@ -40,6 +63,10 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
+    <div class="breadcrumps"><a href="<?=site_url('pendidikan/dikti')?>">Indonesia</a> 
+    <?=$breadcrump1;?>
+    <?=$breadcrump2;?>
+    </div>
     <div class="judulatas">JUMLAH DATA SATUAN PENDIDIKAN (DIKTI) PER <?=$namapilihan?></div>
     <div class="card-body p-0">
     <center>

@@ -1,4 +1,33 @@
 <?php
+$link1 = site_url('pendidikan/paud')."/".substr($kode, 0, 2)."0000"."/1/".$jalur."/".$bentuk."/".$status;
+$link2 = site_url('pendidikan/paud')."/".substr($kode, 0, 4)."00"."/2/".$jalur."/".$bentuk."/".$status;
+$breadcrump1 = "";
+$breadcrump2 = "";
+$breadcrump3 = "";
+
+if ($level==1)
+{
+    $breadcrump1 = ">> ".$namalevel1;
+}
+else
+{
+    $breadcrump1 = '>> <a href="'.$link1.'">'.$namalevel1.'</a>';
+}
+
+if ($level==2)
+{
+    $breadcrump2 = ">> ".$namalevel2;
+}
+else if ($level>2)
+{
+    $breadcrump2 = '>> <a href="'.$link2.'">'.$namalevel2.'</a>';
+}
+
+if ($level==3)
+{
+    $breadcrump3 = ">> ".$namalevel3;
+}
+
 $piljalur1 = "";
 $piljalur2 = "";
 $piljalur3 = "";
@@ -34,6 +63,11 @@ if ($bentuk=="all")
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
+    <div class="breadcrumps"><a href="<?=site_url('pendidikan/paud')?>">Indonesia</a> 
+    <?=$breadcrump1;?>
+    <?=$breadcrump2;?>
+    <?=$breadcrump3;?>
+    </div>
     <div class="judulatas">DAFTAR SATUAN PENDIDIKAN (SEKOLAH) <?=strtoupper($tingkat)?> PER <?=$namapilihan?></div>
     <div class="card-body p-0">
     <center>

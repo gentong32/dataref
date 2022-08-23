@@ -6,19 +6,23 @@ use CodeIgniter\Model;
 
 class DataModelDikmas extends Model
 {
+    // protected $dikmassemua = "s.bentuk_pendidikan_id=24 OR 
+    // s.bentuk_pendidikan_id=25 OR 
+    // s.bentuk_pendidikan_id=26 OR 
+    // s.bentuk_pendidikan_id=27 OR 
+    // s.bentuk_pendidikan_id=28 OR 
+    // s.bentuk_pendidikan_id=40 OR 
+    // s.bentuk_pendidikan_id=56 OR 
+    // s.bentuk_pendidikan_id=67 OR 
+    // s.bentuk_pendidikan_id=68 OR 
+    // s.bentuk_pendidikan_id=69 OR 
+    // s.bentuk_pendidikan_id=70 OR 
+    // s.bentuk_pendidikan_id=71 OR
+    // s.bentuk_pendidikan_id=72";
+
     protected $dikmassemua = "s.bentuk_pendidikan_id=24 OR 
-    s.bentuk_pendidikan_id=25 OR 
-    s.bentuk_pendidikan_id=26 OR 
     s.bentuk_pendidikan_id=27 OR 
-    s.bentuk_pendidikan_id=28 OR 
-    s.bentuk_pendidikan_id=40 OR 
-    s.bentuk_pendidikan_id=56 OR 
-    s.bentuk_pendidikan_id=67 OR 
-    s.bentuk_pendidikan_id=68 OR 
-    s.bentuk_pendidikan_id=69 OR 
-    s.bentuk_pendidikan_id=70 OR 
-    s.bentuk_pendidikan_id=71 OR
-    s.bentuk_pendidikan_id=72";
+    s.bentuk_pendidikan_id=56";
 
     protected $kursus = "s.bentuk_pendidikan_id=24";
     protected $ponpes = "s.bentuk_pendidikan_id=56";
@@ -36,12 +40,16 @@ class DataModelDikmas extends Model
     s.bentuk_pendidikan_id=71 OR
     s.bentuk_pendidikan_id=72";
 
+    // protected $dikmasformal = "s.bentuk_pendidikan_id=67 OR 
+    // s.bentuk_pendidikan_id=68 OR 
+    // s.bentuk_pendidikan_id=69 OR 
+    // s.bentuk_pendidikan_id=70 OR 
+    // s.bentuk_pendidikan_id=71 OR
+    // s.bentuk_pendidikan_id=72";
+
     protected $dikmasformal = "s.bentuk_pendidikan_id=67 OR 
     s.bentuk_pendidikan_id=68 OR 
-    s.bentuk_pendidikan_id=69 OR 
-    s.bentuk_pendidikan_id=70 OR 
-    s.bentuk_pendidikan_id=71 OR
-    s.bentuk_pendidikan_id=72";
+    s.bentuk_pendidikan_id=69";
 
     protected $pdfula = "s.bentuk_pendidikan_id=67";
     protected $pdfwustha = "s.bentuk_pendidikan_id=68";
@@ -51,12 +59,16 @@ class DataModelDikmas extends Model
     s.bentuk_pendidikan_id=71 OR 
     s.bentuk_pendidikan_id=72"; 
 
+    // protected $dikmasnonformal = "s.bentuk_pendidikan_id=24 OR 
+    // s.bentuk_pendidikan_id=25 OR 
+    // s.bentuk_pendidikan_id=26 OR 
+    // s.bentuk_pendidikan_id=27 OR 
+    // s.bentuk_pendidikan_id=28 OR 
+    // s.bentuk_pendidikan_id=40 OR 
+    // s.bentuk_pendidikan_id=56";
+
     protected $dikmasnonformal = "s.bentuk_pendidikan_id=24 OR 
-    s.bentuk_pendidikan_id=25 OR 
-    s.bentuk_pendidikan_id=26 OR 
     s.bentuk_pendidikan_id=27 OR 
-    s.bentuk_pendidikan_id=28 OR 
-    s.bentuk_pendidikan_id=40 OR 
     s.bentuk_pendidikan_id=56";
 
     protected $dikmasnonformallain = "s.bentuk_pendidikan_id=25 OR 
@@ -87,7 +99,6 @@ class DataModelDikmas extends Model
                     SUM(CASE WHEN (".$this->kursus.") THEN 1 ELSE 0 END) kursus,
                     SUM(CASE WHEN (".$this->ponpes.") THEN 1 ELSE 0 END) ponpes,
                     SUM(CASE WHEN (".$this->pkbm.") THEN 1 ELSE 0 END) pkbm,
-                    SUM(CASE WHEN (".$this->dikmaslainsemua.") THEN 1 ELSE 0 END) lain,
                     w.nama, w.kode_wilayah FROM Arsip.dbo.sekolah s 
                     JOIN Referensi.ref.mst_wilayah w ON LEFT(w.kode_wilayah,:nkar2:)=LEFT(s.kode_wilayah,:nkar2:) 
                     WHERE id_level_wilayah=:levelbaru: AND soft_delete=0 AND LEFT(w.kode_wilayah,:nkar:)=:kodebaru: 
@@ -102,7 +113,6 @@ class DataModelDikmas extends Model
                     SUM(CASE WHEN (".$this->pdfula.") THEN 1 ELSE 0 END) pdfula,
                     SUM(CASE WHEN (".$this->pdfwustha.") THEN 1 ELSE 0 END) pdfwustha,
                     SUM(CASE WHEN (".$this->pdfulya.") THEN 1 ELSE 0 END) pdfulya,
-                    SUM(CASE WHEN (".$this->dikmasformallain.") THEN 1 ELSE 0 END) lain,
                     w.nama, w.kode_wilayah FROM Arsip.dbo.sekolah s 
                     JOIN Referensi.ref.mst_wilayah w ON LEFT(w.kode_wilayah,:nkar2:)=LEFT(s.kode_wilayah,:nkar2:) 
                     WHERE id_level_wilayah=:levelbaru: AND soft_delete=0 AND LEFT(w.kode_wilayah,:nkar:)=:kodebaru: 
@@ -117,7 +127,6 @@ class DataModelDikmas extends Model
                     SUM(CASE WHEN (".$this->kursus.") THEN 1 ELSE 0 END) kursus,
                     SUM(CASE WHEN (".$this->ponpes.") THEN 1 ELSE 0 END) ponpes,
                     SUM(CASE WHEN (".$this->pkbm.") THEN 1 ELSE 0 END) pkbm,
-                    SUM(CASE WHEN (".$this->dikmasnonformallain.") THEN 1 ELSE 0 END) lain,
                     w.nama, w.kode_wilayah FROM Arsip.dbo.sekolah s 
                     JOIN Referensi.ref.mst_wilayah w ON LEFT(w.kode_wilayah,:nkar2:)=LEFT(s.kode_wilayah,:nkar2:) 
                     WHERE id_level_wilayah=:levelbaru: AND soft_delete=0 AND LEFT(w.kode_wilayah,:nkar:)=:kodebaru: 
