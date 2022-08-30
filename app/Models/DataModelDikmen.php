@@ -6,46 +6,40 @@ use CodeIgniter\Model;
 
 class DataModelDikmen extends Model
 {
-    protected $dikmensemua = "s.bentuk_pendidikan_id=13 OR 
+    protected $dikmenall = "s.bentuk_pendidikan_id=7 OR 
+    s.bentuk_pendidikan_id=8 OR 
+    s.bentuk_pendidikan_id=13 OR 
+    s.bentuk_pendidikan_id=14 OR 
     s.bentuk_pendidikan_id=15 OR 
     s.bentuk_pendidikan_id=16 OR 
     s.bentuk_pendidikan_id=17 OR 
-    s.bentuk_pendidikan_id=18 OR 
     s.bentuk_pendidikan_id=29 OR 
-    s.bentuk_pendidikan_id=33 OR 
     s.bentuk_pendidikan_id=37 OR 
-    s.bentuk_pendidikan_id=55 OR 
     s.bentuk_pendidikan_id=39 OR 
-    s.bentuk_pendidikan_id=60 OR 
+    s.bentuk_pendidikan_id=42 OR 
     s.bentuk_pendidikan_id=44 OR 
+    s.bentuk_pendidikan_id=55 OR 
+    s.bentuk_pendidikan_id=60 OR 
     s.bentuk_pendidikan_id=64 OR 
     s.bentuk_pendidikan_id=65";
-
-    protected $sma = "s.bentuk_pendidikan_id=13";
-    protected $smk = "s.bentuk_pendidikan_id=15";
-    protected $ma = "s.bentuk_pendidikan_id=16";
     
-    protected $dikmenlainsemua = "s.bentuk_pendidikan_id=17 OR 
-    s.bentuk_pendidikan_id=18 OR s.bentuk_pendidikan_id=29 OR 
-    s.bentuk_pendidikan_id=33 OR s.bentuk_pendidikan_id=37 OR 
-    s.bentuk_pendidikan_id=55 OR s.bentuk_pendidikan_id=39 OR 
-    s.bentuk_pendidikan_id=60 OR s.bentuk_pendidikan_id=44 OR 
-    s.bentuk_pendidikan_id=64 OR 
-    s.bentuk_pendidikan_id=65";
-
-    protected $dikmenformal = "s.bentuk_pendidikan_id=13 OR 
-    s.bentuk_pendidikan_id=15 OR 
-    s.bentuk_pendidikan_id=16 OR 
-    s.bentuk_pendidikan_id=17 OR 
-    s.bentuk_pendidikan_id=18 OR 
+    protected $slb = "s.bentuk_pendidikan_id=7 OR 
+    s.bentuk_pendidikan_id=8 OR 
+    s.bentuk_pendidikan_id=14 OR 
     s.bentuk_pendidikan_id=29 OR 
-    s.bentuk_pendidikan_id=33 OR 
+    s.bentuk_pendidikan_id=42";
+
+    protected $smasederajat = "s.bentuk_pendidikan_id=13 OR  
+    s.bentuk_pendidikan_id=16 OR 
     s.bentuk_pendidikan_id=37 OR 
-    s.bentuk_pendidikan_id=55 OR 
     s.bentuk_pendidikan_id=39 OR 
-    s.bentuk_pendidikan_id=60 OR 
     s.bentuk_pendidikan_id=44 OR 
-    s.bentuk_pendidikan_id=64 OR 
+    s.bentuk_pendidikan_id=55 OR 
+    s.bentuk_pendidikan_id=60 OR 
+    s.bentuk_pendidikan_id=64";
+
+    protected $smksederajat = "s.bentuk_pendidikan_id=15 OR   
+    s.bentuk_pendidikan_id=17 OR 
     s.bentuk_pendidikan_id=65";
 
     protected $dikmennonformal = "s.bentuk_pendidikan_id=99999"; 
@@ -69,11 +63,10 @@ class DataModelDikmen extends Model
             if ($jalur=="all")
             {
                 $sql = "SELECT 
-                    SUM(CASE WHEN (".$this->dikmensemua.") THEN 1 ELSE 0 END) total,
-                    SUM(CASE WHEN (".$this->sma.") THEN 1 ELSE 0 END) sma,
-                    SUM(CASE WHEN (".$this->smk.") THEN 1 ELSE 0 END) smk,
-                    SUM(CASE WHEN (".$this->ma.") THEN 1 ELSE 0 END) ma,
-                    SUM(CASE WHEN (".$this->dikmenlainsemua.") THEN 1 ELSE 0 END) lain,
+                    SUM(CASE WHEN (".$this->dikmenall.") THEN 1 ELSE 0 END) total,
+                    SUM(CASE WHEN (".$this->smasederajat.") THEN 1 ELSE 0 END) smasederajat,
+                    SUM(CASE WHEN (".$this->smksederajat.") THEN 1 ELSE 0 END) smksederajat,
+                    SUM(CASE WHEN (".$this->slb.") THEN 1 ELSE 0 END) slb,
                     w.nama, w.kode_wilayah FROM Arsip.dbo.sekolah s 
                     JOIN Referensi.ref.mst_wilayah w ON LEFT(w.kode_wilayah,:nkar2:)=LEFT(s.kode_wilayah,:nkar2:) 
                     WHERE id_level_wilayah=:levelbaru: AND soft_delete=0 AND LEFT(w.kode_wilayah,:nkar:)=:kodebaru: 
@@ -84,11 +77,10 @@ class DataModelDikmen extends Model
             else if ($jalur=="jf")
             {
                 $sql = "SELECT 
-                    SUM(CASE WHEN (".$this->dikmensemua.") THEN 1 ELSE 0 END) total,
-                    SUM(CASE WHEN (".$this->sma.") THEN 1 ELSE 0 END) sma,
-                    SUM(CASE WHEN (".$this->smk.") THEN 1 ELSE 0 END) smk,
-                    SUM(CASE WHEN (".$this->ma.") THEN 1 ELSE 0 END) ma,
-                    SUM(CASE WHEN (".$this->dikmenlainsemua.") THEN 1 ELSE 0 END) lain,
+                    SUM(CASE WHEN (".$this->dikmenall.") THEN 1 ELSE 0 END) total,
+                    SUM(CASE WHEN (".$this->smasederajat.") THEN 1 ELSE 0 END) smasederajat,
+                    SUM(CASE WHEN (".$this->smksederajat.") THEN 1 ELSE 0 END) smksederajat,
+                    SUM(CASE WHEN (".$this->slb.") THEN 1 ELSE 0 END) slb,
                     w.nama, w.kode_wilayah FROM Arsip.dbo.sekolah s 
                     JOIN Referensi.ref.mst_wilayah w ON LEFT(w.kode_wilayah,:nkar2:)=LEFT(s.kode_wilayah,:nkar2:) 
                     WHERE id_level_wilayah=:levelbaru: AND soft_delete=0 AND LEFT(w.kode_wilayah,:nkar:)=:kodebaru: 
@@ -108,12 +100,14 @@ class DataModelDikmen extends Model
                     ORDER BY kode_wilayah";
             }
 
+        
             $query = $this->db->query($sql, [
                 'nkar2' => $nkar2,
                 'nkar'  => $nkar,
                 'levelbaru'  => $levelbaru,
                 'kodebaru'  => $kodebaru
             ]);
+            
         }
         else
         {
@@ -161,7 +155,7 @@ class DataModelDikmen extends Model
             $wherejalur = "AND LOWER(direktorat_pembinaan) = 'non formal'";
 
         $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s 
-            WHERE (".$this->dikmensemua.") ".$wherejalur."
+            WHERE (".$this->dikmenall.") ".$wherejalur."
             ORDER BY [bentuk_pendidikan_id]";
 
         $query = $this->db->query($sql);
@@ -197,7 +191,7 @@ class DataModelDikmen extends Model
                     kode_wilayah, 
                     CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
                     FROM Arsip.dbo.sekolah s 
-                    WHERE (".$this->dikmensemua.") 
+                    WHERE (".$this->dikmenall.") 
                     AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
                     ".$wherestatus." 
                     ORDER BY nama";
@@ -208,7 +202,7 @@ class DataModelDikmen extends Model
                     kode_wilayah, 
                     CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
                     FROM Arsip.dbo.sekolah s 
-                    WHERE (".$this->dikmenformal.") 
+                    WHERE (".$this->dikmenall.") 
                     AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
                     ".$wherestatus." 
                     ORDER BY nama";
@@ -235,7 +229,7 @@ class DataModelDikmen extends Model
                 kode_wilayah, 
                 CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
                 FROM Arsip.dbo.sekolah s 
-                WHERE (".$this->dikmensemua.") 
+                WHERE (".$this->dikmenall.") 
                 AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
                 AND s.bentuk_pendidikan_id=:bentuknya: 
                 ".$wherestatus." 
@@ -251,7 +245,17 @@ class DataModelDikmen extends Model
 
     public function getbentukdikmensemua()
     {
-        return $this->dikmensemua;
+        return $this->dikmenall;
+    }
+
+    public function getbentukdikmenformal()
+    {
+        return $this->dikmenall;
+    }
+
+    public function getbentukdikmennonformal()
+    {
+        return $this->dikmennonformal;
     }
 
 }

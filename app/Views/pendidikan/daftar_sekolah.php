@@ -1,6 +1,6 @@
 <?php
-$link1 = site_url('pendidikan/paud')."/".substr($kode, 0, 2)."0000"."/1/".$jalur."/".$bentuk."/".$status;
-$link2 = site_url('pendidikan/paud')."/".substr($kode, 0, 4)."00"."/2/".$jalur."/".$bentuk."/".$status;
+$link1 = site_url('pendidikan/'.$tingkat)."/".substr($kode, 0, 2)."0000"."/1/".$jalur."/".$bentuk."/".$status;
+$link2 = site_url('pendidikan/'.$tingkat)."/".substr($kode, 0, 4)."00"."/2/".$jalur."/".$bentuk."/".$status;
 $breadcrump1 = "";
 $breadcrump2 = "";
 $breadcrump3 = "";
@@ -151,7 +151,7 @@ function getdaftarbentuk() {
     $('#dbentukpendidikan').html(isihtml1 + isihtml3);
     $.ajax({
         type: 'GET',
-        data: {jalurpendidikan: $('#jalur_pendidikan').val()},
+        data: {jalurpendidikan: $('#jalur_pendidikan').val(),tingkat: '<?=strtoupper($tingkat)?>'},
         dataType: 'json',
         cache: false,
         url: '<?php echo base_url();?>/pendidikan/getbentukpendidikan',
@@ -160,9 +160,20 @@ function getdaftarbentuk() {
             isihtml1 = '<select class="combobox1" id="bentuk_pendidikan" name="bentuk_pendidikan">'+
                '<option value="all">-Semua Bentuk-</option>';
             isihtml2 = "";
+            var total=0;
             $.each(result, function (i, result) {
+                total++;
                 isihtml2 = isihtml2 + "<option value='" + result.bentuk_pendidikan_id + "'>" + result.nama + "</option>";
             });
+
+            $('.tb_utama').prop('disabled', false);
+            if (total==0)
+            {
+                isihtml1 = '<select class="combobox1" id="bentuk_pendidikan" name="bentuk_pendidikan">'+
+               '<option value="all">-tidak ada-</option>';
+               $('.tb_utama').prop('disabled', true);
+            }
+
             $('#dbentukpendidikan').html(isihtml1 + isihtml2 + isihtml3);
         }
     });

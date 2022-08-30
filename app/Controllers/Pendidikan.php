@@ -19,27 +19,6 @@ class Pendidikan extends BaseController
 
     public function index()
     {
-        // $query   = $this->db->query("SELECT SUM(CASE WHEN (s.bentuk_pendidikan_id=5 OR 
-        // s.bentuk_pendidikan_id=6 OR s.bentuk_pendidikan_id=13 OR 
-        // s.bentuk_pendidikan_id=15) THEN 1 ELSE 0 END) total,
-        // SUM(CASE WHEN s.bentuk_pendidikan_id=5 THEN 1 ELSE 0 END) sd,
-        // SUM(CASE WHEN s.bentuk_pendidikan_id=6 THEN 1 ELSE 0 END) smp,
-        // SUM(CASE WHEN s.bentuk_pendidikan_id=13 THEN 1 ELSE 0 END) sma,
-        // SUM(CASE WHEN s.bentuk_pendidikan_id=15 THEN 1 ELSE 0 END) smk,
-        // w.nama, w.kode_wilayah FROM Arsip.dbo.sekolah s 
-        // JOIN Referensi.ref.mst_wilayah w ON LEFT(w.kode_wilayah,2)=LEFT(s.kode_wilayah,2) 
-        // WHERE id_level_wilayah=1 AND soft_delete=0 
-        // GROUP BY w.nama, w.kode_wilayah");
-        // $data['datanas'] = $query->getResult();
-        // $data['kode'] = "000000";
-        // $data['level'] = 1;
-
-        // $builder = $this->db->table('ref.agama');
-        // $query   = $builder->get()->getResult();
-        // $data['data_nasional'] = $query;
-        // print_r($query);
-        
-        // return view('pendidikan/data_nasional', $data);
         //redirect(site_url()."pendidikan/paud/000000/0/all/all/all");
     }
 
@@ -81,10 +60,11 @@ class Pendidikan extends BaseController
         }
 
         $querybentuk = $this->datamodelpaud->getDaftarBentukPaudTK($jalur);
+
         $data['daftarbentuk'] = $querybentuk->getResult();
         $data['namabentuk'] = $namabentuk;
 
-
+        
         if ($level<3) {
             $query = $this->datamodelpaud->getTotalPaud($status,$kode,$level, $jalur, $bentuk);
             $data['datanas'] = $query->getResult();
@@ -117,6 +97,7 @@ class Pendidikan extends BaseController
             $data['namapilihan'] = strToUpper($resultquery[0]->nama);
         }
 
+
         $namalevel1 = $this->datamodeldikdas->getNamaPilihan(substr($kode,0,2)."0000");
         $result1 = $namalevel1->getResult();
         $data['namalevel1'] = $result1[0]->nama;
@@ -127,6 +108,8 @@ class Pendidikan extends BaseController
         $result3 = $namalevel3->getResult();
         $data['namalevel3'] = $result3[0]->nama;
 
+        
+
         if ($bentuk=="all") {
             $namabentuk = "";
         }
@@ -135,6 +118,8 @@ class Pendidikan extends BaseController
             $hasilbentuk=$querybentuk->getRow();
             $namabentuk = $hasilbentuk->nama; 
         }
+
+        
 
         $querybentuk = $this->datamodeldikdas->getDaftarBentukDikdas($jalur);
         $data['daftarbentuk'] = $querybentuk->getResult();
@@ -196,6 +181,7 @@ class Pendidikan extends BaseController
         $querybentuk = $this->datamodeldikmen->getDaftarBentukDikmen($jalur);
         $data['daftarbentuk'] = $querybentuk->getResult();
         $data['namabentuk'] = $namabentuk;
+        
 
         if ($level<3) {
             $query = $this->datamodeldikmen->getTotalDikmen($status,$kode,$level, $jalur, $bentuk);
@@ -326,13 +312,36 @@ class Pendidikan extends BaseController
 
     public function npsn($kode)
     {
-        $sql   = "SELECT *,s.nama as nama_sekolah, k.nama as naungan,
-        CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl,
-        b.nama as bentuk_pendidikan   
+        $sql   = "SELECT max(ak.tahun) as tahun,s.sk_izin_operasional,s.tanggal_sk_izin_operasional,
+        s.tanggal_sk_pendirian,s.sk_pendirian_sekolah,s.yayasan_id, s.lintang, s.bujur,
+        s.kode_wilayah,s.nama as nama_sekolah,s.npsn,s.alamat_jalan, ra.nama as akreditasi,
+        s.desa_kelurahan, k.nama as naungan, s.luas_tanah_milik, s.luas_tanah_bukan_milik, 
+        CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl, b.nama as bentuk_pendidikan, 
+        CASE WHEN npyp IS NULL THEN '-' ELSE npyp END AS npyp, 
+        CASE WHEN s.bentuk_pendidikan_id IN (9,10,16,17,34,36,37,38,56,39,41,57,58,59,
+                60,44,45,61,62,63,64,65) THEN 'Kementerian Agama'
+            WHEN s.npsn IN ('10646356', '30314295', '69734022') THEN 'Kementerian Pertanian'
+            WHEN s.npsn IN ('10110454', '30108179', '10308148', '40313544', 
+            '20407427', '10814611', '20238524') THEN 'Kementerian Perindustrian'
+            WHEN s.npsn IN ('69924881','69769420','69772845','10112822','10310815',
+                '30112509','60404134','69787011','60104523') THEN 'Kementerian Kelautan dan Perikanan'
+            ELSE 'Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi' 
+        END AS kementerian_pembina,
+        CASE WHEN y.kode_wilayah IS NULL THEN '-' ELSE y.kode_wilayah END AS kode_wilayah_yayasan     
         FROM Arsip.dbo.sekolah s 
 		JOIN Referensi.ref.bentuk_pendidikan b ON b.bentuk_pendidikan_id = s.bentuk_pendidikan_id 
         JOIN Referensi.ref.status_kepemilikan k ON k.status_kepemilikan_id = s.status_kepemilikan_id 
-		WHERE npsn = :npsn:";
+        LEFT JOIN Arsip.dbo.yayasan y ON y.yayasan_id = s.yayasan_id 
+        LEFT JOIN Arsip.dbo.akreditasi ak ON ak.sekolah_id = s.sekolah_id 
+        LEFT JOIN Referensi.ref.akreditasi ra ON ra.akreditasi_id = ak.akreditasi_id
+		WHERE npsn = :npsn:  
+		GROUP BY s.sk_izin_operasional,s.tanggal_sk_pendirian,s.sk_pendirian_sekolah,
+        s.yayasan_id,s.alamat_jalan,s.desa_kelurahan,y.kode_wilayah,s.lintang, s.bujur,
+        s.kode_wilayah,npyp,b.nama,status_sekolah,k.nama,s.nama,s.sekolah_id,
+        s.master,s.aktif, s.nama, s.npsn,  s.bentuk_pendidikan_id, ra.nama, 
+        s.tanggal_sk_izin_operasional,s.luas_tanah_milik,s.luas_tanah_bukan_milik,
+        s.status_kepemilikan_id, s.yayasan_id ";
+
         $query = $this->db->query($sql, [
             'npsn'  => $kode
         ]);
@@ -400,8 +409,13 @@ class Pendidikan extends BaseController
                 $pilihan = "'non formal'";
             if ($tingkat=="PAUD")
             {
-                $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s
-                WHERE (".$this->datamodelpaud->getbentukpaudsemua().") AND LOWER(direktorat_pembinaan) = ".$pilihan;
+                if ($jalurpendidikan=="jf")
+                    $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s
+                    WHERE (".$this->datamodelpaud->getbentukpaudformal().")";
+                else if ($jalurpendidikan=="jn")
+                    $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s
+                    WHERE (".$this->datamodelpaud->getbentukpaudnonformal().")";
+                
             }
             else if ($tingkat=="DIKDAS")
             {
@@ -410,18 +424,30 @@ class Pendidikan extends BaseController
             }
             else if ($tingkat=="DIKMEN")
             {
-                $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s
-                WHERE (".$this->datamodeldikmen->getbentukdikmensemua().") AND LOWER(direktorat_pembinaan) = ".$pilihan;
+                if ($jalurpendidikan=="jf")
+                    $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s
+                    WHERE (".$this->datamodeldikmen->getbentukdikmenformal().")";
+                else if ($jalurpendidikan=="jn")
+                    $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s
+                    WHERE (".$this->datamodeldikmen->getbentukdikmennonformal().")";
             }
             else if ($tingkat=="DIKTI")
             {
-                $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s
-                WHERE (".$this->datamodeldikti->getbentukdiktisemua().") AND LOWER(direktorat_pembinaan) = ".$pilihan;
+                if ($jalurpendidikan=="jf")
+                    $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s
+                    WHERE (".$this->datamodeldikti->getbentukdiktiformal().")";
+                else if ($jalurpendidikan=="jn")
+                    $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s
+                    WHERE (".$this->datamodeldikti->getbentukdiktinonformal().")";
             }
             else if ($tingkat=="DIKMAS")
             {
-                $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s
-                WHERE (".$this->datamodeldikmas->getbentukdikmassemua().") AND LOWER(direktorat_pembinaan) = ".$pilihan;
+                if ($jalurpendidikan=="jf")
+                    $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s
+                    WHERE (".$this->datamodeldikmas->getbentukdikmasformal().")";
+                else if ($jalurpendidikan=="jn")
+                    $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s
+                    WHERE (".$this->datamodeldikmas->getbentukdikmasnonformal().")";
             }
         }
             

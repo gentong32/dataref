@@ -80,9 +80,30 @@
         <table>
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;</td>
+                <td>Kementerian Pembina</td>
+                <td>:</td>
+                <td><?=$datasekolah->kementerian_pembina?></td>
+            </tr>
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;</td>
                 <td>Naungan</td>
                 <td>:</td>
                 <td><?=$datasekolah->naungan?></td>
+            </tr>
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td>NPYP</td>
+                <td>:</td>
+                <td><?php
+                if ($datasekolah->npyp!="-")
+                {?>
+                    <a class="link1" target="_blank" href="https://vervalyayasan.data.kemdikbud.go.id/index.php/Chome/profil?yayasan_id=<?=$datasekolah->yayasan_id?>"><?=$datasekolah->npyp?></a>
+                <?php }
+                else
+                {
+                    echo "-";
+                }
+                ?></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -135,7 +156,7 @@
                 <td>&nbsp;</td>
                 <td>Akreditasi</td>
                 <td>:</td>
-                <td class="nodata">[Data belum tersedia]</td>
+                <td><?=$datasekolah->akreditasi?></td>
             </tr>
         </table>
       </div>

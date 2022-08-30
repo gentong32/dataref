@@ -38,9 +38,9 @@
   <!-- Colorbox -->
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/colorbox/colorbox.css">
   <!-- Template styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v1.2">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v1.5">
  <!-- Custom styles-->
- <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v1.2">
+ <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v1.6">
 </head>
 <body>
   <div class="body-inner">
@@ -81,7 +81,7 @@
                           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Data Pendidikan <i class="fa fa-angle-down"></i></a>
                           <ul class="dropdown-menu" role="menu">
                             <li class="dropdown-submenu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data Satuan Pendidikan</a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Satuan Pendidikan</a>
                                 <ul class="dropdown-menu">
                                   <li><a href="<?=site_url('pendidikan/paud')?>">Pendidikan Anak Usia Dini (PAUD)</a></li>
                                   <li><a href="<?=site_url('pendidikan/dikdas')?>">Pendidikan Dasar (Dikdas)</a></li>
@@ -116,7 +116,8 @@
 </header>
 <!--/ Header end -->
 
-<div class="main-content">
+<div id="page-container">
+<div id="content-wrap">
     <?=$this->renderSection('content')?>
 </div>
 
@@ -128,7 +129,7 @@
     </div>
   </div>
 </footer>
-
+<div>
 
   <!-- Javascript Files
   ================================================== -->

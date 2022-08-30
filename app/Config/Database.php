@@ -39,7 +39,7 @@ class Database extends Config
         'DBDriver' => '',
         'DBPrefix' => '',
         'pConnect' => false,
-        'DBDebug'  => (ENVIRONMENT !== 'development'),
+        'DBDebug'  => (ENVIRONMENT !== 'production'),
         'charset'  => 'utf8',
         'DBCollat' => 'utf8_general_ci',
         'swapPre'  => '',
@@ -58,7 +58,7 @@ class Database extends Config
         'DBDriver' => '',
         'DBPrefix' => '',
         'pConnect' => false,
-        'DBDebug'  => (ENVIRONMENT !== 'development'),
+        'DBDebug'  => (ENVIRONMENT !== 'production'),
         'charset'  => 'utf8',
         'DBCollat' => 'utf8_general_ci',
         'swapPre'  => '',
@@ -67,6 +67,25 @@ class Database extends Config
         'strictOn' => false,
         'failover' => [],
     ];
+
+    // public $dbnpsn = [
+    //     'DSN'      => '',
+    //     'hostname' => '',
+    //     'username' => '',
+    //     'password' => '',
+    //     'database' => '',
+    //     'DBDriver' => '',
+    //     'DBPrefix' => '',
+    //     'pConnect' => false,
+    //     'DBDebug'  => (ENVIRONMENT !== 'production'),
+    //     'charset'  => 'utf8',
+    //     'DBCollat' => 'utf8_general_ci',
+    //     'swapPre'  => '',
+    //     'encrypt'  => false,
+    //     'compress' => false,
+    //     'strictOn' => false,
+    //     'failover' => [],
+    // ];
 
     /**
      * This database connection is used when
