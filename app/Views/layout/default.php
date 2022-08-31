@@ -38,9 +38,9 @@
   <!-- Colorbox -->
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/colorbox/colorbox.css">
   <!-- Template styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v1.5">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v1.7">
  <!-- Custom styles-->
- <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v1.6">
+ <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v1.7">
 </head>
 <body>
   <div class="body-inner">
@@ -102,9 +102,13 @@
         </div>
         <!--/ Row end -->
 
+        <div class="nav-search">
+          <span>Cari Sekolah/NPSN &nbsp;&nbsp;&nbsp;<i class="fa fa-search"></i></span>
+        </div>
+
         <div class="search-block" style="display: none;">
           <label for="search-field" class="w-100 mb-0">
-            <input type="text" class="form-control" id="search-field" placeholder="Type what you want and enter">
+            <input type="text" class="form-control" id="search-field" placeholder="Ketik Nama Sekolah / NPSN">
           </label>
           <span class="search-close">&times;</span>
         </div><!-- Site search end -->
@@ -123,7 +127,7 @@
 
 <footer id="footer" class="footer bg-overlay">
   <div class="copyright">
-      <span>Pusdatin &copy; Kemdikbudristek <script>
+      <span>Pusdatin &copy; Kemendikbudristek <script>
           document.write(new Date().getFullYear())
         </script></span>
     </div>
@@ -161,3 +165,16 @@
   </body>
 
   </html>
+
+  <script>
+    $("#search-field").bind("keypress", {}, keypressInBox);
+
+    function keypressInBox(e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 13) { //Enter keycode                        
+            e.preventDefault();
+            window.open("<?=site_url('pendidikan/cari/')?>"+$("#search-field").val(),"_self");
+            // $("yourFormId").submit();
+        }
+    };
+  </script>

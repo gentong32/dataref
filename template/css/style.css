@@ -1098,8 +1098,17 @@ ul.navbar-nav > li > a {
   cursor: pointer;
   top: 22px;
   right: 18px;
+  color: black;
+}
+
+.nav-cari {
+  position: absolute;
+  cursor: pointer;
+  top: 22px;
+  right: 18px;
   color: #999;
 }
+
 @media (max-width: 991px) {
   .nav-search {
     top: 17px;
@@ -1113,7 +1122,7 @@ ul.navbar-nav > li > a {
   padding: 10px;
   position: absolute;
   right: 15px;
-  top: 100%;
+  top: 70px;
   width: 300px;
   z-index: 10;
   margin-top: 0;

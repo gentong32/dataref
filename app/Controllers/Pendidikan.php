@@ -6,6 +6,7 @@ use App\Models\DataModelDikdas;
 use App\Models\DataModelDikmen;
 use App\Models\DataModelDikti;
 use App\Models\DataModelDikmas;
+use App\Models\DataModelPendidikan;
 
 class Pendidikan extends BaseController
 {
@@ -15,6 +16,7 @@ class Pendidikan extends BaseController
         $this->datamodeldikmen = new DataModelDikmen();
         $this->datamodeldikti = new DataModelDikti();
         $this->datamodeldikmas = new DataModelDikmas();
+        $this->datamodelpendidikan = new DataModelPendidikan();
     }
 
     public function index()
@@ -310,59 +312,29 @@ class Pendidikan extends BaseController
 
     }
 
+    public function cari($kode)
+    {
+       
+        $data['kode'] = $kode;
+        $query = $this->datamodelpendidikan->getCariDaftarSekolah($kode);
+        $data['datanas'] = $query->getResult();
+        return view('pendidikan/hasilcari_sekolah', $data);
+        
+    }
+
     public function npsn($kode)
     {
-        $sql   = "SELECT max(ak.tahun) as tahun,s.sk_izin_operasional,s.tanggal_sk_izin_operasional,
-        s.tanggal_sk_pendirian,s.sk_pendirian_sekolah,s.yayasan_id, s.lintang, s.bujur,
-        s.kode_wilayah,s.nama as nama_sekolah,s.npsn,s.alamat_jalan, ra.nama as akreditasi,
-        s.desa_kelurahan, k.nama as naungan, s.luas_tanah_milik, s.luas_tanah_bukan_milik, 
-        CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl, b.nama as bentuk_pendidikan, 
-        CASE WHEN npyp IS NULL THEN '-' ELSE npyp END AS npyp, 
-        CASE WHEN s.bentuk_pendidikan_id IN (9,10,16,17,34,36,37,38,56,39,41,57,58,59,
-                60,44,45,61,62,63,64,65) THEN 'Kementerian Agama'
-            WHEN s.npsn IN ('10646356', '30314295', '69734022') THEN 'Kementerian Pertanian'
-            WHEN s.npsn IN ('10110454', '30108179', '10308148', '40313544', 
-            '20407427', '10814611', '20238524') THEN 'Kementerian Perindustrian'
-            WHEN s.npsn IN ('69924881','69769420','69772845','10112822','10310815',
-                '30112509','60404134','69787011','60104523') THEN 'Kementerian Kelautan dan Perikanan'
-            ELSE 'Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi' 
-        END AS kementerian_pembina,
-        CASE WHEN y.kode_wilayah IS NULL THEN '-' ELSE y.kode_wilayah END AS kode_wilayah_yayasan     
-        FROM Arsip.dbo.sekolah s 
-		JOIN Referensi.ref.bentuk_pendidikan b ON b.bentuk_pendidikan_id = s.bentuk_pendidikan_id 
-        JOIN Referensi.ref.status_kepemilikan k ON k.status_kepemilikan_id = s.status_kepemilikan_id 
-        LEFT JOIN Arsip.dbo.yayasan y ON y.yayasan_id = s.yayasan_id 
-        LEFT JOIN Arsip.dbo.akreditasi ak ON ak.sekolah_id = s.sekolah_id 
-        LEFT JOIN Referensi.ref.akreditasi ra ON ra.akreditasi_id = ak.akreditasi_id
-		WHERE npsn = :npsn:  
-		GROUP BY s.sk_izin_operasional,s.tanggal_sk_pendirian,s.sk_pendirian_sekolah,
-        s.yayasan_id,s.alamat_jalan,s.desa_kelurahan,y.kode_wilayah,s.lintang, s.bujur,
-        s.kode_wilayah,npyp,b.nama,status_sekolah,k.nama,s.nama,s.sekolah_id,
-        s.master,s.aktif, s.nama, s.npsn,  s.bentuk_pendidikan_id, ra.nama, 
-        s.tanggal_sk_izin_operasional,s.luas_tanah_milik,s.luas_tanah_bukan_milik,
-        s.status_kepemilikan_id, s.yayasan_id ";
-
-        $query = $this->db->query($sql, [
-            'npsn'  => $kode
-        ]);
+        $query = $this->datamodelpendidikan->getCariNamaAtauNPSN($kode);
         $datasekolah = $query->getRow();
         $kodwil = $datasekolah->kode_wilayah;
-
         $data['datasekolah'] = $datasekolah;
 
-        $sql2 = "select w1.nama as kecamatan, w2.nama as kota, w3.nama as propinsi, w1.id_level_wilayah, w1.mst_kode_wilayah, w1.kode_wilayah 
-		from Referensi.ref.mst_wilayah w1, Referensi.ref.mst_wilayah w2, Referensi.ref.mst_wilayah w3 
-		where w1.kode_wilayah = :kodwil: and (w1.mst_kode_wilayah = w2.kode_wilayah) and 
-		(w2.mst_kode_wilayah = w3.kode_wilayah)
-		order by w1.id_level_wilayah, w2.nama, w1.nama";
-
-        $query2 = $this->db->query($sql2, [
-            'kodwil'  => substr($kodwil,0,6)
-        ]);
-
+        $query2 = $this->datamodelpendidikan->getDataWilayah($kodwil);
         $data['datawilayah'] = $query2->getRow();
+        
+        $query3 = $this->datamodelpendidikan->getOperatorSekolah($kode);
+        $data['dataoperator'] = $query3->getRow();
 
-         
         //print_r($query->getRow());
         
         return view('pendidikan/detail_sekolah', $data);

@@ -6,7 +6,7 @@
 
 <?= $this->section('content') ?>
 <div class="containers">
-    <center><h4><?=$datasekolah->nama_sekolah?></h4></center>
+    <center><h4><?=$datasekolah->nama?></h4></center>
     <div class="tabs">
     <div class="tabby-tab">
       <input type="radio" id="tab-1" name="tabby-tabs" checked>
@@ -17,7 +17,7 @@
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td>Nama</td>
                 <td>:</td>
-                <td><?=$datasekolah->nama_sekolah?></td>
+                <td><?=preg_replace('/\r|\n|"|\\\\/i', '', $datasekolah->nama)?></td>
             </tr>
             <!-- edit 20200602 -->
             <tr>
@@ -30,7 +30,7 @@
                 <td>&nbsp;</td>
                 <td>Alamat</td>
                 <td>:</td>
-                <td><?=$datasekolah->alamat_jalan?></td>
+                <td><?=preg_replace('/\r|\n|"|\\\\/i', '', $datasekolah->alamat_jalan)?></td>
             </tr>
             <tr><td></td></tr>
             <tr>
@@ -61,7 +61,7 @@
                 <td>&nbsp;</td>
                 <td>Status Sekolah</td>
                 <td>:</td>
-                <td><?=$datasekolah->status_skl?></td>
+                <td><?=$datasekolah->status_sekolah?></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -88,7 +88,20 @@
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td>Naungan</td>
                 <td>:</td>
-                <td><?=$datasekolah->naungan?></td>
+                <td><?php
+                if ($datasekolah->status_kepemilikan=="Yayasan")
+                {
+                    if ($datasekolah->nama_yayasan!=null)
+                    {
+                        if (substr(strtolower($datasekolah->nama_yayasan),0,7)=="yayasan")
+                            echo $datasekolah->nama_yayasan;
+                        else
+                            echo "Yayasan ".$datasekolah->nama_yayasan;
+                    }
+                } else
+                {
+                    echo $datasekolah->status_kepemilikan;
+                }?></td>
             </tr>
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;</td>
@@ -187,13 +200,30 @@
                 <td>&nbsp;</td>
                 <td>Akses Internet</td>
                 <td>:</td>
-                <td class="nodata">[Data belum tersedia]</td>
+                <td>1. <?php
+                if ($datasekolah->akses_internet!=null)
+                {
+                    if (strtolower($datasekolah->akses_internet)=="tidak ada")
+                    {
+                        echo "";
+                    }
+                    else
+                    {
+                        echo $datasekolah->akses_internet;
+                    }
+                }?></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>:</td>
+                <td>2. <?=$datasekolah->akses_internet_2?></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <td>Sumber Listrik</td>
                 <td>:</td>
-                <td class="nodata">[Data belum tersedia]</td>
+                <td><?=$datasekolah->sumber_listrik?></td>
             </tr>
         </table>
       </div>
@@ -208,27 +238,80 @@
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td>Fax</td>
                 <td>:</td>
-                <td class="nodata">[Data belum tersedia]</td>
+                <td><?=$datasekolah->nomor_fax?></td>
+            </tr>
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td>Telepon</td>
+                <td>:</td>
+                <td><?php
+                if ($datasekolah->nomor_telepon<>null)
+                {
+                    if(substr($datasekolah->nomor_telepon,0,2)=='08' || (session('id_user')))
+                    {
+                        echo "";
+                    }
+                    else
+                    {
+                        echo $datasekolah->nomor_telepon;
+                    }
+                }?></td>
             </tr>
             <!-- edit 20200602 -->
             <tr>
                 <td>&nbsp;</td>
                 <td>Email</td>
                 <td>:</td>
-                <td class="nodata">[Data belum tersedia]</td>
+                <td><?php
+                if ($datasekolah->email!=null)
+                    {
+                    if (substr($datasekolah->email, -6)=="sch.id" || (session('id_user')))
+                    {
+                        echo $datasekolah->email;
+                    }
+                    else
+                    {
+                        echo "";
+                    }
+                }?></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <td>Website</td>
                 <td>:</td>
-                <td class="nodata">[Data belum tersedia]</td>
+                <td><?php
+                if ($datasekolah->website!=null)
+                {
+                    if ($datasekolah->website=="http://")
+                        {
+                            echo "";
+                        }
+                    else if (substr($datasekolah->website,0,4)!="http")
+                    {
+                        echo "<a class='link1' target='_blank' href='http://".$datasekolah->website."'>".
+                        $datasekolah->website."</a>";
+                    }
+                    else
+                    {
+                        echo "<a class='link1' target='_blank' href='".$datasekolah->website."'>".
+                        $datasekolah->website."</a>";
+                    }
+                }?></td>
             </tr>
+            <?php if (session('id_user')) :?>
             <tr>
                 <td>&nbsp;</td>
                 <td>Operator</td>
                 <td>:</td>
-                <td class="nodata">[Data belum tersedia]</td>
+                <td><?=$dataoperator->nama?></td>
             </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td></td>
+                <td></td>
+                <td>(<?=$dataoperator->telepon?>)</td>
+            </tr>
+            <?php endif ?>
         </table>      </div>
     </div>
 
@@ -251,6 +334,6 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '© OpenStreetMap'}).addTo(map);
-    L.marker({lat:<?=$datasekolah->lintang?>, lon:<?=$datasekolah->bujur?>}).bindPopup('<?=$datasekolah->nama_sekolah?>').addTo(map);
+    L.marker({lat:<?=$datasekolah->lintang?>, lon:<?=$datasekolah->bujur?>}).bindPopup('<?=$datasekolah->nama?>').addTo(map);
 </script>
 <?= $this->endSection() ?>

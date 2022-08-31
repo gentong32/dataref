@@ -35,9 +35,9 @@
   <!-- Colorbox -->
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/colorbox/colorbox.css">
   <!-- Template styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v1.7">
   <!-- Custom styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v1.7">
 
   <!-- Leaflet Maps styles-->
   <link rel="stylesheet" href="<?=base_url()?>/leaflet/leaflet.css">
@@ -64,13 +64,13 @@
 </header>
 <!--/ Header end -->
 
-<div class="main-content">
+<div class="main-content" style="margin-bottom:50px;">
     <?=$this->renderSection('content')?>
 </div>
 
 <footer id="footer" class="footer bg-overlay">
   <div class="copyright">
-      <span>Pusdatin &copy; Kemdikbudristek <script>
+      <span>Pusdatin &copy; Kemendikbudristek <script>
           document.write(new Date().getFullYear())
         </script></span>
     </div>
@@ -103,3 +103,16 @@
   </body>
 
   </html>
+
+  <script>
+    $("#search-field").bind("keypress", {}, keypressInBox);
+
+    function keypressInBox(e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 13) { //Enter keycode                        
+            e.preventDefault();
+            alert ("cihuy");
+            // $("yourFormId").submit();
+        }
+    };
+  </script>
