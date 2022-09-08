@@ -11,10 +11,12 @@ $link1 = site_url('pendidikan/dikmas')."/".substr($kode, 0, 2)."0000"."/1/".$jal
 $link2 = site_url('pendidikan/dikmas')."/".substr($kode, 0, 4)."00"."/2/".$jalur."/".$bentuk."/".$status;
 $breadcrump1 = "";
 $breadcrump2 = "";
+$judulnama = "Nama Provinsi";
 
 if ($level==1)
 {
     $breadcrump1 = ">> ".$namalevel1;
+    $judulnama = "Nama Kota/Kabupaten";
 }
 else if ($level>1)
 {
@@ -24,6 +26,7 @@ else if ($level>1)
 if ($level==2)
 {
     $breadcrump2 = ">> ".$namalevel2;
+    $judulnama = "Nama Kecamatan";
 }
 else if ($level>2)
 {
@@ -33,6 +36,10 @@ else if ($level>2)
 $piljalur1 = "";
 $piljalur2 = "";
 $piljalur3 = "";
+
+$jalur=="jn";
+
+$styletabel = "max-width:100%;";
 
 if ($jalur=="all")
     $piljalur1 = "selected";
@@ -56,6 +63,8 @@ $pilbentuk1 = "";
 
 if ($bentuk=="all")
     $pilbentuk1 = "selected";
+else 
+    $styletabel = "max-width:700px;";
 
 if ($jalur=="all" && $bentuk=="all" && $status=="all")
 $cekjalurbentukstatus = "";
@@ -82,8 +91,6 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
     <center>
         <div class="">
             <select class="combobox1" id="jalur_pendidikan" name="jalur_pendidikan">
-                <option <?=$piljalur1?> value="all">-Semua Jalur-</option>
-                <option <?=$piljalur2?> value="jf">Jalur Formal</option>
                 <option <?=$piljalur3?> value="jn">Jalur Non formal</option>
             </select>
             <div id="dbentukpendidikan" style="display:inline-block;">
@@ -106,14 +113,14 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
             <button onclick="filterdata()" class="tb_utama" type="button">
                 Terapkan
             </button>
-    </center>
         </div>
-        <div style="margin:30px;">
-            <div class="">
+        </center>
+        <div class="mytable">
+           <div style="align:center;margin:auto;<?=$styletabel?>">
                 <table class="table table-striped" id='table1'>
                 <thead><tr>
-                    <th width="10px">#</th>
-                    <th>Nama</th>
+                    <th width="10px">No</th>
+                    <th><?=$judulnama?></th>
                     <?php if ($bentuk=="all" || $bentuk==null) {?>
                     <?php if ($jalur=="all" || $jalur==null) :?>
                     <th>Kursus</th>
@@ -123,7 +130,7 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <th>Ponpes</th>
                     <th>Total</th>
                     <?php endif; 
-                    if ($jalur=="jf") :?>
+                    if ($jalur=="jn") :?>
                     <th>Kursus</th>
                     <th>TBM</th>
                     <th>PKBM</th>
@@ -131,7 +138,7 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <th>Ponpes</th>
                     <th>Total</th>
                     <?php endif; 
-                    if ($jalur=="jn") :?>
+                    if ($jalur=="jf") :?>
                     <th>Total</th>
                     <?php endif ?>
                     <?php } else {?> 
@@ -146,7 +153,20 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     ?>
                 <tr>
                     <td><?=$key + 1?></td>
-                    <td align="left" class="link1"><a href="<?=site_url('pendidikan/dikmas/'.trim($value->kode_wilayah).'/'.($level+1).$cekjalurbentukstatus)?>"><?=$value->nama?></a></td>
+                    <td align="left" class="link1"><a href="<?=site_url('pendidikan/dikmas/'.
+                    trim($value->kode_wilayah).'/'.($level+1).$cekjalurbentukstatus)?>"><?php
+                    if ($level==0)
+                    {
+                        echo substr($value->nama,5);
+                    }
+                    else if ($level==2)
+                    {
+                        echo substr($value->nama,4);
+                    }
+                    else
+                    {
+                        echo $value->nama;
+                    }?></a></td>
                     <?php if ($bentuk=="all" || $bentuk==null) {?>
                     <?php if ($jalur=="all" || $jalur==null) :?>
                     <td><?=$value->kursus?></td>
@@ -154,13 +174,13 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <td><?=$value->pkbm?></td>
                     <td><?=$value->skb?></td>
                     <td><?=$value->ponpes?></td>
-                    <?php endif; if ($jalur=="jf") :?>
+                    <?php endif; if ($jalur=="jn") :?>
                     <td><?=$value->kursus?></td>
                     <td><?=$value->tbm?></td>
                     <td><?=$value->pkbm?></td>
                     <td><?=$value->skb?></td>
                     <td><?=$value->ponpes?></td>
-                    <?php endif; if ($jalur=="jn") :?>
+                    <?php endif; if ($jalur=="jf") :?>
                     <?php endif;?>
                     <?php } ?>
                     <td><?=$value->total?></td>
@@ -173,9 +193,9 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                 <?php if ($bentuk=="all") {?>
                     <?php if ($jalur=="all") { ?>
                         <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
-                    <?php } else if ($jalur=="jf") { ?>
-                        <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
                     <?php } else if ($jalur=="jn") { ?>
+                        <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
+                    <?php } else if ($jalur=="jf") { ?>
                         <tr><th></th><th></th><th></th></tr>
                     <?php } 
                     } else { ?>
@@ -197,14 +217,16 @@ $(document).ready( function () {
         columnDefs: [
             { responsivePriority: 1, targets: -1 },
             { targets: 2, render: $.fn.dataTable.render.number('.', ',', 0, '') },
-            <?php if (($jalur=="all" || $jalur=="jf") && $bentuk=="all") { ?>
+            { className: 'text-right', targets: [2] },
+            <?php if (($jalur=="all" || $jalur=="jn") && $bentuk=="all") { ?>
                 { targets: 3, render: $.fn.dataTable.render.number('.', ',', 0, '') },
                 { targets: 4, render: $.fn.dataTable.render.number('.', ',', 0, '') },
                 { targets: 5, render: $.fn.dataTable.render.number('.', ',', 0, '') },
                 { targets: 6, render: $.fn.dataTable.render.number('.', ',', 0, '') },
                 { targets: 7, render: $.fn.dataTable.render.number('.', ',', 0, '') },
+                { className: 'text-right', targets: [3,4,5,6,7] },
             <?php } ?>
-            { className: 'text-right', targets: [2,3,4,5,6,7] }
+            
         ],
         "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
@@ -231,7 +253,7 @@ $(document).ready( function () {
                     return intVal(a) + intVal(b);
                 }, 0 );
             
-            <?php if (($jalur=="all" || $jalur=="jf") && $bentuk=="all") { ?>
+            <?php if (($jalur=="all" || $jalur=="jn") && $bentuk=="all") { ?>
                 var total2 = api
                     .column( 3 )
                     .data()
@@ -275,7 +297,7 @@ $(document).ready( function () {
             $( api.column( 1 ).footer() ).html('TOTAL SEMUA');
             $( api.column( 2 ).footer() ).html(numFormat(total1));
             $( api.column( 2 ).footer() ).css({'text-align':'right','padding-right':'15px'});
-            <?php if (($jalur=="all" || $jalur=="jf") && $bentuk=="all") { ?>
+            <?php if (($jalur=="all" || $jalur=="jn") && $bentuk=="all") { ?>
                 $( api.column( 3 ).footer() ).html(numFormat(total2));
                 $( api.column( 3 ).footer() ).css({'text-align':'right','padding-right':'15px'});
                 $( api.column( 4 ).footer() ).html(numFormat(total3));

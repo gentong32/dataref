@@ -11,10 +11,12 @@ $link1 = site_url('pendidikan/dikti')."/".substr($kode, 0, 2)."0000"."/1/".$jalu
 $link2 = site_url('pendidikan/dikti')."/".substr($kode, 0, 4)."00"."/2/".$jalur."/".$bentuk."/".$status;
 $breadcrump1 = "";
 $breadcrump2 = "";
+$judulnama = "Nama Provinsi";
 
 if ($level==1)
 {
     $breadcrump1 = ">> ".$namalevel1;
+    $judulnama = "Nama Kota/Kabupaten";
 }
 else if ($level>1)
 {
@@ -24,6 +26,7 @@ else if ($level>1)
 if ($level==2)
 {
     $breadcrump2 = ">> ".$namalevel2;
+    $judulnama = "Nama Kecamatan";
 }
 else if ($level>2)
 {
@@ -33,6 +36,10 @@ else if ($level>2)
 $piljalur1 = "";
 $piljalur2 = "";
 $piljalur3 = "";
+
+$jalur=="jf";
+
+$styletabel = "max-width:100%;";
 
 if ($jalur=="all")
     $piljalur1 = "selected";
@@ -56,6 +63,8 @@ $pilbentuk1 = "";
 
 if ($bentuk=="all")
     $pilbentuk1 = "selected";
+else 
+    $styletabel = "max-width:700px;";
 
 if ($jalur=="all" && $bentuk=="all" && $status=="all")
 $cekjalurbentukstatus = "";
@@ -82,9 +91,7 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
     <center>
         <div class="">
             <select class="combobox1" id="jalur_pendidikan" name="jalur_pendidikan">
-                <option <?=$piljalur1?> value="all">-Semua Jalur-</option>
                 <option <?=$piljalur2?> value="jf">Jalur Formal</option>
-                <option <?=$piljalur3?> value="jn">Jalur Non formal</option>
             </select>
             <div id="dbentukpendidikan" style="display:inline-block;">
             <select class="combobox1" id="bentuk_pendidikan" name="bentuk_pendidikan">
@@ -114,14 +121,14 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
             <button onclick="filterdata()" class="tb_utama" type="button">
                 Terapkan
             </button>
-    </center>
         </div>
-        <div style="margin:30px;">
-            <div class="">
+        </center>
+        <div class="mytable">
+           <div style="align:center;margin:auto;<?=$styletabel?>">
                 <table class="table table-striped" id='table1'>
                 <thead><tr>
-                    <th width="10px">#</th>
-                    <th>Nama</th>
+                    <th width="10px">No</th>
+                    <th><?=$judulnama?></th>
                     <?php if ($bentuk=="all" || $bentuk==null) {?>
                     <?php if ($jalur=="all" || $jalur==null) :?>
                     <th>Akademik</th>
@@ -154,7 +161,20 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     ?>
                 <tr>
                     <td><?=$key + 1?></td>
-                    <td align="left" class="link1"><a href="<?=site_url('pendidikan/dikti/'.trim($value->kode_wilayah).'/'.($level+1).$cekjalurbentukstatus)?>"><?=$value->nama?></a></td>
+                    <td align="left" class="link1"><a href="<?=site_url('pendidikan/dikti/'.
+                    trim($value->kode_wilayah).'/'.($level+1).$cekjalurbentukstatus)?>"><?php
+                    if ($level==0)
+                    {
+                        echo substr($value->nama,5);
+                    }
+                    else if ($level==2)
+                    {
+                        echo substr($value->nama,4);
+                    }
+                    else
+                    {
+                        echo $value->nama;
+                    }?></a></td>
                     <?php if ($bentuk=="all" || $bentuk==null) {?>
                     <?php if ($jalur=="all" || $jalur==null) :?>
                     <td><?=$value->akademik?></td>
@@ -205,14 +225,16 @@ $(document).ready( function () {
         columnDefs: [
             { responsivePriority: 1, targets: -1 },
             { targets: 2, render: $.fn.dataTable.render.number('.', ',', 0, '') },
+            { className: 'text-right', targets: [2] },
             <?php if (($jalur=="all" || $jalur=="jf") && $bentuk=="all") { ?>
                 { targets: 3, render: $.fn.dataTable.render.number('.', ',', 0, '') },
                 { targets: 4, render: $.fn.dataTable.render.number('.', ',', 0, '') },
                 { targets: 5, render: $.fn.dataTable.render.number('.', ',', 0, '') },
                 { targets: 6, render: $.fn.dataTable.render.number('.', ',', 0, '') },
                 { targets: 7, render: $.fn.dataTable.render.number('.', ',', 0, '') },
+                { className: 'text-right', targets: [3,4,5,6,7] },
             <?php } ?>
-            { className: 'text-right', targets: [2,3,4,5,6,7] }
+            
         ],
         "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;

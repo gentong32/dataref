@@ -17,28 +17,20 @@ class DataModelPaud extends Model
     s.bentuk_pendidikan_id=57 OR 
     s.bentuk_pendidikan_id=61";
 
-    protected $paudjf = "s.bentuk_pendidikan_id=1";
+    protected $paudjf = "s.bentuk_pendidikan_id=1 OR 
+    s.bentuk_pendidikan_id=34 OR 
+    s.bentuk_pendidikan_id=41 OR 
+    s.bentuk_pendidikan_id=52 OR 
+    s.bentuk_pendidikan_id=57 OR 
+    s.bentuk_pendidikan_id=61";
 
     protected $paudjn = "s.bentuk_pendidikan_id=2 OR 
     s.bentuk_pendidikan_id=3 OR 
     s.bentuk_pendidikan_id=4 OR 
+    s.bentuk_pendidikan_id=43";
+
+    protected $tksederajat = "s.bentuk_pendidikan_id=1 OR 
     s.bentuk_pendidikan_id=34 OR 
-    s.bentuk_pendidikan_id=41 OR 
-    s.bentuk_pendidikan_id=43 OR 
-    s.bentuk_pendidikan_id=52 OR 
-    s.bentuk_pendidikan_id=57 OR 
-    s.bentuk_pendidikan_id=61";
-
-    protected $tksederajatall = "s.bentuk_pendidikan_id=1 OR 
-    s.bentuk_pendidikan_id=34 OR 
-    s.bentuk_pendidikan_id=41 OR 
-    s.bentuk_pendidikan_id=52 OR 
-    s.bentuk_pendidikan_id=57 OR 
-    s.bentuk_pendidikan_id=61";
-
-    protected $tksederajatjf = "s.bentuk_pendidikan_id=1";
-
-    protected $tksederajatjn = "s.bentuk_pendidikan_id=34 OR 
     s.bentuk_pendidikan_id=41 OR 
     s.bentuk_pendidikan_id=52 OR 
     s.bentuk_pendidikan_id=57 OR 
@@ -47,8 +39,16 @@ class DataModelPaud extends Model
     protected $kbsederajat = "s.bentuk_pendidikan_id=2 OR 
     s.bentuk_pendidikan_id=43";
 
+    protected $tk = "s.bentuk_pendidikan_id=1";
+    protected $kb = "s.bentuk_pendidikan_id=2";
     protected $tpa = "s.bentuk_pendidikan_id=3";
     protected $sps = "s.bentuk_pendidikan_id=4";
+    protected $ra = "s.bentuk_pendidikan_id=34";
+    protected $seminari = "s.bentuk_pendidikan_id=41";
+    protected $spkkb = "s.bentuk_pendidikan_id=43";
+    protected $spktk = "s.bentuk_pendidikan_id=52";
+    protected $pratama = "s.bentuk_pendidikan_id=57";
+    protected $nava = "s.bentuk_pendidikan_id=61";
 
     public function getTotalPaud($status,$kode,$level,$jalur,$bentuk) {
 
@@ -70,7 +70,7 @@ class DataModelPaud extends Model
             {
                 $sql = "SELECT 
                     SUM(CASE WHEN (".$this->paudall.") THEN 1 ELSE 0 END) total,
-                    SUM(CASE WHEN (".$this->tksederajatall.") THEN 1 ELSE 0 END) tksederajatall,
+                    SUM(CASE WHEN (".$this->tksederajat.") THEN 1 ELSE 0 END) tksederajat,
                     SUM(CASE WHEN (".$this->kbsederajat.") THEN 1 ELSE 0 END) kbsederajat,
                     SUM(CASE WHEN (".$this->tpa.") THEN 1 ELSE 0 END) tpa,
                     SUM(CASE WHEN (".$this->sps.") THEN 1 ELSE 0 END) sps,
@@ -84,7 +84,13 @@ class DataModelPaud extends Model
             else if ($jalur=="jf")
             {
                 $sql = "SELECT 
-                    SUM(CASE WHEN (".$this->tksederajatjf.") THEN 1 ELSE 0 END) total,
+                    SUM(CASE WHEN (".$this->paudjf.") THEN 1 ELSE 0 END) total,
+                    SUM(CASE WHEN (".$this->tk.") THEN 1 ELSE 0 END) tk,
+                    SUM(CASE WHEN (".$this->ra.") THEN 1 ELSE 0 END) ra,
+                    SUM(CASE WHEN (".$this->seminari.") THEN 1 ELSE 0 END) seminari,
+                    SUM(CASE WHEN (".$this->spktk.") THEN 1 ELSE 0 END) spktk,
+                    SUM(CASE WHEN (".$this->pratama.") THEN 1 ELSE 0 END) pratama,
+                    SUM(CASE WHEN (".$this->nava.") THEN 1 ELSE 0 END) nava,
                     w.nama, w.kode_wilayah FROM Arsip.dbo.sekolah s 
                     JOIN Referensi.ref.mst_wilayah w ON LEFT(w.kode_wilayah,:nkar2:)=LEFT(s.kode_wilayah,:nkar2:) 
                     WHERE id_level_wilayah=:levelbaru: AND soft_delete=0 AND LEFT(w.kode_wilayah,:nkar:)=:kodebaru: 
@@ -96,10 +102,10 @@ class DataModelPaud extends Model
             {
                 $sql = "SELECT 
                     SUM(CASE WHEN (".$this->paudjn.") THEN 1 ELSE 0 END) total,
-                    SUM(CASE WHEN (".$this->tksederajatjn.") THEN 1 ELSE 0 END) tksederajatjn,
-                    SUM(CASE WHEN (".$this->kbsederajat.") THEN 1 ELSE 0 END) kbsederajat,
+                    SUM(CASE WHEN (".$this->kb.") THEN 1 ELSE 0 END) kb,
                     SUM(CASE WHEN (".$this->tpa.") THEN 1 ELSE 0 END) tpa,
                     SUM(CASE WHEN (".$this->sps.") THEN 1 ELSE 0 END) sps,
+                    SUM(CASE WHEN (".$this->spkkb.") THEN 1 ELSE 0 END) spkkb,
                     w.nama, w.kode_wilayah FROM Arsip.dbo.sekolah s 
                     JOIN Referensi.ref.mst_wilayah w ON LEFT(w.kode_wilayah,:nkar2:)=LEFT(s.kode_wilayah,:nkar2:) 
                     WHERE id_level_wilayah=:levelbaru: AND soft_delete=0 AND LEFT(w.kode_wilayah,:nkar:)=:kodebaru: 

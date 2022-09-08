@@ -1,7 +1,7 @@
 <?= $this->extend('layout/default') ?>
 
 <?= $this->section('titel') ?>
-<title>Data Pendidikan &mdash; Data Nasional</title>
+<title>Data Yayasan</title>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -12,11 +12,10 @@
                 <table class="table table-striped" id='table1'>
                 <thead><tr>
                     <th>No</th>
-                    <th>NPSN</th>
-                    <th>Nama Satuan Pendidikan</th>
+                    <th>NPYP</th>
+                    <th>Nama Yayasan</th>
                     <th>Alamat</th>
                     <th>Kelurahan</th>
-                    <th>Status</th>
                 </tr>
                 </thead>
               </table>
@@ -31,7 +30,7 @@ $(document).ready( function () {
     var data = [];
     <?php foreach ($datanas as $key => $value) :?>
        
-      data.push([<?=$key + 1?>, "<a class='link1' href=\"<?=site_url('pendidikan/npsn/'.trim($value->npsn))?>\" target=\"_blank\"><?=$value->npsn?></a>", "<?=preg_replace('/\r|\n|"|\\\\/i', '', $value->nama)?>", "<?=preg_replace('/\r|\n|"|\\\\/i', '', $value->alamat_jalan)?>","<?=$value->desa_kelurahan?>","<?=$value->status_skl?>"]);
+      data.push([<?=$key + 1?>, "<a class='link1' href=\"https://vervalyayasan.data.kemdikbud.go.id/index.php/Chome/profil?yayasan_id=<?=trim($value->yayasan_id)?>\" target=\"_blank\"><?=$value->npyp?></a>", "<?=preg_replace('/\r|\n|"|\\\\/i', '', $value->nama)?>", "<?=preg_replace('/\r|\n|"|\\\\/i', '', $value->alamat_jalan)?>","<?=$value->desa_kelurahan?>"]);
       
       <?php endforeach;?>
 // removeAttr('width').

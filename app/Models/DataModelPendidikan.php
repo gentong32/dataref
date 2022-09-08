@@ -123,4 +123,30 @@ class DataModelPendidikan extends Model
         return $query;
     }
 
+    public function getCariDaftarYayasan($kode)
+    {
+        // $keywordsMany = explode(' ',$kode);
+        $isiwhere = "s.nama like :kode:";
+		// for ($a=0;$a<count($keywordsMany);$a++) {
+		// 	$isiwhere = $isiwhere . " OR s.nama like '%".$keywordsMany[$a]."%'";
+		// }
+        $isiwhere = $isiwhere." OR npyp like :kode:";
+		// for ($a=0;$a<count($keywordsMany);$a++) {
+		// 	$isiwhere = $isiwhere . " OR npsn like '%".$keywordsMany[$a]."%'";
+		// }
+
+        $sql = "SELECT TOP 5000 s.nama, s.npyp, s.yayasan_id, s.alamat_jalan,s.desa_kelurahan,
+        CASE WHEN RTRIM(LTRIM(s.nama))=:kode2: THEN '0' ELSE '1' END AS tepat 
+        FROM [Arsip].[dbo].[yayasan] s 
+        WHERE soft_delete=0 AND ($isiwhere) 
+        ORDER BY tepat";
+       
+        $query = $this->db->query($sql,[
+            'kode'  => "%".$kode."%",
+            'kode2'  => $kode,
+        ]);
+
+        return $query;
+    }
+
 }

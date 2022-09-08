@@ -205,7 +205,7 @@
                 {
                     if (strtolower($datasekolah->akses_internet)=="tidak ada")
                     {
-                        echo "";
+                        echo "-";
                     }
                     else
                     {
@@ -217,7 +217,18 @@
                 <td></td>
                 <td></td>
                 <td>:</td>
-                <td>2. <?=$datasekolah->akses_internet_2?></td>
+                <td>2. <?php
+                if ($datasekolah->akses_internet!=null)
+                {
+                    if (strtolower($datasekolah->akses_internet_2)=="tidak ada")
+                    {
+                        echo "-";
+                    }
+                    else
+                    {
+                        echo $datasekolah->akses_internet_2;
+                    }
+                }?></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>

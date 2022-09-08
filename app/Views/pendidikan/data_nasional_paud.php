@@ -4,15 +4,19 @@ $total1 = 0;
 $total2 = 0;
 $total3 = 0;
 $total4 = 0;
+$total5 = 0;
+$total6 = 0;
 
 $link1 = site_url('pendidikan/paud')."/".substr($kode, 0, 2)."0000"."/1/".$jalur."/".$bentuk."/".$status;
 $link2 = site_url('pendidikan/paud')."/".substr($kode, 0, 4)."00"."/2/".$jalur."/".$bentuk."/".$status;
 $breadcrump1 = "";
 $breadcrump2 = "";
+$judulnama = "Nama Provinsi";
 
 if ($level==1)
 {
     $breadcrump1 = ">> ".$namalevel1;
+    $judulnama = "Nama Kota/Kabupaten";
 }
 else if ($level>1)
 {
@@ -22,6 +26,7 @@ else if ($level>1)
 if ($level==2)
 {
     $breadcrump2 = ">> ".$namalevel2;
+    $judulnama = "Nama Kecamatan";
 }
 else if ($level>2)
 {
@@ -33,12 +38,24 @@ $piljalur1 = "";
 $piljalur2 = "";
 $piljalur3 = "";
 
+$pilbentuk1 = "";
+
+
 if ($jalur=="all")
+{
     $piljalur1 = "selected";
+    $styletabel = "max-width:900px;";
+}
 else if ($jalur=="jf")
+{
     $piljalur2 = "selected";
+    $styletabel = "max-width:100%";
+}
 else if ($jalur=="jn")
+{
     $piljalur3 = "selected";
+    $styletabel = "max-width:1000px;";
+}
 
 $pilstatus1 = "";
 $pilstatus2 = "";
@@ -51,10 +68,11 @@ else if ($status=="s1")
 else if ($status=="s2")
     $pilstatus3 = "selected";
 
-$pilbentuk1 = "";
-
 if ($bentuk=="all")
+{
     $pilbentuk1 = "selected";
+}
+    
 
 if ($jalur=="all" && $bentuk=="all" && $status=="all")
 $cekjalurbentukstatus = "";
@@ -108,12 +126,12 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
         </div>
     </center>
         
-        <div style="margin:30px;">
-            <div class="">
+        <div class="mytable">
+           <div style="align:center;margin:auto;<?=$styletabel?>">
                 <table class="table table-striped" id='table1'>
                 <thead><tr>
-                    <th width="10px">#</th>
-                    <th>Nama</th>
+                    <th width="10px">No</th>
+                    <th width="200px"><?=$judulnama?></th>
                     <?php if ($bentuk=="all" || $bentuk==null) {?>
                     <?php if ($jalur=="all" || $jalur==null) :?>
                     <th>TK (Sederajat)</th>
@@ -124,12 +142,18 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <?php endif; 
                     if ($jalur=="jf") :?>
                     <th>TK</th>
+                    <th>RA</th>
+                    <th>Taman Seminari</th>
+                    <th>SPK TK</th>
+                    <th>Pratama Widya Pratama</th>
+                    <th>Nava Dhammasekha</th>
+                    <th>Total</th>
                     <?php endif; 
                     if ($jalur=="jn") :?>
-                    <th>TK (Sederajat)</th>
                     <th>KB</th>
                     <th>TPA</th>
                     <th>SPS</th>
+                    <th>SPK KB</th>
                     <th>Total</th>
                     <?php endif ?>
                     <?php } else {?> 
@@ -145,22 +169,26 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     {
                         if ($jalur=="all")
                         {
-                            $total1 = $total1 + $value->tksederajatall;
+                            $total1 = $total1 + $value->tksederajat;
                             $total2 = $total2 + $value->kbsederajat;
                             $total3 = $total3 + $value->tpa;
                             $total4 = $total4 + $value->sps;
                         }
                         else if ($jalur=="jf")
                         {
-                            $total1 = $total1 + $value->total;
-
+                            $total1 = $total1 + $value->tk;
+                            $total2 = $total2 + $value->ra;
+                            $total3 = $total3 + $value->seminari;
+                            $total4 = $total4 + $value->spktk;
+                            $total5 = $total5 + $value->pratama;
+                            $total6 = $total6 + $value->nava;
                         }
                         else if ($jalur=="jn")
                         {
-                            $total1 = $total1 + $value->tksederajatjn;
-                            $total2 = $total2 + $value->kbsederajat;
-                            $total3 = $total3 + $value->tpa;
-                            $total4 = $total4 + $value->sps;
+                            $total1 = $total1 + $value->kb;
+                            $total2 = $total2 + $value->tpa;
+                            $total3 = $total3 + $value->sps;
+                            $total4 = $total4 + $value->spkkb;
                         }
                     }
                     else
@@ -170,22 +198,40 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                 ?>
                 <tr>
                     <td style="padding-right:0px;"><?=$key + 1?></td>
-                    <td align="left" class="link1"><a href="<?=site_url('pendidikan/paud/'.trim($value->kode_wilayah).'/'.($level+1).$cekjalurbentukstatus)?>"><?=$value->nama?></a></td>
+                    <td align="left" class="link1"><a href="<?=site_url('pendidikan/paud/'.
+                    trim($value->kode_wilayah).'/'.($level+1).$cekjalurbentukstatus)?>"><?php
+                    if ($level==0)
+                    {
+                        echo substr($value->nama,5);
+                    }
+                    else if ($level==2)
+                    {
+                        echo substr($value->nama,4);
+                    }
+                    else
+                    {
+                        echo $value->nama;
+                    }?></a></td>
                     <?php if ($bentuk=="all" || $bentuk==null) {?>
                     <?php if ($jalur=="all" || $jalur==null) :?>
-                    <td><?=$value->tksederajatall?></td>
+                    <td><?=$value->tksederajat?></td>
                     <td><?=$value->kbsederajat?></td>
                     <td><?=$value->tpa?></td>
                     <td><?=$value->sps?></td>
 
                     <?php endif; if ($jalur=="jf") :?>
-                   
+                    <td><?=$value->tk?></td>
+                    <td><?=$value->ra?></td>
+                    <td><?=$value->seminari?></td>
+                    <td><?=$value->spktk?></td>
+                    <td><?=$value->pratama?></td>
+                    <td><?=$value->nava?></td>
   
                     <?php endif; if ($jalur=="jn") :?>
-                    <td><?=$value->tksederajatjn?></td>
-                    <td><?=$value->kbsederajat?></td>
+                    <td><?=$value->kb?></td>
                     <td><?=$value->tpa?></td>
                     <td><?=$value->sps?></td>
+                    <td><?=$value->spkkb?></td>
                     <?php endif;?>
                     <?php } ?>
                     <td><?=$value->total?></td>
@@ -198,18 +244,18 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                 <?php if ($bentuk=="all") {?>
                     <?php if ($jalur=="all") { ?>
                         <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
+                    <?php } else if ($jalur=="jf") { ?>
+                        <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
                     <?php } else if ($jalur=="jn") { ?>
                         <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
-                    <?php } else if ($jalur=="jf") { ?>
-                        <tr><th></th><th></th><th></th></tr>
                     <?php } 
                     } else { ?>
                         <tr><th></th><th></th><th></th></tr>
                     <?php } ?>
                 </tfoot>
-            
-            </table>
-            </div>
+
+                </table>
+             </div>
         </div>
     </div>
 <?= $this->endSection() ?>
@@ -222,13 +268,21 @@ $(document).ready( function () {
         columnDefs: [
             { responsivePriority: 1, targets: -1 },
             { targets: 2, render: $.fn.dataTable.render.number('.', ',', 0, '') },
-            <?php if (($jalur=="all" || $jalur=="jn") && $bentuk=="all") { ?>
+            { className: 'text-right', targets: [2] },
+            <?php if ($bentuk=="all") { ?>
                 { targets: 3, render: $.fn.dataTable.render.number('.', ',', 0, '') },
                 { targets: 4, render: $.fn.dataTable.render.number('.', ',', 0, '') },
                 { targets: 5, render: $.fn.dataTable.render.number('.', ',', 0, '') },
                 { targets: 6, render: $.fn.dataTable.render.number('.', ',', 0, '') },
-            <?php } ?>
-            { className: 'text-right', targets: [2,3,4,5,6] }
+                { className: 'text-right', targets: [3,4,5,6] },
+                
+            <?php } if ($jalur=="jf" && $bentuk=="all") { ?>
+                { targets: 7, render: $.fn.dataTable.render.number('.', ',', 0, '') },
+                { targets: 8, render: $.fn.dataTable.render.number('.', ',', 0, '') },
+                { className: 'text-right', targets: [7,8] },
+            <?php }?>
+            // { width: '200px', targets: [1] },
+            // { width: '100px', targets: [1,2] },
         ],
         "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
@@ -255,7 +309,7 @@ $(document).ready( function () {
                     return intVal(a) + intVal(b);
                 }, 0 );
             
-            <?php if (($jalur=="all" || $jalur=="jn") && $bentuk=="all") { ?>
+            <?php if ($bentuk=="all") { ?>
                 var total2 = api
                     .column( 3 )
                     .data()
@@ -285,6 +339,23 @@ $(document).ready( function () {
                     }, 0 );
 				
             <?php } ?>
+
+            <?php if ($jalur=="jf" && $bentuk=="all") { ?>
+                var total6 = api
+                    .column( 7 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+                
+                var total7 = api
+                    .column( 8 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+            <?php } ?>
+
             // Update footer by showing the total with the reference of the column index 
             var numFormat = $.fn.dataTable.render.number( '.', ',', 0, '' ).display;
 
@@ -292,7 +363,7 @@ $(document).ready( function () {
             $( api.column( 1 ).footer() ).html('TOTAL SEMUA');
             $( api.column( 2 ).footer() ).html(numFormat(total1));
             $( api.column( 2 ).footer() ).css({'text-align':'right','padding-right':'15px'});
-            <?php if (($jalur=="all" || $jalur=="jn") && $bentuk=="all") { ?>
+            <?php if ($bentuk=="all") { ?>
                 $( api.column( 3 ).footer() ).html(numFormat(total2));
                 $( api.column( 3 ).footer() ).css({'text-align':'right','padding-right':'15px'});
                 $( api.column( 4 ).footer() ).html(numFormat(total3));
@@ -301,7 +372,12 @@ $(document).ready( function () {
                 $( api.column( 5 ).footer() ).css({'text-align':'right','padding-right':'15px'});
                 $( api.column( 6 ).footer() ).html(numFormat(total5));
                 $( api.column( 6 ).footer() ).css({'text-align':'right','padding-right':'15px'});
-            <?php } ?>
+            <?php } if ($jalur=="jf" && $bentuk=="all") { ?>
+                $( api.column( 7 ).footer() ).html(numFormat(total6));
+                $( api.column( 7 ).footer() ).css({'text-align':'right','padding-right':'15px'});
+                $( api.column( 8 ).footer() ).html(numFormat(total7));
+                $( api.column( 8 ).footer() ).css({'text-align':'right','padding-right':'15px'});
+            <?php }?>
         },
         "processing": true,
     });

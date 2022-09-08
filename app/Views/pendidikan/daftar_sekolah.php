@@ -64,14 +64,13 @@ if ($bentuk=="all")
 
 <?= $this->section('content') ?>
     <div class="breadcrumps"><a href="<?=site_url('pendidikan/paud')?>">Indonesia</a> 
-    <?=$breadcrump1;?>
-    <?=$breadcrump2;?>
-    <?=$breadcrump3;?>
+        <?=$breadcrump1;?>
+        <?=$breadcrump2;?>
+        <?=$breadcrump3;?>
     </div>
     <div class="judulatas">DAFTAR SATUAN PENDIDIKAN (SEKOLAH) <?=strtoupper($tingkat)?> PER <?=$namapilihan?></div>
     <div class="card-body p-0">
-    <center>
-        <div class="">
+        <center>
             <select class="combobox1" id="jalur_pendidikan" name="jalur_pendidikan">
                 <option <?=$piljalur1?> value="all">-Semua Jalur-</option>
                 <option <?=$piljalur2?> value="jf">Jalur Formal</option>
@@ -97,33 +96,32 @@ if ($bentuk=="all")
             <button onclick="filterdata()" class="tb_utama" type="button">
                 Terapkan
             </button>
-    </center>
+        </center>
         <div style="margin:30px;">
             <div class="">
                 <table class="table table-striped" id='table1'>
-                <thead><tr>
-                    <th>#</th>
-                    <th>NPSN</th>
-                    <th>Nama Satuan Pendidikan</th>
-                    <th>Alamat</th>
-                    <th>Kelurahan</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($datanas as $key => $value) :?>
-                
-                <tr>
-                    <td><?=$key + 1?></td>
-                    <td class="link1"><a target="_blank" href="<?=site_url('pendidikan/npsn/'.trim($value->npsn))?>"><?=$value->npsn?></a></td>
-                    <td><?=$value->nama?></td>
-                    <td><?=$value->alamat_jalan?></td>
-                    <td><?=$value->desa_kelurahan?></td>
-                    <td><?=$value->status_skl?></td>
-                </tr>
-                
-                <?php endforeach;?>
-                </tbody></table>
+                    <thead><tr>
+                        <th width="10px">No</th>
+                        <th>NPSN</th>
+                        <th>Nama Satuan Pendidikan</th>
+                        <th>Alamat</th>
+                        <th width='180px'>Kelurahan</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($datanas as $key => $value) :?>
+                    <tr>
+                        <td align="right"><?=$key + 1?></td>
+                        <td class="link1"><a target="_blank" href="<?=site_url('pendidikan/npsn/'.trim($value->npsn))?>"><?=$value->npsn?></a></td>
+                        <td><?=$value->nama?></td>
+                        <td><?=$value->alamat_jalan?></td>
+                        <td><?=$value->desa_kelurahan?></td>
+                        <td><?=$value->status_skl?></td>
+                    </tr>
+                    <?php endforeach;?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -135,7 +133,7 @@ $(document).ready( function () {
     $('#table1').DataTable({
         responsive: true,
         columnDefs: [
-            { responsivePriority: 1, targets: 1 }
+            { responsivePriority: 1, targets: 1 },
         ]
     });
 } );

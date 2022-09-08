@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class Kebudayaan extends BaseController
+class kebudayaan extends BaseController
 {
     public function index()
     {

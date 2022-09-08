@@ -30,6 +30,7 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="<?=base_url()?>/template/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="<?=base_url()?>/template/css/responsive.dataTables.min.css">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/fixedColumns.dataTables.min.css">
   <!-- Animation -->
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/animate-css/animate.css">
   <!-- slick Carousel -->
@@ -38,9 +39,9 @@
   <!-- Colorbox -->
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/colorbox/colorbox.css">
   <!-- Template styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v1.7">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v2.1">
  <!-- Custom styles-->
- <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v1.7">
+ <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v2.1">
 </head>
 <body>
   <div class="body-inner">
@@ -90,6 +91,18 @@
                                   <li><a href="<?=site_url('pendidikan/dikmas')?>">Pendidikan Masyarakat (Dikmas)</a></li>
                                 </ul>
                             </li>
+                            <li>
+                                <a href="<?=site_url('pendidikan/yayasan')?>">Yayasan Pendidikan</a>                                
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Program Layanan</a>
+                                <ul class="dropdown-menu">
+                                  <li><a href="<?=site_url('pendidikan/program/paketa')?>">Paket A</a></li>
+                                  <li><a href="<?=site_url('pendidikan/program/paketb')?>">Paket B</a></li>
+                                  <li><a href="<?=site_url('pendidikan/program/paketc')?>">Paket C</a></li>
+                                  <li><a href="<?=site_url('pendidikan/program/lifeskill')?>">Life Skill</a></li>
+                                </ul>
+                            </li>
                           </ul>
                       </li>
 					<li class="nav-item"><a class="nav-link" href="<?=site_url('kebudayaan')?>">Data Kebudayaan</a></li>
@@ -102,16 +115,29 @@
         </div>
         <!--/ Row end -->
 
-        <div class="nav-search">
-          <span>Cari Sekolah/NPSN &nbsp;&nbsp;&nbsp;<i class="fa fa-search"></i></span>
-        </div>
-
-        <div class="search-block" style="display: none;">
+        <?php if ($tingkat!="yayasan")
+        {?>
+          <div class="nav-search">
+            <span>Cari Sekolah/NPSN &nbsp;&nbsp;&nbsp;<i class="fa fa-search"></i></span>
+          </div>
+          <div class="search-block" style="display: none;">
           <label for="search-field" class="w-100 mb-0">
             <input type="text" class="form-control" id="search-field" placeholder="Ketik Nama Sekolah / NPSN">
           </label>
           <span class="search-close">&times;</span>
-        </div><!-- Site search end -->
+        </div>
+        <?php } else {?>
+          <div class="nav-search">
+            <span>Cari Yayasan/NPYP &nbsp;&nbsp;&nbsp;<i class="fa fa-search"></i></span>
+          </div>
+          <div class="search-block" style="display: none;">
+          <label for="search-field" class="w-100 mb-0">
+            <input type="text" class="form-control" id="search-field" placeholder="Ketik Nama Yayasan / NPYP">
+          </label>
+          <span class="search-close">&times;</span>
+        </div>
+        <?php } ?>
+        <!-- Site search end -->
     </div>
     <!--/ Container end -->
 
@@ -145,6 +171,8 @@
   <!-- DataTables -->
   <script src="<?=base_url()?>/template/js/jquery.dataTables.min.js"></script>
   <script src="<?=base_url()?>/template/js/dataTables.responsive.min.js"></script>
+  <script src="<?=base_url()?>/template/js/dataTables.fixedColumns.min.js"></script>
+
   <!-- Slick Carousel -->
   <script src="<?=base_url()?>/template/plugins/slick/slick.min.js"></script>
   <script src="<?=base_url()?>/template/plugins/slick/slick-animation.min.js"></script>
@@ -173,7 +201,12 @@
         var code = (e.keyCode ? e.keyCode : e.which);
         if (code == 13) { //Enter keycode                        
             e.preventDefault();
-            window.open("<?=site_url('pendidikan/cari/')?>"+$("#search-field").val(),"_self");
+            window.open("<?php
+            if ($tingkat!="yayasan")
+              echo site_url('pendidikan/cari/');
+            else
+              echo site_url('pendidikan/cariyayasan/');
+            ?>"+$("#search-field").val(),"_self");
             // $("yourFormId").submit();
         }
     };

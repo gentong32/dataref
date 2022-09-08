@@ -18,13 +18,13 @@ class DataModelDikmas extends Model
     protected $skb = "s.bentuk_pendidikan_id=40";
     protected $ponpes = "s.bentuk_pendidikan_id=56";
 
-    protected $dikmasformal = "s.bentuk_pendidikan_id=24 OR 
+    protected $dikmasnonformal = "s.bentuk_pendidikan_id=24 OR 
     s.bentuk_pendidikan_id=26 OR 
     s.bentuk_pendidikan_id=27 OR 
     s.bentuk_pendidikan_id=40 OR 
     s.bentuk_pendidikan_id=56";
 
-    protected $dikmasnonformal = "s.bentuk_pendidikan_id=99999";
+    protected $dikmasformal = "s.bentuk_pendidikan_id=99999";
 
     public function getTotalDikmas($status,$kode,$level,$jalur,$bentuk) {
 
@@ -58,7 +58,7 @@ class DataModelDikmas extends Model
                     GROUP BY w.nama, w.kode_wilayah, w.mst_kode_wilayah 
                     ORDER BY kode_wilayah";
             }
-            else if ($jalur=="jf")
+            else if ($jalur=="jn")
             {
                 $sql = "SELECT 
                     SUM(CASE WHEN (".$this->dikmasall.") THEN 1 ELSE 0 END) total,
@@ -74,7 +74,7 @@ class DataModelDikmas extends Model
                     GROUP BY w.nama, w.kode_wilayah, w.mst_kode_wilayah 
                     ORDER BY kode_wilayah";
             }
-            else if ($jalur=="jn")
+            else if ($jalur=="jf")
             {
                 $sql = "SELECT 
                     SUM(CASE WHEN (s.bentuk_pendidikan_id=99999) THEN 1 ELSE 0 END) total,

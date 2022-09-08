@@ -1,9 +1,36 @@
+.infoyayasan {
+  color: rgb(60, 60, 60);
+  font-size:10pt;
+}
+
+.infoyayasan h5 {
+  color: rgb(60, 60, 60);
+  padding-top:10px;
+  margin:0px;
+  font-size:10pt;
+}
+
+.infoyayasan hr {
+  border-top: 1px solid black;
+  padding:0px;
+  margin:0px;
+}
+
+.mytable {
+  margin:30px;
+}
+
 .text-right {
   text-align: right;
 }
 
 #table1 td {
   padding-right: 15px;
+}
+
+#table1 thead th {
+  vertical-align: middle;
+  background-color: lightgrey;
 }
 
 #page-container {

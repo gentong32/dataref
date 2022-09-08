@@ -7,6 +7,8 @@ use App\Models\DataModelDikmen;
 use App\Models\DataModelDikti;
 use App\Models\DataModelDikmas;
 use App\Models\DataModelPendidikan;
+use App\Models\DataModelYayasan;
+use App\Models\DataModelProgram;
 
 class Pendidikan extends BaseController
 {
@@ -17,6 +19,8 @@ class Pendidikan extends BaseController
         $this->datamodeldikti = new DataModelDikti();
         $this->datamodeldikmas = new DataModelDikmas();
         $this->datamodelpendidikan = new DataModelPendidikan();
+        $this->datamodelprogram = new DataModelProgram();
+        $this->datamodelyayasan = new DataModelYayasan();
     }
 
     public function index()
@@ -34,7 +38,7 @@ class Pendidikan extends BaseController
         $data['status'] = $status;
 
         if ($level==0) {
-            $data['namapilihan'] = "PROPINSI";
+            $data['namapilihan'] = "PROVINSI";
         }
         else {
             $namapilihan = $this->datamodelpaud->getNamaPilihan($kode);
@@ -91,7 +95,7 @@ class Pendidikan extends BaseController
         $data['status'] = $status;
 
         if ($level==0) {
-            $data['namapilihan'] = "PROPINSI";
+            $data['namapilihan'] = "PROVINSI";
         }
         else {
             $namapilihan = $this->datamodeldikdas->getNamaPilihan($kode);
@@ -152,7 +156,7 @@ class Pendidikan extends BaseController
         $data['status'] = $status;
 
         if ($level==0) {
-            $data['namapilihan'] = "PROPINSI";
+            $data['namapilihan'] = "PROVINSI";
         }
         else {
             $namapilihan = $this->datamodeldikmen->getNamaPilihan($kode);
@@ -210,7 +214,7 @@ class Pendidikan extends BaseController
         $data['status'] = $status;
 
         if ($level==0) {
-            $data['namapilihan'] = "PROPINSI";
+            $data['namapilihan'] = "PROVINSI";
         }
         else {
             $namapilihan = $this->datamodeldikti->getNamaPilihan($kode);
@@ -266,7 +270,7 @@ class Pendidikan extends BaseController
         $data['status'] = $status;
 
         if ($level==0) {
-            $data['namapilihan'] = "PROPINSI";
+            $data['namapilihan'] = "PROVINSI";
         }
         else {
             $namapilihan = $this->datamodeldikmas->getNamaPilihan($kode);
@@ -312,13 +316,103 @@ class Pendidikan extends BaseController
 
     }
 
+    public function yayasan($kode='000000', $level=0)
+    {
+        $data['tingkat'] = "yayasan";
+        $data['kode'] = $kode;
+        $data['level'] = $level;
+
+        if ($level==0) {
+            $data['namapilihan'] = "PROVINSI";
+        }
+        else {
+            $namapilihan = $this->datamodelyayasan->getNamaPilihan($kode);
+            $resultquery = $namapilihan->getResult();
+            $data['namapilihan'] = strToUpper($resultquery[0]->nama);
+        }
+
+        $namalevel1 = $this->datamodelyayasan->getNamaPilihan(substr($kode,0,2)."0000");
+        $result1 = $namalevel1->getResult();
+        $data['namalevel1'] = $result1[0]->nama;
+        $namalevel2 = $this->datamodelyayasan->getNamaPilihan(substr($kode,0,4)."00");
+        $result2 = $namalevel2->getResult();
+        $data['namalevel2'] = $result2[0]->nama;
+        $namalevel3 = $this->datamodelyayasan->getNamaPilihan(substr($kode,0,6));
+        $result3 = $namalevel3->getResult();
+        $data['namalevel3'] = $result3[0]->nama;
+
+        if ($level<3) {
+            $query = $this->datamodelyayasan->getTotalYayasan($kode,$level);
+            $data['datanas'] = $query->getResult();
+            return view('pendidikan/data_nasional_yayasan', $data);
+        }
+        else
+        {
+            $kodebaru = substr($kode,0,6);
+            $query = $this->datamodelyayasan->getDaftarYayasan($kodebaru);
+            $data['datanas'] = $query->getResult();
+            return view('pendidikan/daftar_yayasan', $data);       
+        }
+
+    }
+
+    public function program($bentuk, $kode='000000', $level=0)
+    {
+        $data['tingkat'] = $bentuk;
+        $data['kode'] = $kode;
+        $data['level'] = $level;
+
+        if ($level==0) {
+            $data['namapilihan'] = "PROVINSI";
+        }
+        else {
+            $namapilihan = $this->datamodelprogram->getNamaPilihan($kode);
+            $resultquery = $namapilihan->getResult();
+            $data['namapilihan'] = strToUpper($resultquery[0]->nama);
+        }
+
+        $namalevel1 = $this->datamodelprogram->getNamaPilihan(substr($kode,0,2)."0000");
+        $result1 = $namalevel1->getResult();
+        $data['namalevel1'] = $result1[0]->nama;
+        $namalevel2 = $this->datamodelprogram->getNamaPilihan(substr($kode,0,4)."00");
+        $result2 = $namalevel2->getResult();
+        $data['namalevel2'] = $result2[0]->nama;
+        $namalevel3 = $this->datamodelprogram->getNamaPilihan(substr($kode,0,6));
+        $result3 = $namalevel3->getResult();
+        $data['namalevel3'] = $result3[0]->nama;
+
+        if ($level<3) {
+            $query = $this->datamodelprogram->getTotalProgram($bentuk,$kode,$level);
+            $data['datanas'] = $query->getResult();
+            return view('pendidikan/data_nasional_program', $data);
+        }
+        else
+        {
+            $kodebaru = substr($kode,0,6);
+            $query = $this->datamodelprogram->getDaftarProgram($bentuk,$kodebaru);
+            $data['datanas'] = $query->getResult();
+            return view('pendidikan/daftar_program', $data);
+        }
+
+    }
+
     public function cari($kode)
     {
-       
+        $data['tingkat'] = "sekolah";
         $data['kode'] = $kode;
         $query = $this->datamodelpendidikan->getCariDaftarSekolah($kode);
         $data['datanas'] = $query->getResult();
         return view('pendidikan/hasilcari_sekolah', $data);
+        
+    }
+
+    public function cariyayasan($kode)
+    {
+        $data['tingkat'] = "yayasan";
+        $data['kode'] = $kode;
+        $query = $this->datamodelpendidikan->getCariDaftarYayasan($kode);
+        $data['datanas'] = $query->getResult();
+        return view('pendidikan/hasilcari_yayasan', $data);
         
     }
 
