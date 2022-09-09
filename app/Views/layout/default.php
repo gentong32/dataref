@@ -39,9 +39,9 @@
   <!-- Colorbox -->
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/colorbox/colorbox.css">
   <!-- Template styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v2.1">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v2.4">
  <!-- Custom styles-->
- <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v2.1">
+ <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v2.4">
 </head>
 <body>
   <div class="body-inner">
@@ -123,6 +123,7 @@
           <div class="search-block" style="display: none;">
           <label for="search-field" class="w-100 mb-0">
             <input type="text" class="form-control" id="search-field" placeholder="Ketik Nama Sekolah / NPSN">
+            <button onclick="yukcari()" class="search-ok">Cari</button>
           </label>
           <span class="search-close">&times;</span>
         </div>
@@ -133,6 +134,7 @@
           <div class="search-block" style="display: none;">
           <label for="search-field" class="w-100 mb-0">
             <input type="text" class="form-control" id="search-field" placeholder="Ketik Nama Yayasan / NPYP">
+            <button onclick="yukcari()" class="search-ok">Cari</button>
           </label>
           <span class="search-close">&times;</span>
         </div>
@@ -210,4 +212,13 @@
             // $("yourFormId").submit();
         }
     };
+
+    function yukcari() {
+      window.open("<?php
+            if ($tingkat!="yayasan")
+              echo site_url('pendidikan/cari/');
+            else
+              echo site_url('pendidikan/cariyayasan/');
+            ?>"+$("#search-field").val(),"_self");
+    }
   </script>

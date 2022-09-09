@@ -38,6 +38,17 @@
   min-height: 78vh;
 }
 
+.tophome
+{
+  margin-top:30px;
+}
+
+@media (max-width: 991px) {
+  .tophome {
+    margin-top: 0px;
+  }
+}
+
 #content-wrap {
   padding-bottom: 2.5rem;    /* Footer height */
 }
@@ -67,6 +78,10 @@
 
 .link1 {
     color: #3055be;
+  }
+
+.link2 {
+    color: red;
   }
 
 .nodata {

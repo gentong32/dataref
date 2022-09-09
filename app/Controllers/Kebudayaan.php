@@ -2,10 +2,11 @@
 
 namespace App\Controllers;
 
-class kebudayaan extends BaseController
+class Kebudayaan extends BaseController
 {
     public function index()
     {
-        return "under construction ....";
+        $data['tingkat'] = "budaya";
+        return view('homekebudayaan', $data);
     }
 }

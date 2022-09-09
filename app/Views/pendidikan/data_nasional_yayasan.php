@@ -101,15 +101,22 @@ $styletabel = "max-width:700px;";
                         </div>
                     </div>
                 </div>
+                <span style="margin-left:20px;color:darkgrey;padding-bottom:25px;"><i>*) Proses Verifikasi dan Validasi</i></span><br><br>
             </div>
             <div class="col-sm-3 col-md-6 col-lg-4" style="margin-bottom:20px;">
                 <div class="infoyayasan" style="height:90%;background-color: #e3ecee;margin:20px;padding:10px;">
                 <h5>Definisi Yayasan Pendidikan</h5>
-                    Yayasan Pendidikan adalah<br>
+                Yayasan pendidikan adalah yayasan yang menyelenggarakan pendidikan baik formal maupun nonformal.<br>
                 <h5>Dasar Hukum</h5>
-                    Dasar hukumnya <br>
-                <h5>Aturan/mekanisme verifikasi</h5>
-                    Aturan/mekanisme verifikasi adalah sebagai berikut<br>
+                    Dasar hukum Pendirian Satuan Pendidikan <span style="font-weight:600;color:grey">(Kemdikbudristek)</span>: Permendikbud No. 81 Tahun 2013 Pasal 2, Permendikbud No. 36 Tahun 2014 Pasal 2, 
+                    Permendikbud No. 84 Tahun 2014 Pasal 2, Permendikbud No. 7 Tahun 2020 Pasal 1.<br>
+                    Dasar hukum Pendirian Satuan Pendidikan <span style="font-weight:600;color:grey">(Kemenag)</span>: PMA No. 14 Tahun 2014 Pasal, 
+                    PMA No. 66 Tahun 2016 Pasal 9, PMA No. 30 Tahun 2020 Pasal 3, PMA No. 54 Tahun 2014 Pasal 4, 
+                    PMA No. 27 Tahun 2016 Pasal 6,PMA No. 10 Tahun 2020 Pasal 6,PMA No. 39 Tahun 2014 Pasal 6.
+                    <br>
+                    <br>
+                <!-- <h5>Aturan/mekanisme verifikasi</h5>
+                    Operator melaporkan ke Pusat kemudian Operator melaporkan ke Pusat lalu Operator melaporkan ke Pusat<br> -->
                 </div>
             </div>
         </div>

@@ -143,13 +143,13 @@
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td>No. SK. Operasional</td>
+                <td>Nomor SK Operasional</td>
                 <td>:</td>
                 <td><?=$datasekolah->sk_izin_operasional?></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td>Tanggal. SK. Operasional</td>
+                <td>Tanggal SK Operasional</td>
                 <td>:</td>
                 <td><?php
                 $date2 = $datasekolah->tanggal_sk_izin_operasional;
@@ -163,6 +163,40 @@
                     echo date('d-m-Y', strtotime($date2));
                 }
                 
+                ?></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>File SK Operasional</td>
+                <td>:</td>
+                <td><?php
+                if ($datask)
+                {
+                    if (substr($datask->pathfile,-4,4)==".pdf") {?>
+                        <a class="link1" target="_blank" href="https://vervalsp.data.kemdikbud.go.id/verval/dokumen/skoperasional/<?=$datask->pathfile?>">Lihat SK Operasional</a>
+                    <?php } else {?>
+                        <a class="link2" target="_blank" href="https://vervalsp.data.kemdikbud.go.id">Silakan Upload SK (link file tidak valid)</a> => [<?=$datask->pathfile?>]
+                    <?php }
+                }
+                else
+                {?>
+                    <a class="link2" target="_blank" href="https://vervalsp.data.kemdikbud.go.id">Silakan Upload SK</a>
+                <?php }
+                ?></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>Tanggal Upload SK Op.</td>
+                <td>:</td>
+                <td><?php
+                if ($datask)
+                {?>
+                    <?=$datask->tgl_path?>
+                <?php }
+                else
+                {
+                    echo "-";
+                }
                 ?></td>
             </tr>
             <tr>
@@ -276,14 +310,15 @@
                 <td><?php
                 if ($datasekolah->email!=null)
                     {
-                    if (substr($datasekolah->email, -6)=="sch.id" || (session('id_user')))
-                    {
                         echo $datasekolah->email;
-                    }
-                    else
-                    {
-                        echo "";
-                    }
+                    // if (substr($datasekolah->email, -6)=="sch.id" || (session('id_user')))
+                    // {
+                    //     echo $datasekolah->email;
+                    // }
+                    // else
+                    // {
+                    //     echo "";
+                    // }
                 }?></td>
             </tr>
             <tr>

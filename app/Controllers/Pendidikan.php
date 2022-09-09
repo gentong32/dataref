@@ -416,8 +416,11 @@ class Pendidikan extends BaseController
         
     }
 
-    public function npsn($kode)
+    public function npsn($kode=null)
     {
+        if ($kode==null)
+        $kode = $_GET['npsn'];
+
         $query = $this->datamodelpendidikan->getCariNamaAtauNPSN($kode);
         $datasekolah = $query->getRow();
         $kodwil = $datasekolah->kode_wilayah;
@@ -429,9 +432,19 @@ class Pendidikan extends BaseController
         $query3 = $this->datamodelpendidikan->getOperatorSekolah($kode);
         $data['dataoperator'] = $query3->getRow();
 
+        $query4 = $this->datamodelpendidikan->getFileSK($datasekolah->sekolah_id);
+        $data['datask'] = $query4->getRow(); 
+
         //print_r($query->getRow());
+        // die();
         
         return view('pendidikan/detail_sekolah', $data);
+    }
+
+    public function npsn2()
+    {
+        $npsn = $_GET['npsn'];
+        echo $npsn;
     }
 
     public function getbentukpendidikan()

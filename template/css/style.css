@@ -1096,8 +1096,16 @@ ul.navbar-nav > li > a {
 .nav-search {
   position: absolute;
   cursor: pointer;
-  top: 22px;
+  top: 50px;
   right: 18px;
+  color: black;
+}
+
+.search-ok {
+  position: absolute;
+  cursor: pointer;
+  top: 15px;
+  right: 5px;
   color: black;
 }
 
@@ -1111,7 +1119,7 @@ ul.navbar-nav > li > a {
 
 @media (max-width: 991px) {
   .nav-search {
-    top: 17px;
+    top: 50px;
   }
 }
 
@@ -1129,7 +1137,7 @@ ul.navbar-nav > li > a {
 }
 @media (max-width: 991px) {
   .search-block {
-    top: 58px;
+    top: 75px;
   }
 }
 
@@ -1145,7 +1153,7 @@ ul.navbar-nav > li > a {
 .search-block .search-close {
   color: #999;
   position: absolute;
-  top: -53px;
+  top: -25px;
   right: -4px;
   font-size: 32px;
   cursor: pointer;
@@ -1154,7 +1162,7 @@ ul.navbar-nav > li > a {
 }
 @media (max-width: 991px) {
   .search-block .search-close {
-    top: -46px;
+    top: -25px;
   }
 }
 

@@ -6,6 +6,8 @@ use CodeIgniter\Model;
 
 class DataModelPendidikan extends Model
 {
+    protected $table   = 'bid2.skoperasional';
+
     public function getCariNamaAtauNPSN($kode)
     {
         // $sql   = "SELECT max(ak.tahun) as tahun,s.sk_izin_operasional,s.tanggal_sk_izin_operasional,
@@ -43,7 +45,7 @@ class DataModelPendidikan extends Model
                  60,44,45,61,62,63,64,65) THEN 'Kementerian Agama'
              WHEN s.npsn IN ('10646356', '30314295', '69734022') THEN 'Kementerian Pertanian'
              WHEN s.npsn IN ('10110454', '30108179', '10308148', '40313544', 
-             '20407427', '10814611', '20238524') THEN 'Kementerian Perindustrian'
+             '20407427', '10814611', '20238524', '20238524') THEN 'Kementerian Perindustrian'
              WHEN s.npsn IN ('69924881','69769420','69772845','10112822','10310815',
                  '30112509','60404134','69787011','60104523') THEN 'Kementerian Kelautan dan Perikanan'
              ELSE 'Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi' 
@@ -56,6 +58,30 @@ class DataModelPendidikan extends Model
         $query = $this->db->query($sql, [
             'npsn'  => $kode
         ]);
+
+        return $query;
+    }
+
+    public function getFileSK($sekolahid)
+    {
+
+        $this->db = \Config\Database::connect("dbnpsn");
+
+    
+        $sql = "SELECT o.*, max(insert_date) as tgl_path 
+        FROM bid2.skoperasional o 
+        WHERE soft_delete = 0 AND sekolah_id = :sekolahid: 
+        GROUP BY sekolah_id,pathfile,insert_date,soft_delete";
+
+        $query = $this->db->query($sql, [
+                'sekolahid'  => $sekolahid
+            ]);
+
+        if (!$query)
+        {
+            $this->db = \Config\Database::connect("");
+            $query = $this->db->query("select * from Arsip.dbo.yayasan where nama='9999999'");
+        }
 
         return $query;
     }
