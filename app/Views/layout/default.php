@@ -105,8 +105,12 @@
                             </li>
                           </ul>
                       </li>
-					<li class="nav-item"><a class="nav-link" href="<?=site_url('kebudayaan')?>">Data Kebudayaan</a></li>
-
+                      <li class="nav-item dropdown">
+                          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Data Kebudayaan <i class="fa fa-angle-down"></i></a>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="<?=site_url('kebudayaan/cagarbudaya')?>">Cagar Budaya</a></li>
+                          </ul>
+                      </li>
                     </ul>
                 </div>
               </nav>
@@ -115,7 +119,19 @@
         </div>
         <!--/ Row end -->
 
-        <?php if ($tingkat!="yayasan")
+        <?php if ($tingkat=="kebudayaan")
+        {?>
+          <div class="nav-search">
+            <span>Pencarian &nbsp;&nbsp;&nbsp;<i class="fa fa-search"></i></span>
+          </div>
+          <div class="search-block" style="display: none;">
+          <label for="search-field" class="w-100 mb-0">
+            <input type="text" class="form-control" id="search-field" placeholder="Silakan ketik disini">
+            <button onclick="yukcari()" class="search-ok">Cari</button>
+          </label>
+          <span class="search-close">&times;</span>
+        </div>
+        <?php } else if ($tingkat!="yayasan")
         {?>
           <div class="nav-search">
             <span>Cari Sekolah/NPSN &nbsp;&nbsp;&nbsp;<i class="fa fa-search"></i></span>
@@ -215,7 +231,9 @@
 
     function yukcari() {
       window.open("<?php
-            if ($tingkat!="yayasan")
+            if ($tingkat=="kebudayaan")
+              echo site_url('kebudayaan/cari/');
+            else if ($tingkat!="yayasan")
               echo site_url('pendidikan/cari/');
             else
               echo site_url('pendidikan/cariyayasan/');

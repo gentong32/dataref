@@ -68,7 +68,26 @@ class Database extends Config
         'failover' => [],
     ];
 
-    public $jajal = [
+    public $dbproses = [
+        'DSN'      => '',
+        'hostname' => '',
+        'username' => '',
+        'password' => '',
+        'database' => '',
+        'DBDriver' => '',
+        'DBPrefix' => '',
+        'pConnect' => false,
+        'DBDebug'  => (ENVIRONMENT !== 'production'),
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'swapPre'  => '',
+        'encrypt'  => false,
+        'compress' => false,
+        'strictOn' => false,
+        'failover' => [],
+    ];
+
+    public $dbbudaya = [
         'DSN'      => '',
         'hostname' => '',
         'username' => '',

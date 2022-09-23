@@ -16,7 +16,10 @@ $judulnama = "Nama Provinsi";
 if ($level==1)
 {
     $breadcrump1 = ">> ".$namalevel1;
-    $judulnama = "Nama Kota/Kabupaten";
+    if (substr($kode,0,2)!='35')
+        $judulnama = "Nama Kota/Kabupaten";
+    else
+        $judulnama = "Nama Negara";
 }
 else if ($level>1)
 {
@@ -26,7 +29,10 @@ else if ($level>1)
 if ($level==2)
 {
     $breadcrump2 = ">> ".$namalevel2;
-    $judulnama = "Nama Kecamatan";
+    if (substr($kode,0,2)!='35')
+        $judulnama = "Nama Kecamatan";
+    else
+        $judulnama = "Nama Kota";
 }
 else if ($level>2)
 {
@@ -200,11 +206,11 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <td style="padding-right:0px;"><?=$key + 1?></td>
                     <td align="left" class="link1"><a href="<?=site_url('pendidikan/paud/'.
                     trim($value->kode_wilayah).'/'.($level+1).$cekjalurbentukstatus)?>"><?php
-                    if ($level==0)
+                    if ($level==0 && $value->nama!="Luar Negeri")
                     {
                         echo substr($value->nama,5);
                     }
-                    else if ($level==2)
+                    else if ($level==2 && substr($kode,0,2)!='35')
                     {
                         echo substr($value->nama,4);
                     }

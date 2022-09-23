@@ -16,7 +16,7 @@ class DataModelPaud extends Model
     s.bentuk_pendidikan_id=52 OR 
     s.bentuk_pendidikan_id=57 OR 
     s.bentuk_pendidikan_id=61";
-
+    
     protected $paudjf = "s.bentuk_pendidikan_id=1 OR 
     s.bentuk_pendidikan_id=34 OR 
     s.bentuk_pendidikan_id=41 OR 
@@ -49,6 +49,49 @@ class DataModelPaud extends Model
     protected $spktk = "s.bentuk_pendidikan_id=52";
     protected $pratama = "s.bentuk_pendidikan_id=57";
     protected $nava = "s.bentuk_pendidikan_id=61";
+
+    // protected $paudall2 = "s.bp1 + 
+    // s.bp2 + 
+    // s.bp3 + 
+    // s.bp4  + 
+    // s.bp34  + 
+    // s.bp41  + 
+    // s.bp43  + 
+    // s.bp52 + 
+    // s.bp57  + 
+    // s.bp61";
+    
+    // protected $paudjf2 = "s.bp1 + 
+    // s.bp34 + 
+    // s.bp41 + 
+    // s.bp52 + 
+    // s.bp57 + 
+    // s.bp61";
+    
+    // protected $paudjn2 = "s.bp2 + 
+    // s.bp3 + 
+    // s.bp4 + 
+    // s.bp43";
+    
+    // protected $tksederajat2 = "s.bp1 + 
+    // s.bp34 + 
+    // s.bp41 + 
+    // s.bp52 + 
+    // s.bp57 + 
+    // s.bp61";
+    
+    // protected $kbsederajat2 = "s.bp2 + s.bp43";
+
+    // protected $tk2 = "s.bp1";
+    // protected $kb2 = "s.bp2";
+    // protected $tpa2 = "s.bp3";
+    // protected $sps2 = "s.bp4";
+    // protected $ra2 = "s.bp34";
+    // protected $seminari2 = "s.bp41";
+    // protected $spkkb2 = "s.bp43";
+    // protected $spktk2 = "s.bp52";
+    // protected $pratama2 = "s.bp57";
+    // protected $nava2 = "s.bp61";
 
     public function getTotalPaud($status,$kode,$level,$jalur,$bentuk) {
 
@@ -140,6 +183,87 @@ class DataModelPaud extends Model
                 'kodebaru'  => $kodebaru,
                 'bentuknya' => $bentuk
             ]);
+        }
+
+        return $query;
+    }
+
+    public function getTotalPaud2($status,$kode,$level,$jalur,$bentuk) {
+        
+        $nkar = $level * 2;
+        $nkar2 = $nkar + 2;
+        $levelbaru = $level+1;
+        $kodebaru = substr($kode,0,$nkar);
+        $levelbaru = intval($levelbaru);
+
+        if ($status=="all")
+            $wherestatus = "";
+        else if ($status=="s1")
+            $wherestatus = " AND status_sekolah_id = 1 ";
+        else if ($status=="s2")
+            $wherestatus = " AND status_sekolah_id = 2 ";
+
+
+        if ($bentuk=="all")
+        {
+            if ($jalur=="all")
+            {
+                $sql = "SELECT nama, kode_wilayah, 
+                    sum (".$this->paudall2.") as total,
+                    sum (".$this->tksederajat2.") as tksederajat,
+                    sum (".$this->kbsederajat2.") as kbsederajat,
+                    sum (".$this->tpa2.") as tpa,
+                    sum (".$this->sps2.") as sps 
+                    FROM Dataprocess.dev.satuan_pendidikan_lv".$levelbaru." s 
+                    WHERE LEFT(kode_wilayah,:nkar:)=:kodebaru:".$wherestatus." 
+                    GROUP BY nama, kode_wilayah 
+                    ORDER BY kode_wilayah";
+            }
+            else if ($jalur=="jf")
+            {
+                $sql = "SELECT nama, kode_wilayah, 
+                    sum (".$this->paudjf2.") as total,
+                    sum (".$this->tk2.") as tk,
+                    sum (".$this->ra2.") as ra,
+                    sum (".$this->seminari2.") as seminari,
+                    sum (".$this->spktk2.") as spktk,
+                    sum (".$this->pratama2.") as pratama,
+                    sum (".$this->nava2.") as nava
+                    FROM Dataprocess.dev.satuan_pendidikan_lv".$levelbaru." s 
+                    ".$wherestatus." 
+                    GROUP BY nama,kode_wilayah 
+                    ORDER BY kode_wilayah";
+            }
+            else if ($jalur=="jn")
+            {
+                $sql = "SELECT nama, kode_wilayah, 
+                    sum (".$this->paudjn2.") as total,
+                    sum (".$this->kb2.") as kb,
+                    sum (".$this->tpa2.") as tpa,
+                    sum (".$this->sps2.") as sps,
+                    sum (".$this->spkkb2.") as spkkb,
+                    FROM Dataprocess.dev.satuan_pendidikan_lv".$levelbaru." s 
+                    ".$wherestatus." 
+                    GROUP BY nama,kode_wilayah 
+                    ORDER BY kode_wilayah";
+            }
+            
+            $query = $this->db->query($sql,[
+                'nkar'  => $nkar,
+                'kodebaru'  => $kodebaru
+            ]);
+        }
+        else
+        {
+            $bentuk = intval($bentuk);
+
+            $sql   = "SELECT sum(bp".$bentuk.") as total,
+            nama, kode_wilayah FROM Dataprocess.dev.satuan_pendidikan_lv".$levelbaru." s 
+            ".$wherestatus." 
+            GROUP BY nama,kode_wilayah 
+            ORDER BY kode_wilayah";
+            
+            $query = $this->db->query($sql);
         }
 
         return $query;

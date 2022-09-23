@@ -175,4 +175,78 @@ class DataModelPendidikan extends Model
         return $query;
     }
 
+    public function setTotalPendidikan($level)
+    {
+        
+        // $sql0 = "CREATE TABLE Dataprocess.dev.satuan_pendidikan_lv3 (
+        //     ID int NOT NULL,";
+        // for ($a=1;$a<=72;$a++)
+        // {
+        //     $sql0=$sql0."bp".$a." int NOT NULL,";
+        // }
+        // $sql0=$sql0."kode_wilayah char(8),
+        //     PRIMARY KEY (ID)
+        // );";
+
+        $level=intval($level);
+        $nkar = $level*2;
+
+        $sql0 = "TRUNCATE TABLE Dataprocess.dev.satuan_pendidikan_lv".$level;
+        $this->db->query($sql0);
+        $sql1 = "DBCC CHECKIDENT ('Dataprocess.dev.satuan_pendidikan_lv".$level."', RESEED, 0)";
+        $this->db->query($sql1);
+
+        
+
+        $sql2 = "SELECT ";
+        for ($a=1;$a<=72;$a++)
+        {
+            $sql2=$sql2." SUM(CASE WHEN s.bentuk_pendidikan_id=".$a." THEN 1 ELSE 0 END) bpi".$a.", ";
+        }
+        $sql2 = $sql2 . "w.nama, w.kode_wilayah, s.status_sekolah
+        FROM Arsip.dbo.sekolah s 
+        JOIN Referensi.ref.mst_wilayah w ON LEFT(w.kode_wilayah,".$nkar.")=LEFT(s.kode_wilayah,".$nkar.") 
+        WHERE s.soft_delete=0 AND id_level_wilayah=".$level." 
+        GROUP BY w.nama, w.kode_wilayah, w.mst_kode_wilayah, s.status_sekolah";
+
+        // $query = $this->db->get();
+
+        $query = $this->db->query($sql2);
+        
+        $jalankan=true;
+
+        if ($jalankan) // if result found
+        {
+            $row = $query->getResult('array'); // get result in an array format
+            $data = array();
+            $nomor=0;
+            foreach($row as $values){
+                $nomor++;
+                $data = [];
+                for ($b=1;$b<=72;$b++)
+                {
+                    $data['bp'.$b] = $values['bpi'.$b];
+                }
+                $data['kode_wilayah'] = $values['kode_wilayah'];
+                $sql3 = "INSERT INTO Dataprocess.dev.satuan_pendidikan_lv".$level." (";
+                for ($c=1;$c<=71;$c++)
+                {
+                    $sql3=$sql3."bp".$c.",";
+                }
+                $sql3=$sql3."bp72,kode_wilayah,nama,status_sekolah_id) VALUES (";
+                for ($c=1;$c<=71;$c++)
+                {
+                    $sql3=$sql3.$values['bpi'.$c].",";
+                }
+                $sql3=$sql3.$values['bpi'.$c].",'".$values['kode_wilayah']."','".$values['nama']."','".$values['status_sekolah']."');";
+                $query = $this->db->query($sql3);
+             }
+         }
+     
+
+        // echo "<pre>";
+        // echo var_dump($query->getResult());
+        // echo "</pre>";
+    }
+
 }
