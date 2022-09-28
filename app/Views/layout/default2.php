@@ -37,7 +37,7 @@
   <!-- Template styles-->
   <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v2.0">
   <!-- Custom styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v2.0">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v2.1">
 
   <!-- Leaflet Maps styles-->
   <link rel="stylesheet" href="<?=base_url()?>/leaflet/leaflet.css">
@@ -54,7 +54,7 @@
           <div class="row align-items-center">
             <div>
                 <a href="index.html">
-                  <img style="max-width:320px" src="<?=base_url()?>/template/images/logodataref.png" alt="Constra">
+                  <img style="max-width:320px" src="<?=base_url()?>/template/images/logodataref.png" alt="logo">
                 </a>
             </div><!-- logo end -->          
           </div><!-- logo area end -->

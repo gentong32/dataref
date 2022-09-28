@@ -10,35 +10,22 @@ class DataModelPendidikan extends Model
 
     public function getCariNamaAtauNPSN($kode)
     {
-        // $sql   = "SELECT max(ak.tahun) as tahun,s.sk_izin_operasional,s.tanggal_sk_izin_operasional,
-        // s.tanggal_sk_pendirian,s.sk_pendirian_sekolah,s.yayasan_id, s.lintang, s.bujur,
-        // s.kode_wilayah,s.nama as nama_sekolah,s.npsn,s.alamat_jalan, ra.nama as akreditasi,
-        // s.desa_kelurahan, k.nama as naungan, s.luas_tanah_milik, s.luas_tanah_bukan_milik, 
-        // CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl, b.nama as bentuk_pendidikan, 
-        // CASE WHEN npyp IS NULL THEN '-' ELSE npyp END AS npyp, 
-        // CASE WHEN s.bentuk_pendidikan_id IN (9,10,16,17,34,36,37,38,56,39,41,57,58,59,
-        //         60,44,45,61,62,63,64,65) THEN 'Kementerian Agama'
-        //     WHEN s.npsn IN ('10646356', '30314295', '69734022') THEN 'Kementerian Pertanian'
-        //     WHEN s.npsn IN ('10110454', '30108179', '10308148', '40313544', 
-        //     '20407427', '10814611', '20238524') THEN 'Kementerian Perindustrian'
-        //     WHEN s.npsn IN ('69924881','69769420','69772845','10112822','10310815',
-        //         '30112509','60404134','69787011','60104523') THEN 'Kementerian Kelautan dan Perikanan'
-        //     ELSE 'Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi' 
-        // END AS kementerian_pembina,
-        // CASE WHEN y.kode_wilayah IS NULL THEN '-' ELSE y.kode_wilayah END AS kode_wilayah_yayasan     
-        // FROM Arsip.dbo.sekolah s 
-		// JOIN Referensi.ref.bentuk_pendidikan b ON b.bentuk_pendidikan_id = s.bentuk_pendidikan_id 
-        // JOIN Referensi.ref.status_kepemilikan k ON k.status_kepemilikan_id = s.status_kepemilikan_id 
-        // LEFT JOIN Arsip.dbo.yayasan y ON y.yayasan_id = s.yayasan_id 
-        // LEFT JOIN Arsip.dbo.akreditasi ak ON ak.sekolah_id = s.sekolah_id 
-        // LEFT JOIN Referensi.ref.akreditasi ra ON ra.akreditasi_id = ak.akreditasi_id
-		// WHERE npsn = :npsn:  
-		// GROUP BY s.sk_izin_operasional,s.tanggal_sk_pendirian,s.sk_pendirian_sekolah,
-        // s.yayasan_id,s.alamat_jalan,s.desa_kelurahan,y.kode_wilayah,s.lintang, s.bujur,
-        // s.kode_wilayah,npyp,b.nama,status_sekolah,k.nama,s.nama,s.sekolah_id,
-        // s.master,s.aktif, s.nama, s.npsn,  s.bentuk_pendidikan_id, ra.nama, 
-        // s.tanggal_sk_izin_operasional,s.luas_tanah_milik,s.luas_tanah_bukan_milik,
-        // s.status_kepemilikan_id, s.yayasan_id ";
+        // $sql = "SELECT s.*, b.nama as bentuk_pendidikan, k.nama as status_kepemilikan, CASE WHEN npyp IS NULL THEN '-' ELSE npyp END AS npyp, 
+        //  CASE WHEN s.bentuk_pendidikan_id IN (9,10,16,17,34,36,37,38,56,39,41,57,58,59,
+        //          60,44,45,61,62,63,64,65) THEN 'Kementerian Agama'
+        //      WHEN s.npsn IN ('10646356', '30314295', '69734022') THEN 'Kementerian Pertanian'
+        //      WHEN s.npsn IN ('10110454', '30108179', '10308148', '40313544', 
+        //      '20407427', '10814611', '20238524', '20238524') THEN 'Kementerian Perindustrian'
+        //      WHEN s.npsn IN ('69924881','69769420','69772845','10112822','10310815',
+        //          '30112509','60404134','69787011','60104523') THEN 'Kementerian Kelautan dan Perikanan'
+        //      ELSE 'Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi' 
+        //  END AS kementerian_pembina, y.nama as nama_yayasan,
+        //  CASE WHEN y.kode_wilayah IS NULL THEN '-' ELSE y.kode_wilayah END AS kode_wilayah_yayasan     
+        //  FROM Arsip.dbo.sekolah s 
+        //  LEFT JOIN Arsip.dbo.yayasan y ON y.yayasan_id = s.yayasan_id 
+        //  LEFT JOIN Referensi.ref.bentuk_pendidikan b ON b.bentuk_pendidikan_id = s.bentuk_pendidikan_id 
+        //  LEFT JOIN Referensi.ref.status_kepemilikan k ON k.status_kepemilikan_id = s.status_kepemilikan_id  
+        //  WHERE npsn = :npsn:";
 
         $sql = "SELECT s.*, CASE WHEN npyp IS NULL THEN '-' ELSE npyp END AS npyp, 
          CASE WHEN s.bentuk_pendidikan_id IN (9,10,16,17,34,36,37,38,56,39,41,57,58,59,
@@ -57,6 +44,22 @@ class DataModelPendidikan extends Model
 
         $query = $this->db->query($sql, [
             'npsn'  => $kode
+        ]);
+
+        return $query;
+    }
+
+    public function getAkreditasi($sekolah_id)
+    {
+        $this->db = \Config\Database::connect("");
+        
+        $sql = "select sekolah_id,max(tahun) as tahun,r.nama as akreditasi from Arsip.dbo.akreditasi a 
+        left join Referensi.ref.akreditasi r ON r.akreditasi_id = a.akreditasi_id 
+        where sekolah_id=:sekolah_id: 
+        group by sekolah_id,nama";
+
+        $query = $this->db->query($sql, [
+            'sekolah_id'  => $sekolah_id
         ]);
 
         return $query;
@@ -115,7 +118,7 @@ class DataModelPendidikan extends Model
 		// 	$isiwhere = $isiwhere . " OR npsn like '%".$keywordsMany[$a]."%'";
 		// }
 
-        $sql = "SELECT TOP 5000 s.nama, s.npsn,s.alamat_jalan,s.desa_kelurahan, 
+        $sql = "SELECT TOP 3000 s.nama, s.npsn,s.alamat_jalan,s.desa_kelurahan, 
         CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl, 
         b.nama as bentuk_pendidikan 
         FROM [Arsip].[dbo].[sekolah] s 
@@ -249,4 +252,45 @@ class DataModelPendidikan extends Model
         // echo "</pre>";
     }
 
+    public function getpengunjung($ip, $date)
+    {
+        $sql = "SELECT * FROM Dataprocess.dev.statdataref 
+        WHERE ip='".$ip."' AND date='".$date."'";
+        // echo $sql;
+        $query = $this->db->query($sql)->getResult();
+        return $query;
+    }
+
+    public function addpengunjung($ip, $date, $waktu, $timeinsert)
+    {
+        $this->db->query("INSERT INTO Dataprocess.dev.statdataref (ip, date, hits, online, time) 
+        VALUES('".$ip."','".$date."','1','".$waktu."','".$timeinsert."')");
+    }
+
+    public function updatepengunjung($ip, $date, $waktu)
+    {
+        $this->db->query("UPDATE Dataprocess.dev.statdataref SET hits=hits+1, online='".$waktu."' 
+        WHERE ip='".$ip."' AND date='".$date."'");
+    }
+
+    public function jmlpengunjungharini($date)
+    {
+        $query = $this->db->query("SELECT * FROM Dataprocess.dev.statdataref 
+        WHERE date='".$date."' GROUP BY ip, date, hits, online, time")->getResult();
+        return $query;
+    }
+
+    public function totalpengunjung()
+    {
+        $query = $this->db->query("SELECT COUNT(hits) as hits 
+        FROM Dataprocess.dev.statdataref")->getRow();
+        return $query;
+    }
+
+    public function pengunjungonline($bataswaktu)
+    {
+        $query = $this->db->query("SELECT * FROM Dataprocess.dev.statdataref 
+        WHERE online > '".$bataswaktu."'")->getResult();
+        return $query;
+    }
 }

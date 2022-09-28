@@ -25,7 +25,7 @@
           <div class="row align-items-center">
             <div style="margin:20px;">
                 <a href="index.html">
-                  <img style="max-width:320px" src="<?=base_url()?>/template/images/logodataref.png" alt="Constra">
+                  <img style="max-width:320px" src="<?=base_url()?>/template/images/logodataref.png" alt="logo">
                 </a>
             </div><!-- logo end -->
   

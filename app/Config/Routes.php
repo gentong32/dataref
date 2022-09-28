@@ -37,6 +37,10 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('/tabs.php', 'Pendidikan::npsn');
+$routes->get('/pendidikan/program/kesetaraan', 'Pendidikan::kesetaraan');
+$routes->get('/pendidikan/program/kesetaraan/(:any)', 'Pendidikan::kesetaraan/$1');
+$routes->get('/pendidikan/program/lifeskill', 'Pendidikan::lifeskill');
+$routes->get('/pendidikan/program/lifeskill/(:any)', 'Pendidikan::lifeskill/$1');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -203,7 +203,11 @@
                 <td>&nbsp;</td>
                 <td>Akreditasi</td>
                 <td>:</td>
-                <td><?=$datasekolah->akreditasi?></td>
+                <td><?php 
+                if ($dataakreditasi)
+                echo $dataakreditasi->akreditasi;
+                else
+                echo "-";?></td>
             </tr>
         </table>
       </div>

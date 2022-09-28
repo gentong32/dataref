@@ -119,7 +119,7 @@ class DataModelPaud extends Model
                     SUM(CASE WHEN (".$this->sps.") THEN 1 ELSE 0 END) sps,
                     w.nama, w.kode_wilayah FROM Arsip.dbo.sekolah s 
                     JOIN Referensi.ref.mst_wilayah w ON LEFT(w.kode_wilayah,:nkar2:)=LEFT(s.kode_wilayah,:nkar2:) 
-                    WHERE id_level_wilayah=:levelbaru: AND soft_delete=0 AND LEFT(w.kode_wilayah,:nkar:)=:kodebaru: 
+                    WHERE id_level_wilayah=:levelbaru: AND LEFT(w.kode_wilayah,:nkar:)=:kodebaru: 
                     ".$wherestatus." 
                     GROUP BY w.nama, w.kode_wilayah, w.mst_kode_wilayah 
                     ORDER BY kode_wilayah";

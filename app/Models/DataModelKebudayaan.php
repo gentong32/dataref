@@ -48,6 +48,31 @@ class DataModelKebudayaan extends Model
         return $query;
     }
 
+    public function getTotalMuseum($kode,$level) {
+
+        $nkar = $level * 2;
+        $nkar2 = $nkar + 2;
+        $levelbaru = $level+1;
+        $kodebaru = substr($kode,0,$nkar);
+
+        $sql = "SELECT 
+                COUNT (*) as total,
+                w.nama, w.kode_wilayah FROM Kebudayaan.dbo.museum s 
+                JOIN Referensi.ref.mst_wilayah w ON LEFT(w.kode_wilayah,:nkar2:)=LEFT(s.kode_wilayah,:nkar2:) 
+                WHERE id_level_wilayah=:levelbaru: AND soft_delete=0 AND LEFT(w.kode_wilayah,:nkar:)=:kodebaru: 
+                GROUP BY w.nama, w.kode_wilayah, w.mst_kode_wilayah 
+                ORDER BY kode_wilayah";
+            
+        $query = $this->db->query($sql, [
+            'nkar2' => $nkar2,
+            'nkar'  => $nkar,
+            'levelbaru'  => $levelbaru,
+            'kodebaru'  => $kodebaru,
+        ]);
+        
+        return $query;
+    }
+
     public function getDaftarBentukCagarBudaya()
     {
         $sql = "SELECT * FROM [Kebudayaan].[dbo].[jenis_cb] 
@@ -82,11 +107,37 @@ class DataModelKebudayaan extends Model
         return $query;
     }
 
+    public function getDaftarMuseum($kodebaru)
+    {
+        $sql = "SELECT kode_pengelolaan,nama, jenis_mus, alamat, kode_wilayah 
+                    FROM Kebudayaan.dbo.museum s 
+                    WHERE LEFT(kode_wilayah,6)=:kodebaru: AND s.soft_delete=0 
+                    ORDER BY kode_pengelolaan";
+
+        $query = $this->db->query($sql, [
+                'kodebaru'  => $kodebaru
+            ]);
+        return $query;
+    }
+
     public function getCariCagarBudaya($kode)
     {
         $sql = "SELECT cb.*, Jenis  
          FROM Kebudayaan.dbo.cagar_budaya cb
          JOIN Kebudayaan.dbo.jenis_cb w ON w.jenis_id = cb.jenis_id  
+         WHERE kode_pengelolaan = :kode:";
+
+        $query = $this->db->query($sql, [
+            'kode'  => $kode
+        ]);
+
+        return $query;
+    }
+
+    public function getCariMuseum($kode)
+    {
+        $sql = "SELECT * 
+         FROM Kebudayaan.dbo.museum 
          WHERE kode_pengelolaan = :kode:";
 
         $query = $this->db->query($sql, [

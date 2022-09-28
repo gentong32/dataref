@@ -7,8 +7,8 @@ $total4 = 0;
 $total5 = 0;
 $total6 = 0;
 
-$link1 = site_url('kebudayaan/cagarbudaya')."/".substr($kode, 0, 2)."0000"."/1/";
-$link2 = site_url('kebudayaan/cagarbudaya')."/".substr($kode, 0, 4)."00"."/2/";
+$link1 = site_url('kebudayaan/museum')."/".substr($kode, 0, 2)."0000"."/1/";
+$link2 = site_url('kebudayaan/museum')."/".substr($kode, 0, 4)."00"."/2/";
 $breadcrump1 = "";
 $breadcrump2 = "";
 $judulnama = "Nama Provinsi";
@@ -39,7 +39,7 @@ else if ($level>2)
     $breadcrump2 = '>> <a href="'.$link2.'">'.$namalevel2.'</a>';
 }
 
-$styletabel = "max-width:900px;";
+$styletabel = "max-width:700px;";
 
 ?>
 
@@ -51,12 +51,12 @@ $styletabel = "max-width:900px;";
 
 <?= $this->section('content') ?>
     <?php if($level>0) {?>
-    <div class="breadcrumps"><a href="<?=site_url('kebudayaan/cagarbudaya')?>">Indonesia</a> 
+    <div class="breadcrumps"><a href="<?=site_url('kebudayaan/museum')?>">Indonesia</a> 
     <?=$breadcrump1;?>
     <?=$breadcrump2;?>
     </div>
     <?php } ?>
-    <div class="judulatas">JUMLAH CAGAR BUDAYA PER <?=$namapilihan?></div>
+    <div class="judulatas">JUMLAH MUSEUM PER <?=$namapilihan?></div>
     <div class="card-body p-0">
     
         <div class="mytable">
@@ -65,11 +65,6 @@ $styletabel = "max-width:900px;";
                 <thead><tr>
                     <th width="10px">No</th>
                     <th><?=$judulnama?></th>
-                    <th>Benda</th>
-                    <th>Bangunan</th>
-                    <th>Situs</th>
-                    <th>Struktur</th>
-                    <th>Kawasan</th>
                     <th>Total</th>
                 </tr>
                 </thead>
@@ -82,7 +77,7 @@ $styletabel = "max-width:900px;";
                 <tr>
                     <td><?=$key + 1?></td>
                     <?php if($level<=2){?>
-                    <td align="left" class="link1"><a href="<?=site_url('kebudayaan/cagarbudaya/'.
+                    <td align="left" class="link1"><a href="<?=site_url('kebudayaan/museum/'.
                     '/'.trim($value->kode_wilayah).'/'.($level+1))?>"><?php
                     if ($level==0)
                     {
@@ -111,11 +106,6 @@ $styletabel = "max-width:900px;";
                         echo $value->nama;
                     }?></td>
                     <?php } ?>
-                    <td><?=$value->benda?></td>
-                    <td><?=$value->bangunan?></td>
-                    <td><?=$value->situs?></td>
-                    <td><?=$value->struktur?></td>
-                    <td><?=$value->kawasan?></td>
                     <td><?=$value->total?></td>
                 </tr>
                 
@@ -123,7 +113,7 @@ $styletabel = "max-width:900px;";
                 </tbody>
 
                 <tfoot align="right">
-                    <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
+                    <tr><th></th><th></th><th></th></tr>
                 </tfoot>
             
             </table>
@@ -167,41 +157,6 @@ $(document).ready( function () {
                 .reduce( function (a, b) {
                     return intVal(a) + intVal(b);
                 }, 0 );
-				
-	        var total2 = api
-                .column( 3 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-				
-	        var total3 = api
-                .column( 4 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-				
-	        var total4 = api
-                .column( 5 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-				
-	        var total5 = api
-                .column( 6 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-				
-	        var total6 = api
-                .column( 7 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
             
             // Update footer by showing the total with the reference of the column index 
             var numFormat = $.fn.dataTable.render.number( '.', ',', 0, '' ).display;
@@ -210,16 +165,6 @@ $(document).ready( function () {
             $( api.column( 1 ).footer() ).html('TOTAL SEMUA');
             $( api.column( 2 ).footer() ).html(numFormat(total1));
             $( api.column( 2 ).footer() ).css({'text-align':'right','padding-right':'15px'});
-            $( api.column( 3 ).footer() ).html(numFormat(total2));
-            $( api.column( 3 ).footer() ).css({'text-align':'right','padding-right':'15px'});
-            $( api.column( 4 ).footer() ).html(numFormat(total3));
-            $( api.column( 4 ).footer() ).css({'text-align':'right','padding-right':'15px'});
-            $( api.column( 5 ).footer() ).html(numFormat(total4));
-            $( api.column( 5 ).footer() ).css({'text-align':'right','padding-right':'15px'});
-            $( api.column( 6 ).footer() ).html(numFormat(total5));
-            $( api.column( 6 ).footer() ).css({'text-align':'right','padding-right':'15px'});
-            $( api.column( 7 ).footer() ).html(numFormat(total6));
-            $( api.column( 7 ).footer() ).css({'text-align':'right','padding-right':'15px'});
         },
         "processing": true,
     });

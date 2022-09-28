@@ -1,23 +1,23 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\DataModelPaud2;
-use App\Models\DataModelDikdas2;
-use App\Models\DataModelDikmen2;
-use App\Models\DataModelDikti2;
-use App\Models\DataModelDikmas2;
+use App\Models\DataModelPaud;
+use App\Models\DataModelDikdas;
+use App\Models\DataModelDikmen;
+use App\Models\DataModelDikti;
+use App\Models\DataModelDikmas;
 use App\Models\DataModelPendidikan;
 use App\Models\DataModelYayasan;
 use App\Models\DataModelProgram;
 
-class Pendidikan extends BaseController
+class pendidikan extends BaseController
 {
     function __construct() {
-        $this->datamodelpaud = new DataModelPaud2();
-        $this->datamodeldikdas = new DataModelDikdas2();
-        $this->datamodeldikmen = new DataModelDikmen2();
-        $this->datamodeldikti = new DataModelDikti2();
-        $this->datamodeldikmas = new DataModelDikmas2();
+        $this->datamodelpaud = new DataModelPaud();
+        $this->datamodeldikdas = new DataModelDikdas();
+        $this->datamodeldikmen = new DataModelDikmen();
+        $this->datamodeldikti = new DataModelDikti();
+        $this->datamodeldikmas = new DataModelDikmas();
         $this->datamodelpendidikan = new DataModelPendidikan();
         $this->datamodelprogram = new DataModelProgram();
         $this->datamodelyayasan = new DataModelYayasan();
@@ -396,52 +396,6 @@ class Pendidikan extends BaseController
 
     }
 
-    public function kesetaraan($kode='000000', $level=0, $status="all")
-    {
-        $data['tingkat'] = "kesetaraan";
-        $data['kode'] = $kode;
-        $data['level'] = $level;
-        $data['status'] = $status;
-
-        if ($level==0) {
-            $data['namapilihan'] = "PROVINSI";
-        }
-        else {
-            $namapilihan = $this->datamodelprogram->getNamaPilihan($kode);
-            $resultquery = $namapilihan->getResult();
-            $data['namapilihan'] = strToUpper($resultquery[0]->nama);
-        }
-
-        $namalevel1 = $this->datamodelprogram->getNamaPilihan(substr($kode,0,2)."0000");
-        $result1 = $namalevel1->getResult();
-        $data['namalevel1'] = $result1[0]->nama;
-        $namalevel2 = $this->datamodelprogram->getNamaPilihan(substr($kode,0,4)."00");
-        $result2 = $namalevel2->getResult();
-        $data['namalevel2'] = $result2[0]->nama;
-        $namalevel3 = $this->datamodelprogram->getNamaPilihan(substr($kode,0,6));
-        $result3 = $namalevel3->getResult();
-        $data['namalevel3'] = $result3[0]->nama;
-
-        
-        if ($level<3) {
-            $query = $this->datamodelprogram->getTotalSetara($status,$kode,$level);
-            $data['datanas'] = $query->getResult();
-            return view('pendidikan/data_nasional_setara', $data);
-        }
-        else
-        {
-            $kodebaru = substr($kode,0,6);
-            $query = $this->datamodelprogram->getDaftarSetara($status,$kodebaru);
-            $data['datanas'] = $query->getResult();
-            return view('pendidikan/daftar_kesetaraan', $data);       
-        }
-    }
-
-    public function lifeskill($kode='000000', $level=0, $status="all")
-    {
-        return view('pendidikan/data_nasional_lifeskill'); 
-    }
-
     public function cari($kode)
     {
         $data['tingkat'] = "sekolah";
@@ -462,11 +416,8 @@ class Pendidikan extends BaseController
         
     }
 
-    public function npsn($kode=null)
+    public function npsn($kode)
     {
-        if ($kode==null)
-        $kode = $_GET['npsn'];
-
         $query = $this->datamodelpendidikan->getCariNamaAtauNPSN($kode);
         $datasekolah = $query->getRow();
         $kodwil = $datasekolah->kode_wilayah;
@@ -478,22 +429,9 @@ class Pendidikan extends BaseController
         $query3 = $this->datamodelpendidikan->getOperatorSekolah($kode);
         $data['dataoperator'] = $query3->getRow();
 
-        $query4 = $this->datamodelpendidikan->getFileSK($datasekolah->sekolah_id);
-        $data['datask'] = $query4->getRow(); 
-
-        $query5 = $this->datamodelpendidikan->getAkreditasi($datasekolah->sekolah_id);
-        $data['dataakreditasi'] = $query5->getRow(); 
-
         //print_r($query->getRow());
-        // die();
         
         return view('pendidikan/detail_sekolah', $data);
-    }
-
-    public function npsn2()
-    {
-        $npsn = $_GET['npsn'];
-        echo $npsn;
     }
 
     public function getbentukpendidikan()
@@ -591,5 +529,4 @@ class Pendidikan extends BaseController
         WHERE (".$this->datamodelpaud->getbentukpaudsemua().")";
         echo $sql;
     }
-    
 }

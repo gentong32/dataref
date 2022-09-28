@@ -1,6 +1,6 @@
 <?php
-$link1 = site_url('pendidikan/'.$tingkat)."/".substr($kode, 0, 2)."0000"."/1/".$jalur."/".$bentuk."/".$status;
-$link2 = site_url('pendidikan/'.$tingkat)."/".substr($kode, 0, 4)."00"."/2/".$jalur."/".$bentuk."/".$status;
+$link1 = site_url('pendidikan/program/kesetaraan/').substr($kode, 0, 2)."0000"."/1/".$status;
+$link2 = site_url('pendidikan/program/kesetaraan/').substr($kode, 0, 4)."00"."/2/".$status;
 $breadcrump1 = "";
 $breadcrump2 = "";
 $breadcrump3 = "";
@@ -28,17 +28,6 @@ if ($level==3)
     $breadcrump3 = ">> ".$namalevel3;
 }
 
-$piljalur1 = "";
-$piljalur2 = "";
-$piljalur3 = "";
-
-if ($jalur=="all")
-    $piljalur1 = "selected";
-else if ($jalur=="jf")
-    $piljalur2 = "selected";
-else if ($jalur=="jn")
-    $piljalur3 = "selected";
-
 $pilstatus1 = "";
 $pilstatus2 = "";
 $pilstatus3 = "";
@@ -50,10 +39,6 @@ else if ($status=="s1")
 else if ($status=="s2")
     $pilstatus3 = "selected";
 
-$pilbentuk1 = "";
-
-if ($bentuk=="all")
-    $pilbentuk1 = "selected";
 ?>
 
 <?= $this->extend('layout/default') ?>
@@ -63,29 +48,14 @@ if ($bentuk=="all")
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-    <div class="breadcrumps"><a href="<?=site_url('pendidikan/'.$tingkat)?>">Indonesia</a> 
+    <div class="breadcrumps"><a href="<?=site_url('pendidikan/program/kesetaraan')?>">Indonesia</a> 
         <?=$breadcrump1;?>
         <?=$breadcrump2;?>
         <?=$breadcrump3;?>
     </div>
-    <div class="judulatas">DAFTAR SATUAN PENDIDIKAN (SEKOLAH) <?=strtoupper($tingkat)?> PER <?=$namapilihan?></div>
+    <div class="judulatas">DAFTAR PROGRAM LAYANAN KESETARAAN PER <?=$namapilihan?></div>
     <div class="card-body p-0">
         <center>
-            <select class="combobox1" id="jalur_pendidikan" name="jalur_pendidikan">
-                <option <?=$piljalur1?> value="all">-Semua Jalur-</option>
-                <option <?=$piljalur2?> value="jf">Jalur Formal</option>
-                <option <?=$piljalur3?> value="jn">Jalur Non formal</option>
-            </select>
-            <div id="dbentukpendidikan" style="display:inline-block;">
-            <select class="combobox1" id="bentuk_pendidikan" name="bentuk_pendidikan">
-                <option <?=$piljalur1?> value="all">-Semua Bentuk-</option>
-                <?php foreach ($daftarbentuk as $key => $value) :?>
-                    <option <?php 
-                    if ($bentuk==$value->bentuk_pendidikan_id)
-                        echo "selected";?> value="<?=$value->bentuk_pendidikan_id?>"><?=$value->nama?></option>
-                <?php endforeach;?>
-            </select>
-            </div>
             <div id="cbok2" style="display:inline-block;">
             <select class="combobox1" id="status_sekolah" name="status_sekolah">
                 <option <?=$pilstatus1?> value="all">-Semua Status-</option>
@@ -104,6 +74,9 @@ if ($bentuk=="all")
                         <th width="10px">No</th>
                         <th>NPSN</th>
                         <th>Nama Satuan Pendidikan</th>
+                        <th style="text-align:center">Paket A</th>
+                        <th style="text-align:center">Paket B</th>
+                        <th style="text-align:center">Paket C</th>
                         <th>Alamat</th>
                         <th width='180px'>Kelurahan</th>
                         <th>Status</th>
@@ -115,6 +88,9 @@ if ($bentuk=="all")
                         <td align="right"><?=$key + 1?></td>
                         <td class="link1"><a target="_blank" href="<?=site_url('pendidikan/npsn/'.trim($value->npsn))?>"><?=$value->npsn?></a></td>
                         <td><?=$value->nama?></td>
+                        <td style="padding-left:32px;"><?=($value->paket_a == '1') ? 'v' : '-';?></td>
+                        <td style="padding-left:32px;"><?=($value->paket_b == '1') ? 'v' : '-';?></td>
+                        <td style="padding-left:32px;"><?=($value->paket_c == '1') ? 'v' : '-';?></td>
                         <td><?=$value->alamat_jalan?></td>
                         <td><?=$value->desa_kelurahan?></td>
                         <td><?=$value->status_skl?></td>
@@ -179,8 +155,8 @@ function getdaftarbentuk() {
 
 function filterdata()
 {
-    window.open("<?=site_url('pendidikan/'.$tingkat)."/".$kode."/".$level?>"+"/"+$('#jalur_pendidikan').val()
-    +"/"+$('#bentuk_pendidikan').val()+"/"+$('#status_sekolah').val(), target="_self");
+    window.open("<?=site_url('pendidikan/'.$tingkat)."/".$kode."/".$level?>"+
+    "/"+$('#status_sekolah').val(), target="_self");
 }
 
 </script>

@@ -41,7 +41,7 @@
   <!-- Template styles-->
   <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v2.4">
  <!-- Custom styles-->
- <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v2.4">
+ <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v2.7">
 </head>
 <body>
   <div class="body-inner">
@@ -54,7 +54,7 @@
           <div class="row align-items-center">
             <div>
                 <a href="index.html">
-                  <img style="max-width:320px" src="<?=base_url()?>/template/images/logodataref.png" alt="Constra">
+                  <img style="max-width:320px" src="<?=base_url()?>/template/images/logodataref.png" alt="logo">
                 </a>
             </div><!-- logo end -->
   
@@ -97,10 +97,8 @@
                             <li class="dropdown-submenu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Program Layanan</a>
                                 <ul class="dropdown-menu">
-                                  <li><a href="<?=site_url('pendidikan/program/paketa')?>">Paket A</a></li>
-                                  <li><a href="<?=site_url('pendidikan/program/paketb')?>">Paket B</a></li>
-                                  <li><a href="<?=site_url('pendidikan/program/paketc')?>">Paket C</a></li>
-                                  <li><a href="<?=site_url('pendidikan/program/lifeskill')?>">Life Skill</a></li>
+                                  <li><a href="<?=site_url('pendidikan/program/kesetaraan')?>">Kesetaraan</a></li>
+                                  <li><span style="font-weight:bold;font-family: Montserrat;font-size: 12px;">LIFE SKILL</span></li>
                                 </ul>
                             </li>
                           </ul>
@@ -109,6 +107,7 @@
                           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Data Kebudayaan <i class="fa fa-angle-down"></i></a>
                           <ul class="dropdown-menu" role="menu">
                             <li><a href="<?=site_url('kebudayaan/cagarbudaya')?>">Cagar Budaya</a></li>
+                            <li><a href="<?=site_url('kebudayaan/museum')?>">Museum</a></li>
                           </ul>
                       </li>
                     </ul>
