@@ -27,7 +27,11 @@
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/bootstrap/bootstrap.min.css">
   <!-- FontAwesome -->
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/fontawesome/css/all.min.css">
-    <!-- Animation -->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/responsive.dataTables.min.css">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/fixedColumns.dataTables.min.css">
+  <!-- Animation -->
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/animate-css/animate.css">
   <!-- slick Carousel -->
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/slick/slick.css">
@@ -36,33 +40,30 @@
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/colorbox/colorbox.css">
   <!-- Template styles-->
   <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v3.1">
-  <!-- Custom styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v3.1">
-
-  <!-- Leaflet Maps styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/leaflet/leaflet.css?v1.7">
-
+ <!-- Custom styles-->
+ <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v3.2">
 </head>
 <body>
-<div class="body-inner">
+  <div class="body-inner">
 
 <!-- Header start -->
 <header id="header" class="header-one">
   <div class="bg-white">
-    <div class="container">
+    <div class="containerlogo">
       <div class="logo-area">
           <div class="row align-items-center">
             <div>
                   <img style="max-width:320px" src="<?=base_url()?>/template/images/logodataref.png" alt="logo">
-            </div><!-- logo end -->          
-          </div><!-- logo area end -->
-      </div><!-- Row end -->
-    </div><!-- Container end -->
-  </div>  
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
 </header>
 <!--/ Header end -->
 
-<div class="main-content" style="margin-bottom:50px;">
+<div id="page-container">
+<div id="content-wrap">
     <?=$this->renderSection('content')?>
 </div>
 
@@ -74,6 +75,7 @@
     </div>
   </div>
 </footer>
+<div>
 
   <!-- Javascript Files
   ================================================== -->
@@ -82,6 +84,11 @@
   <script src="<?=base_url()?>/template/plugins/jQuery/jquery.min.js"></script>
   <!-- Bootstrap jQuery -->
   <script src="<?=base_url()?>/template/plugins/bootstrap/bootstrap.min.js" defer></script>
+  <!-- DataTables -->
+  <script src="<?=base_url()?>/template/js/jquery.dataTables.min.js"></script>
+  <script src="<?=base_url()?>/template/js/dataTables.responsive.min.js"></script>
+  <script src="<?=base_url()?>/template/js/dataTables.fixedColumns.min.js"></script>
+
   <!-- Slick Carousel -->
   <script src="<?=base_url()?>/template/plugins/slick/slick.min.js"></script>
   <script src="<?=base_url()?>/template/plugins/slick/slick-animation.min.js"></script>
@@ -89,15 +96,16 @@
   <script src="<?=base_url()?>/template/plugins/colorbox/jquery.colorbox.js"></script>
   <!-- shuffle -->
   <script src="<?=base_url()?>/template/plugins/shuffle/shuffle.min.js" defer></script>
+
+
+
   <!-- Template custom -->
   <script src="<?=base_url()?>/template/js/script.js"></script>
+  <script src="<?=base_url()?>/template/js/custom.js"></script>
+  
+  <?=$this->renderSection('scriptdata')?>
 
-  <!-- Maps Leaflet -->
-  <script src="<?=base_url()?>/leaflet/leaflet.js?v1.7"></script>
-
-  <?=$this->renderSection('scriptpeta')?>
-    
-</div><!-- Body inner end -->
+  </div><!-- Body inner end -->
   </body>
 
   </html>
@@ -109,8 +117,26 @@
         var code = (e.keyCode ? e.keyCode : e.which);
         if (code == 13) { //Enter keycode                        
             e.preventDefault();
-            alert ("cihuy");
+            window.open("<?php
+            if ($tingkat=="kebudayaan")
+              echo site_url('kebudayaan/cari/');
+            else if ($tingkat!="yayasan")
+              echo site_url('pendidikan/cari/');
+            else
+              echo site_url('pendidikan/cariyayasan/');
+            ?>"+$("#search-field").val(),"_self");
             // $("yourFormId").submit();
         }
     };
+
+    function yukcari() {
+      window.open("<?php
+            if ($tingkat=="kebudayaan")
+              echo site_url('kebudayaan/cari/');
+            else if ($tingkat!="yayasan")
+              echo site_url('pendidikan/cari/');
+            else
+              echo site_url('pendidikan/cariyayasan/');
+            ?>"+$("#search-field").val(),"_self");
+    }
   </script>

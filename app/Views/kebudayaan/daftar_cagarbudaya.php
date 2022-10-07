@@ -33,7 +33,7 @@ if ($level==3)
 <?= $this->extend('layout/default') ?>
 
 <?= $this->section('titel') ?>
-<title>Data Kebudayaan</title>
+<title>Data Kebudayaan Kemendikbudristek</title>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -66,11 +66,16 @@ if ($level==3)
                     <?php foreach ($datanas as $key => $value) :?>
                     <tr>
                         <td align="right"><?=$key + 1?></td>
+                        <?php 
+                            $siap=false;
+                            if ($siap) {?>
                         <td class="link1">
-                        <a target="_blank" href="<?=site_url('kebudayaan/kode/'.trim($value->kode_pengelolaan))?>">
-                        <?=$value->kode_pengelolaan?>
-                        </a> 
+                            <a target="_blank" href="<?=site_url('kebudayaan/kode/'.trim($value->kode_pengelolaan))?>">
+                            <?=$value->kode_pengelolaan?>
+                            </a> 
                         </td>
+                        <?php } ?>
+                        <td><?=$value->kode_pengelolaan?></td>
                         <td><?=$value->nama?></td>
                         <td><?=$value->Jenis?></td>
                         <td><?=$value->alamat?></td>

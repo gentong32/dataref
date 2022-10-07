@@ -46,7 +46,7 @@ $styletabel = "max-width:700px;";
 <?= $this->extend('layout/default') ?>
 
 <?= $this->section('titel') ?>
-<title>Data Referensi</title>
+<title>Data Kebudayaan Kemendikbudristek</title>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>

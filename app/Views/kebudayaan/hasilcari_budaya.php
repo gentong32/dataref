@@ -1,7 +1,7 @@
 <?= $this->extend('layout/default') ?>
 
 <?= $this->section('titel') ?>
-<title>Data Pendidikan Kemendikbudristek</title>
+<title>Data Kebudayaan Kemendikbudristek</title>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -12,10 +12,10 @@
                 <table class="table table-striped" id='table1'>
                 <thead><tr>
                     <th>No</th>
-                    <th>NPYP</th>
-                    <th>Nama Yayasan</th>
+                    <th>Kode</th>
+                    <th>Nama Objek Budaya</th>
+                    <th>Jenis</th>
                     <th>Alamat</th>
-                    <th>Kelurahan</th>
                 </tr>
                 </thead>
               </table>
@@ -28,10 +28,13 @@
 <script>
 $(document).ready( function () {
     var data = [];
-    <?php foreach ($datanas as $key => $value) :?>
-       
-      data.push([<?=$key + 1?>, "<a class='link1' href=\"https://vervalyayasan.data.kemdikbud.go.id/index.php/Chome/profil?yayasan_id=<?=trim($value->yayasan_id)?>\" target=\"_blank\"><?=$value->npyp?></a>", "<?=preg_replace('/\r|\n|"|\\\\/i', '', $value->nama)?>", "<?=preg_replace('/\r|\n|"|\\\\/i', '', $value->alamat_jalan)?>","<?=$value->desa_kelurahan?>"]);
-      
+    <?php 
+    $siap=false;
+    foreach ($databudaya as $key => $value) :?>
+        <?php if ($siap) {?>
+      data.push([<?=$key + 1?>, "<a class='link1' href=\"<?=site_url('kebudayaan/kode/'.trim($value->kode_pengelolaan))?>\" target=\"_blank\"><?=$value->kode_pengelolaan?></a>", "<?=preg_replace('/\r|\n|"|\\\\/i', '', $value->nama)?>", "<?=preg_replace('/\r|\n|"|\\\\/i', '', $value->jenis)?>","<?=$value->alamat?>"]);
+      <?php } ?>
+      data.push([<?=$key + 1?>, "<?=$value->kode_pengelolaan?>", "<?=preg_replace('/\r|\n|"|\\\\/i', '', $value->nama)?>", "<?=preg_replace('/\r|\n|"|\\\\/i', '', $value->jenis)?>","<?=$value->alamat?>"]);
       <?php endforeach;?>
 // removeAttr('width').
       $('#table1').DataTable({

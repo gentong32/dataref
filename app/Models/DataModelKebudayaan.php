@@ -162,4 +162,27 @@ class DataModelKebudayaan extends Model
         return $query;
     }
 
+    public function getCariDaftarBudaya($kode)
+    {
+        $isiwhere = "s.nama like :kode:";
+
+        $sql = "SELECT TOP 1000 kode_pengelolaan,nama,Jenis as jenis,alamat, 
+        CASE WHEN RTRIM(LTRIM(s.nama))=:kode2: THEN '0' ELSE '1' END AS tepat 
+        FROM [Kebudayaan].[dbo].[cagar_budaya] s
+        LEFT JOIN [Kebudayaan].[dbo].jenis_cb c ON s.jenis_id = c.jenis_id 
+        WHERE s.soft_delete=0 AND ($isiwhere) 
+        UNION SELECT TOP 1000 kode_pengelolaan,nama,jenis_mus as jenis,alamat, 
+        CASE WHEN RTRIM(LTRIM(nama))=:kode2: THEN '0' ELSE '1' END AS tepat 
+        FROM [Kebudayaan].[dbo].[museum] s 
+        WHERE soft_delete=0 AND ($isiwhere) 
+        ORDER BY tepat";
+       
+        $query = $this->db->query($sql,[
+            'kode'  => "%".$kode."%",
+            'kode2'  => $kode,
+        ]);
+
+        return $query;
+    }
+
 }

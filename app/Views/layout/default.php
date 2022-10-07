@@ -10,7 +10,7 @@
   <!-- Mobile Specific Metas
 ================================================== -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Construction Html5 Template">
+  <meta name="description" content="Data Referensi - Pusdatin Kemdikbudristek">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <meta name=author content="Themefisher">
   <meta name=generator content="Themefisher Constra HTML Template v1.0">
@@ -39,9 +39,9 @@
   <!-- Colorbox -->
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/colorbox/colorbox.css">
   <!-- Template styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v2.4">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v3.1">
  <!-- Custom styles-->
- <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v2.7">
+ <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v3.2">
 </head>
 <body>
   <div class="body-inner">
@@ -53,7 +53,7 @@
       <div class="logo-area">
           <div class="row align-items-center">
             <div>
-                <a href="index.html">
+                <a href="<?=site_url('/')?>">
                   <img style="max-width:320px" src="<?=base_url()?>/template/images/logodataref.png" alt="logo">
                 </a>
             </div><!-- logo end -->
@@ -108,6 +108,7 @@
                           <ul class="dropdown-menu" role="menu">
                             <li><a href="<?=site_url('kebudayaan/cagarbudaya')?>">Cagar Budaya</a></li>
                             <li><a href="<?=site_url('kebudayaan/museum')?>">Museum</a></li>
+                            <li><span style="font-weight:bold;font-family: Montserrat;font-size: 12px;">WARISAN BUDAYA TAK BENDA</span></li>
                           </ul>
                       </li>
                     </ul>
@@ -121,7 +122,7 @@
         <?php if ($tingkat=="kebudayaan")
         {?>
           <div class="nav-search">
-            <span>Pencarian &nbsp;&nbsp;&nbsp;<i class="fa fa-search"></i></span>
+            <span>Cari Kebudayaan &nbsp;&nbsp;&nbsp;<i class="fa fa-search"></i></span>
           </div>
           <div class="search-block" style="display: none;">
           <label for="search-field" class="w-100 mb-0">
@@ -219,7 +220,9 @@
         if (code == 13) { //Enter keycode                        
             e.preventDefault();
             window.open("<?php
-            if ($tingkat!="yayasan")
+            if ($tingkat=="kebudayaan")
+              echo site_url('kebudayaan/cari/');
+            else if ($tingkat!="yayasan")
               echo site_url('pendidikan/cari/');
             else
               echo site_url('pendidikan/cariyayasan/');

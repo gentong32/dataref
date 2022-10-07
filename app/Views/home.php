@@ -1,7 +1,7 @@
 <?= $this->extend('layout/default') ?>
 
 <?= $this->section('titel') ?>
-<title>Home &mdash; Data Pendidikan dan Kebudayaan</title>
+<title>Data Referensi Kemendikbudristek</title>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -23,27 +23,24 @@
                         <i class='fas fa-user-friends'></i> <?php //echo $totalpengunjung ?>
                         <i class='fa fa-eye'></i> <?php //echo $pengunjungonline ?>
                     </div> -->
+                    <div class="kontakkami">
+                        <h5>Hubungi Kami</h5>
+                        Layanan Terpadu Kemendikbudristek<br>
+                        Gedung C Lantai 1 Kompleks Kemendikbudristek<br>
+                        Senayan Jakarta, 10270<br>
+                        Contact Center : 177<br>
+                        Live Chat via : ult.kemdikbud.go.id
+                        <i class='fa fa-email'></i>pengaduan@kemdikbud.go.id
+                    </div>
                     <div id="pengunjung">
-                        <table>
-                        <tr> 
-                        <td>Pengunjung Hari ini</td>
-                        <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-                        <td><?php echo $pengunjunghariini ?> orang</td>
-                        </tr>
-                        <tr>
-                        <td>Total Pengunjung</td> 
-                        <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-                        <td><?php echo $totalpengunjung ?> orang</td>
-                        </tr>
-                        <tr>
-                        <td>Pengunjung Online</td>
-                        <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-                        <td><?php echo $pengunjungonline ?> orang</td>
-                        </tr>
-                        </table>
+                        <!-- <i class='fa fa-user'></i> -->
+                        <a class="link1" target="_blank" href="<?=site_url('home/chart_pengunjung')?>">Pengunjung</a> : Hari Ini (<?=number_format($pengunjunghariini,0,",","."); ?>), 
+                        Total (<?=number_format($totalpengunjung,0,",","."); ?>), 
+                        Online (<?=number_format($pengunjungonline,0,",","."); ?>)
                     </div>
                 </div>
             </div>
         </div>
+    
 </div>
 <?= $this->endSection() ?>

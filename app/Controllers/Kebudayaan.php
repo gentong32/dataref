@@ -138,4 +138,14 @@ class Kebudayaan extends BaseController
 
         return view('kebudayaan/detail_'.$pilbudaya, $data);
     }
+
+    public function cari($kode)
+    {
+        $data['tingkat'] = "kebudayaan";
+        $data['kode'] = $kode;
+        $query = $this->datamodelkebudayaan->getCariDaftarBudaya($kode);
+        $data['databudaya'] = $query->getResult();
+        return view('kebudayaan/hasilcari_budaya', $data);
+        
+    }
 }

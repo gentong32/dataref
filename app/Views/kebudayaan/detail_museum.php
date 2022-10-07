@@ -1,7 +1,7 @@
 <?= $this->extend('layout/default2') ?>
 
 <?= $this->section('titel') ?>
-<title>Data Kebudayaan &mdash; Museum</title>
+<title>Data Kebudayaan Kemendikbudristek</title>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>

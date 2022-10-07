@@ -10,7 +10,25 @@ class DataModelPendidikan extends Model
 
     public function getCariNamaAtauNPSN($kode)
     {
-        // $sql = "SELECT s.*, b.nama as bentuk_pendidikan, k.nama as status_kepemilikan, CASE WHEN npyp IS NULL THEN '-' ELSE npyp END AS npyp, 
+        $sql = "SELECT s.*, b.nama as bentuk_pendidikan, k.nama as status_kepemilikan, CASE WHEN npyp IS NULL THEN '-' ELSE npyp END AS npyp, 
+         CASE WHEN s.bentuk_pendidikan_id IN (9,10,16,17,34,36,37,38,56,39,41,57,58,59,
+                 60,44,45,61,62,63,64,65) THEN 'Kementerian Agama'
+             WHEN s.npsn IN ('10646356', '30314295', '69734022') THEN 'Kementerian Pertanian'
+             WHEN s.npsn IN ('10110454', '30108179', '10308148', '40313544', 
+             '20407427', '10814611', '20238524', '20238524') THEN 'Kementerian Perindustrian'
+             WHEN s.npsn IN ('69924881','69769420','69772845','10112822','10310815',
+                 '30112509','60404134','69787011','60104523') THEN 'Kementerian Kelautan dan Perikanan'
+             ELSE 'Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi' 
+         END AS kementerian_pembina, y.nama as nama_yayasan,
+         CASE WHEN y.kode_wilayah IS NULL THEN '-' ELSE y.kode_wilayah END AS kode_wilayah_yayasan,     
+         CASE WHEN s.status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_sekolah     
+         FROM Arsip.dbo.sekolah s 
+         LEFT JOIN Arsip.dbo.yayasan y ON y.yayasan_id = s.yayasan_id 
+         LEFT JOIN Referensi.ref.bentuk_pendidikan b ON b.bentuk_pendidikan_id = s.bentuk_pendidikan_id 
+         LEFT JOIN Referensi.ref.status_kepemilikan k ON k.status_kepemilikan_id = s.status_kepemilikan_id  
+         WHERE npsn = :npsn:";
+
+        // $sql = "SELECT s.*, CASE WHEN npyp IS NULL THEN '-' ELSE npyp END AS npyp, 
         //  CASE WHEN s.bentuk_pendidikan_id IN (9,10,16,17,34,36,37,38,56,39,41,57,58,59,
         //          60,44,45,61,62,63,64,65) THEN 'Kementerian Agama'
         //      WHEN s.npsn IN ('10646356', '30314295', '69734022') THEN 'Kementerian Pertanian'
@@ -21,25 +39,20 @@ class DataModelPendidikan extends Model
         //      ELSE 'Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi' 
         //  END AS kementerian_pembina, y.nama as nama_yayasan,
         //  CASE WHEN y.kode_wilayah IS NULL THEN '-' ELSE y.kode_wilayah END AS kode_wilayah_yayasan     
-        //  FROM Arsip.dbo.sekolah s 
+        //  FROM Datamart.datamart.sekolah s 
         //  LEFT JOIN Arsip.dbo.yayasan y ON y.yayasan_id = s.yayasan_id 
-        //  LEFT JOIN Referensi.ref.bentuk_pendidikan b ON b.bentuk_pendidikan_id = s.bentuk_pendidikan_id 
-        //  LEFT JOIN Referensi.ref.status_kepemilikan k ON k.status_kepemilikan_id = s.status_kepemilikan_id  
         //  WHERE npsn = :npsn:";
 
-        $sql = "SELECT s.*, CASE WHEN npyp IS NULL THEN '-' ELSE npyp END AS npyp, 
-         CASE WHEN s.bentuk_pendidikan_id IN (9,10,16,17,34,36,37,38,56,39,41,57,58,59,
-                 60,44,45,61,62,63,64,65) THEN 'Kementerian Agama'
-             WHEN s.npsn IN ('10646356', '30314295', '69734022') THEN 'Kementerian Pertanian'
-             WHEN s.npsn IN ('10110454', '30108179', '10308148', '40313544', 
-             '20407427', '10814611', '20238524', '20238524') THEN 'Kementerian Perindustrian'
-             WHEN s.npsn IN ('69924881','69769420','69772845','10112822','10310815',
-                 '30112509','60404134','69787011','60104523') THEN 'Kementerian Kelautan dan Perikanan'
-             ELSE 'Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi' 
-         END AS kementerian_pembina, y.nama as nama_yayasan,
-         CASE WHEN y.kode_wilayah IS NULL THEN '-' ELSE y.kode_wilayah END AS kode_wilayah_yayasan     
-         FROM Datamart.datamart.sekolah s 
-         LEFT JOIN Arsip.dbo.yayasan y ON y.yayasan_id = s.yayasan_id 
+        $query = $this->db->query($sql, [
+            'npsn'  => $kode
+        ]);
+
+        return $query;
+    }
+
+    public function getCariNamaAtauNPSN_Sekunder($kode)
+    {
+        $sql = "SELECT * FROM Datamart.datamart.sekolah 
          WHERE npsn = :npsn:";
 
         $query = $this->db->query($sql, [
@@ -124,7 +137,7 @@ class DataModelPendidikan extends Model
         FROM [Arsip].[dbo].[sekolah] s 
         JOIN Referensi.ref.bentuk_pendidikan b ON b.bentuk_pendidikan_id = s.bentuk_pendidikan_id 
         WHERE soft_delete=0 AND ($isiwhere)"; 
-       
+
         $query = $this->db->query($sql,[
             'kode'  => "%".$kode."%"
         ]);
@@ -261,10 +274,10 @@ class DataModelPendidikan extends Model
         return $query;
     }
 
-    public function addpengunjung($ip, $date, $waktu, $timeinsert)
+    public function addpengunjung($ip, $date, $waktu, $timeinsert, $regionname, $city, $mobile)
     {
-        $this->db->query("INSERT INTO Dataprocess.dev.statdataref (ip, date, hits, online, time) 
-        VALUES('".$ip."','".$date."','1','".$waktu."','".$timeinsert."')");
+        $this->db->query("INSERT INTO Dataprocess.dev.statdataref (ip, date, hits, online, time, regionname, city, device) 
+        VALUES('".$ip."','".$date."','1','".$waktu."','".$timeinsert."','".$regionname."','".$city."','".$mobile."')");
     }
 
     public function updatepengunjung($ip, $date, $waktu)
@@ -276,7 +289,7 @@ class DataModelPendidikan extends Model
     public function jmlpengunjungharini($date)
     {
         $query = $this->db->query("SELECT * FROM Dataprocess.dev.statdataref 
-        WHERE date='".$date."' GROUP BY ip, date, hits, online, time")->getResult();
+        WHERE date='".$date."' GROUP BY ip, date, hits, online, time, regionname, city, device")->getResult();
         return $query;
     }
 
@@ -292,5 +305,34 @@ class DataModelPendidikan extends Model
         $query = $this->db->query("SELECT * FROM Dataprocess.dev.statdataref 
         WHERE online > '".$bataswaktu."'")->getResult();
         return $query;
+    }
+//AND day(date)<>day(getdate()) 
+    public function getdata_pengunjung_harian($tahun,$bulan)
+    {
+        $sql = "select date, count(*) as pengunjung 
+        from [Dataprocess].[dev].[statdataref] 
+        where year(date) = :tahun: AND month(date) = :bulan: AND date>'2022-09-27' 
+        group by datepart(day, date), date order by date";
+       
+        $query = $this->db->query($sql,[
+            'tahun'  => $tahun,
+            'bulan'  => $bulan
+        ]);
+
+        return $query->getResult();
+    }
+
+    public function getdata_pengunjung_bulanan($tahun)
+    {
+        $sql = "select month(date) as bulan, count(*) as pengunjung 
+        from [Dataprocess].[dev].[statdataref] 
+        where year(date)=:tahun: AND date>'2022-09-27' 
+        group by datepart(month, date),month(date)";
+       
+        $query = $this->db->query($sql,[
+            'tahun'  => $tahun
+        ]);
+
+        return $query->getResult();
     }
 }

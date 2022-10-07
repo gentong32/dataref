@@ -472,6 +472,10 @@ class Pendidikan extends BaseController
         $kodwil = $datasekolah->kode_wilayah;
         $data['datasekolah'] = $datasekolah;
 
+        $query2 = $this->datamodelpendidikan->getCariNamaAtauNPSN_sekunder($kode);
+        $datasekolah2 = $query2->getRow();
+        $data['datasekolah2'] = $datasekolah2;
+
         $query2 = $this->datamodelpendidikan->getDataWilayah($kodwil);
         $data['datawilayah'] = $query2->getRow();
         

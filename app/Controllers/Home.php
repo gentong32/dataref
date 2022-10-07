@@ -30,10 +30,16 @@ class Home extends BaseController
         
         $s=sizeof($pengunjung);
 
-        $ss = isset($s)?($s):0;        
+        $ss = isset($s)?($s):0;
         
         if($ss == 0){
-            $this->datamodelpendidikan->addpengunjung($ip, $date, $waktu, $timeinsert);
+            $details = json_decode(file_get_contents("http://ip-api.com/json/".$ip."?fields=126975"));
+            if ($details->mobile)
+                $device="mobile";
+            else
+                $device="komputer";
+            $this->datamodelpendidikan->addpengunjung($ip, $date, $waktu, $timeinsert, 
+            $details->regionName, $details->city, $device);
         }
         else {
             $this->datamodelpendidikan->updatepengunjung($ip, $date, $waktu);
@@ -70,12 +76,31 @@ class Home extends BaseController
         return $ip;
     }
 
-  
-
     public function setotal()
     {
         // $this->datamodelpendidikan->setTotalPendidikan(1);
         // $this->datamodelpendidikan->setTotalPendidikan(2);
         // $this->datamodelpendidikan->setTotalPendidikan(3);
+    }
+
+    public function chart_pengunjung()
+    {
+
+        $namabulan = Array('Januari', 'Pebruari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
+            'Agustus', 'September', 'Oktober', 'Nopember', 'Desember');
+        $bulan  = date("n");
+        $tahun = date("Y");
+
+        $data['namabulan'] = $namabulan[$bulan-1];
+        $data['tahun'] = $tahun;
+
+        $data['tingkat'] = "sekolah";
+        $pengunjung = $this->datamodelpendidikan->getdata_pengunjung_harian($tahun,$bulan);
+        $data['datapengunjungharian'] = $pengunjung;
+        $pengunjung2 = $this->datamodelpendidikan->getdata_pengunjung_bulanan($tahun);
+        $data['datapengunjungbulanan'] = $pengunjung2;
+        //echo $pengunjung[1]->pengunjung;
+
+        return view('stat_linechart', $data);
     }
 }

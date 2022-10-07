@@ -1,7 +1,7 @@
 <?= $this->extend('layout/default2') ?>
 
 <?= $this->section('titel') ?>
-<title>Data Pendidikan &mdash; Data Sekolah</title>
+<title>Data Pendidikan Kemendikbudristek</title>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -24,7 +24,10 @@
                 <td>&nbsp;</td>
                 <td>NPSN</td>
                 <td>:</td>
-                <td><?=$datasekolah->npsn?></td>
+                <td>
+                    <a class="link1" target="_blank" href="https://sekolah.data.kemdikbud.go.id/index.php/Chome/profil/<?=$datasekolah->sekolah_id?>"><?=$datasekolah->npsn?></a>
+                </td>
+                
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -239,15 +242,16 @@
                 <td>Akses Internet</td>
                 <td>:</td>
                 <td>1. <?php
-                if ($datasekolah->akses_internet!=null)
+                if ($datasekolah2)
+                if ($datasekolah2->akses_internet!=null)
                 {
-                    if (strtolower($datasekolah->akses_internet)=="tidak ada")
+                    if (strtolower($datasekolah2->akses_internet)=="tidak ada")
                     {
                         echo "-";
                     }
                     else
                     {
-                        echo $datasekolah->akses_internet;
+                        echo $datasekolah2->akses_internet;
                     }
                 }?></td>
             </tr>
@@ -256,15 +260,16 @@
                 <td></td>
                 <td>:</td>
                 <td>2. <?php
-                if ($datasekolah->akses_internet!=null)
+                if ($datasekolah2)
+                if ($datasekolah2->akses_internet_2!=null)
                 {
-                    if (strtolower($datasekolah->akses_internet_2)=="tidak ada")
+                    if (strtolower($datasekolah2->akses_internet_2)=="tidak ada")
                     {
                         echo "-";
                     }
                     else
                     {
-                        echo $datasekolah->akses_internet_2;
+                        echo $datasekolah2->akses_internet_2;
                     }
                 }?></td>
             </tr>
@@ -272,7 +277,15 @@
                 <td>&nbsp;</td>
                 <td>Sumber Listrik</td>
                 <td>:</td>
-                <td><?=$datasekolah->sumber_listrik?></td>
+                <td><?php 
+                if ($datasekolah2)
+                {
+                    if ($datasekolah2->sumber_listrik!=null)
+                        echo $datasekolah2->sumber_listrik;
+                    else
+                        echo "-";
+                }
+                ?></td>
             </tr>
         </table>
       </div>
@@ -287,22 +300,31 @@
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td>Fax</td>
                 <td>:</td>
-                <td><?=$datasekolah->nomor_fax?></td>
+                <td><?php 
+                if ($datasekolah2)
+                {
+                    if ($datasekolah2->nomor_fax!=null)
+                        echo $datasekolah2->nomor_fax;
+                    else
+                        echo "-";
+                }
+                ?></td>
             </tr>
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td>Telepon</td>
                 <td>:</td>
                 <td><?php
-                if ($datasekolah->nomor_telepon<>null)
+                if ($datasekolah2)
+                if ($datasekolah2->nomor_telepon<>null)
                 {
-                    if(substr($datasekolah->nomor_telepon,0,2)=='08' || (session('id_user')))
+                    if(substr($datasekolah2->nomor_telepon,0,2)=='08' || (session('id_user')))
                     {
                         echo "";
                     }
                     else
                     {
-                        echo $datasekolah->nomor_telepon;
+                        echo $datasekolah2->nomor_telepon;
                     }
                 }?></td>
             </tr>
@@ -312,9 +334,10 @@
                 <td>Email</td>
                 <td>:</td>
                 <td><?php
-                if ($datasekolah->email!=null)
+                if ($datasekolah2)
+                if ($datasekolah2->email!=null)
                     {
-                        echo $datasekolah->email;
+                        echo $datasekolah2->email;
                     // if (substr($datasekolah->email, -6)=="sch.id" || (session('id_user')))
                     // {
                     //     echo $datasekolah->email;
@@ -330,21 +353,22 @@
                 <td>Website</td>
                 <td>:</td>
                 <td><?php
-                if ($datasekolah->website!=null)
+                if ($datasekolah2)
+                if ($datasekolah2->website!=null)
                 {
-                    if ($datasekolah->website=="http://")
+                    if ($datasekolah2->website=="http://")
                         {
                             echo "";
                         }
-                    else if (substr($datasekolah->website,0,4)!="http")
+                    else if (substr($datasekolah2->website,0,4)!="http")
                     {
-                        echo "<a class='link1' target='_blank' href='http://".$datasekolah->website."'>".
-                        $datasekolah->website."</a>";
+                        echo "<a class='link1' target='_blank' href='http://".$datasekolah2->website."'>".
+                        $datasekolah2->website."</a>";
                     }
                     else
                     {
-                        echo "<a class='link1' target='_blank' href='".$datasekolah->website."'>".
-                        $datasekolah->website."</a>";
+                        echo "<a class='link1' target='_blank' href='".$datasekolah2->website."'>".
+                        $datasekolah2->website."</a>";
                     }
                 }?></td>
             </tr>
@@ -369,8 +393,16 @@
       <input type="radio" id="tab-5" name="tabby-tabs">
       <label for="tab-5">Peta</label>
       <div class="tabby-content">
-        <div id="maps">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div id="maps">
 
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                Lintang: <?=$datasekolah->lintang?><br>
+                Bujur: <?=$datasekolah->bujur?><br>
+            </div>
         </div>
       </div>
     </div>
@@ -385,5 +417,6 @@
     maxZoom: 19,
     attribution: '© OpenStreetMap'}).addTo(map);
     L.marker({lat:<?=$datasekolah->lintang?>, lon:<?=$datasekolah->bujur?>}).bindPopup('<?=$datasekolah->nama?>').addTo(map);
+    
 </script>
 <?= $this->endSection() ?>

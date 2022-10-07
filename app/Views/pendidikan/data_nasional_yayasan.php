@@ -46,7 +46,7 @@ $styletabel = "max-width:700px;";
 <?= $this->extend('layout/default') ?>
 
 <?= $this->section('titel') ?>
-<title>Data Referensi</title>
+<title>Data Pendidikan Kemendikbudristek</title>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -121,6 +121,8 @@ $styletabel = "max-width:700px;";
                     PMA No. 27 Tahun 2016 Pasal 6,PMA No. 10 Tahun 2020 Pasal 6,PMA No. 39 Tahun 2014 Pasal 6.
                     <br>
                     <br>
+                    Verifikasi Validasi Yayasan Pendidikan :<br> 
+                    <span class="link1"><a target="_blank" href="https://vervalyayasan.data.kemdikbud.go.id">https://vervalyayasan.data.kemdikbud.go.id</a></span>
                 <!-- <h5>Aturan/mekanisme verifikasi</h5>
                     Operator melaporkan ke Pusat kemudian Operator melaporkan ke Pusat lalu Operator melaporkan ke Pusat<br> -->
                 </div>

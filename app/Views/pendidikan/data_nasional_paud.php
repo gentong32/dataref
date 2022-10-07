@@ -90,7 +90,7 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
 <?= $this->extend('layout/default') ?>
 
 <?= $this->section('titel') ?>
-<title>Data Pendidikan &mdash; Data Nasional</title>
+<title>Data Pendidikan Kemendikbudristek</title>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
