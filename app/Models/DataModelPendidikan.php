@@ -229,7 +229,7 @@ class DataModelPendidikan extends Model
 
         $query = $this->db->query($sql2);
         
-        $jalankan=true;
+        $jalankan=false;
 
         if ($jalankan) // if result found
         {
@@ -288,10 +288,37 @@ class DataModelPendidikan extends Model
 
     public function jmlpengunjungharini($date)
     {
-        $query = $this->db->query("SELECT * FROM Dataprocess.dev.statdataref 
-        WHERE date='".$date."' GROUP BY ip, date, hits, online, time, regionname, city, device")->getResult();
-        return $query;
+        // $query = $this->db->query("SELECT ip, date, hits, online, regionname, city, device FROM Dataprocess.dev.statdataref 
+        // WHERE date='".$date."' GROUP BY ip, date, hits, online, regionname, city, device")->getResult();
+        // return $query;
+        $sql = "select max(date) as date, count(*) as pengunjung 
+        from [Dataprocess].[dev].[statdataref] 
+        where date = :date: 
+        group by datepart(day, date)";
+       
+        $query = $this->db->query($sql,[
+            'date'  => $date,
+        ]);
+
+        return $query->getRow();
     }
+
+    public function jmlpengunjungbulanini($tahun, $bulan)
+    {
+        $sql = "select month(date) as bulan, count(*) as pengunjung 
+        from [Dataprocess].[dev].[statdataref] 
+        where year(date)=:tahun: AND month(date)=:bulan: 
+        group by datepart(month, date),month(date)";
+       
+        $query = $this->db->query($sql,[
+            'tahun'  => $tahun,
+            'bulan'  => $bulan
+        ]);
+
+        return $query->getRow();
+    }
+
+    
 
     public function totalpengunjung()
     {
@@ -305,14 +332,52 @@ class DataModelPendidikan extends Model
         $query = $this->db->query("SELECT * FROM Dataprocess.dev.statdataref 
         WHERE online > '".$bataswaktu."'")->getResult();
         return $query;
+    }    
+
+    public function cek_pengunjung_kemarin()
+    {
+        $tglkemarin = date('Y-m-d',strtotime("-1 days"));
+        $sql = "select *  
+        from [Dataprocess].[dev].[rekapdatarefharian] 
+        where tanggal='".$tglkemarin."'";
+
+        //AND convert(varchar(10), tanggal, 102)<convert(varchar(10), getdate(), 102) 
+       
+        $query = $this->db->query($sql);
+
+        return $query->getRow();
     }
-//AND day(date)<>day(getdate()) 
+
+    public function cek_pengunjung_bulan_kemarin()
+    {
+        $bulan  = date("n");
+        $tahun = date("Y");
+        $bulankemarin = $bulan-1;
+        if ($bulankemarin==0)
+        {
+            $bulankemarin = 12;
+            $tahun--;
+        }
+
+        $sql = "select * 
+        from [Dataprocess].[dev].[rekapdatarefbulanan] 
+        where bulan='".$bulankemarin."' AND tahun='".$tahun."'";
+
+        //AND convert(varchar(10), tanggal, 102)<convert(varchar(10), getdate(), 102) 
+       
+        $query = $this->db->query($sql);
+
+        return $query->getRow();
+    }
+
     public function getdata_pengunjung_harian($tahun,$bulan)
     {
-        $sql = "select date, count(*) as pengunjung 
-        from [Dataprocess].[dev].[statdataref] 
-        where year(date) = :tahun: AND month(date) = :bulan: AND date>'2022-09-27' 
-        group by datepart(day, date), date order by date";
+        $sql = "select tanggal as date, jumlah as pengunjung 
+        from [Dataprocess].[dev].[rekapdatarefharian] 
+        where year(tanggal) = :tahun: AND month(tanggal) = :bulan: 
+		order by tanggal";
+
+        //AND convert(varchar(10), tanggal, 102)<convert(varchar(10), getdate(), 102) 
        
         $query = $this->db->query($sql,[
             'tahun'  => $tahun,
@@ -324,10 +389,10 @@ class DataModelPendidikan extends Model
 
     public function getdata_pengunjung_bulanan($tahun)
     {
-        $sql = "select month(date) as bulan, count(*) as pengunjung 
-        from [Dataprocess].[dev].[statdataref] 
-        where year(date)=:tahun: AND date>'2022-09-27' 
-        group by datepart(month, date),month(date)";
+        $sql = "select bulan, jumlah as pengunjung 
+        from [Dataprocess].[dev].[rekapdatarefbulanan] 
+        where tahun=:tahun: 
+        order by bulan";
        
         $query = $this->db->query($sql,[
             'tahun'  => $tahun
@@ -335,4 +400,114 @@ class DataModelPendidikan extends Model
 
         return $query->getResult();
     }
+
+    public function setdatapengunjungharian($tahun, $bulan)
+    {
+
+        // $sql0 = "TRUNCATE TABLE Dataprocess.dev.rekapdatarefharian";
+        // $this->db->query($sql0);
+        
+        $sql = "select date, count(*) as pengunjung 
+        from [Dataprocess].[dev].[statdataref] 
+        where date=".$tglkemarin."  
+        group by datepart(day, date), date order by date";
+       
+        $query = $this->db->query($sql,[
+            'tahun'  => $tahun,
+            'bulan'  => $bulan
+        ]);
+
+        $row = $query->getResult('array'); // get result in an array format
+        $data = array();
+        foreach($row as $values){
+            $sql2 = "INSERT INTO Dataprocess.dev.rekapdatarefharian (tanggal,jumlah) 
+            VALUES ('".$values['date']."',".$values['pengunjung'].")";
+            
+            $query2 = $this->db->query($sql2);
+            }
+    }
+
+    public function setdatapengunjungkemarin()
+    {
+
+        // $sql0 = "TRUNCATE TABLE Dataprocess.dev.rekapdatarefharian";
+        // $this->db->query($sql0);
+        $tglkemarin = date('Y-m-d',strtotime("-1 days"));
+        
+        $sql = "select date, count(*) as pengunjung 
+        from [Dataprocess].[dev].[statdataref] 
+        where date='".$tglkemarin."'  
+        group by datepart(day, date), date order by date";
+       
+        $query = $this->db->query($sql);
+
+        $row = $query->getResult('array'); // get result in an array format
+        $data = array();
+        foreach($row as $values){
+            $sql2 = "INSERT INTO Dataprocess.dev.rekapdatarefharian (tanggal,jumlah) 
+            VALUES ('".$values['date']."',".$values['pengunjung'].")";
+            
+            $query2 = $this->db->query($sql2);
+            }
+    }
+
+    public function setdatapengunjungbulankemarin()
+    {
+        $bulan  = date("n");
+        $tahun = date("Y");
+        $bulankemarin = $bulan-1;
+        if ($bulankemarin==0)
+        {
+            $bulankemarin = 12;
+            $tahun--;
+        }
+        
+        $sql = "select month(date) as bulan, count(*) as pengunjung 
+        from [Dataprocess].[dev].[statdataref] 
+        where year(date)=:tahun: AND month(date)=:bulankemarin:  
+        group by datepart(month, date),month(date)";
+       
+        $query = $this->db->query($sql,[
+            'tahun'  => $tahun,
+            'bulankemarin'  => $bulankemarin
+        ]);
+
+        $row = $query->getResult('array'); // get result in an array format
+        $data = array();
+        foreach($row as $values){
+            $sql2 = "INSERT INTO Dataprocess.dev.rekapdatarefbulanan (bulan,tahun,jumlah) 
+            VALUES (".$bulankemarin.",".$tahun.",".$values['pengunjung'].")";
+            
+            $query2 = $this->db->query($sql2);
+            }
+    }
+
+    // public function getdata_pengunjung_harian_old($tahun,$bulan)
+    // {
+    //     $sql = "select date, count(*) as pengunjung 
+    //     from [Dataprocess].[dev].[statdataref] 
+    //     where year(date) = :tahun: AND month(date) = :bulan: AND date>'2022-09-27' 
+    //     group by datepart(day, date), date order by date";
+       
+    //     $query = $this->db->query($sql,[
+    //         'tahun'  => $tahun,
+    //         'bulan'  => $bulan
+    //     ]);
+
+    //     return $query->getResult();
+    // }
+
+    // public function getdata_pengunjung_bulanan_old($tahun)
+    // {
+    //     $sql = "select month(date) as bulan, count(*) as pengunjung 
+    //     from [Dataprocess].[dev].[statdataref] 
+    //     where year(date)=:tahun: AND date>'2022-09-27' 
+    //     group by datepart(month, date),month(date)";
+       
+    //     $query = $this->db->query($sql,[
+    //         'tahun'  => $tahun
+    //     ]);
+
+    //     return $query->getResult();
+    // }
 }

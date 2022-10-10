@@ -13,6 +13,7 @@ class DataModelPaud2 extends Model
     s.bentuk_pendidikan_id=34 OR 
     s.bentuk_pendidikan_id=41 OR 
     s.bentuk_pendidikan_id=43 OR 
+    s.bentuk_pendidikan_id=45 OR 
     s.bentuk_pendidikan_id=52 OR 
     s.bentuk_pendidikan_id=57 OR 
     s.bentuk_pendidikan_id=61";
@@ -27,7 +28,8 @@ class DataModelPaud2 extends Model
     protected $paudjn = "s.bentuk_pendidikan_id=2 OR 
     s.bentuk_pendidikan_id=3 OR 
     s.bentuk_pendidikan_id=4 OR 
-    s.bentuk_pendidikan_id=43";
+    s.bentuk_pendidikan_id=43 OR
+    s.bentuk_pendidikan_id=45";
 
     protected $tksederajat = "s.bentuk_pendidikan_id=1 OR 
     s.bentuk_pendidikan_id=34 OR 
@@ -37,7 +39,8 @@ class DataModelPaud2 extends Model
     s.bentuk_pendidikan_id=61";
 
     protected $kbsederajat = "s.bentuk_pendidikan_id=2 OR 
-    s.bentuk_pendidikan_id=43";
+    s.bentuk_pendidikan_id=43 OR
+    s.bentuk_pendidikan_id=45";
 
     protected $paudallns = "bp1_n + bp1_s + 
     bp2_n + bp2_s + 
@@ -46,6 +49,7 @@ class DataModelPaud2 extends Model
     bp34_n + bp34_s + 
     bp41_n + bp41_s + 
     bp43_n + bp43_s + 
+    bp45_n + bp45_s + 
     bp52_n + bp52_s + 
     bp57_n + bp57_s + 
     bp61_n + bp61_s";
@@ -57,6 +61,7 @@ class DataModelPaud2 extends Model
     bp34_n +  
     bp41_n +  
     bp43_n +  
+    bp45_n +  
     bp52_n + 
     bp57_n +  
     bp61_n";
@@ -68,6 +73,7 @@ class DataModelPaud2 extends Model
     bp34_s + 
     bp41_s + 
     bp43_s + 
+    bp45_s + 
     bp52_s + 
     bp57_s + 
     bp61_s";
@@ -96,17 +102,20 @@ class DataModelPaud2 extends Model
     protected $paudjnns = "bp2_n + bp2_s + 
     bp3_n + bp3_s + 
     bp4_n + bp4_s + 
-    bp43_n + bp43_s";
+    bp43_n + bp43_s +
+    bp45_n + bp45_s";
     
     protected $paudjnn = "bp2_n + 
     bp3_n + 
     bp4_n + 
-    bp43_n";
+    bp43_n +
+    bp45_n";
     
     protected $paudjns = "bp2_s + 
     bp3_s + 
     bp4_s + 
-    bp43_s";
+    bp43_s + 
+    bp45_s";
     
     protected $tksederajatns = "bp1_n + bp1_s + 
     bp34_n + bp34_s + 
@@ -129,9 +138,9 @@ class DataModelPaud2 extends Model
     bp57_s + 
     bp61_s";
     
-    protected $kbsederajatns = "bp2_n + bp2_s + bp43_n + bp43_s";
-    protected $kbsederajatn = "bp2_n + bp43_n";
-    protected $kbsederajats = "bp2_s + bp43_s";
+    protected $kbsederajatns = "bp2_n + bp2_s + bp43_n + bp43_s + bp45_n + bp45_s";
+    protected $kbsederajatn = "bp2_n + bp43_n + bp45_n";
+    protected $kbsederajats = "bp2_s + bp43_s + bp45_s";
 
     protected $tkns = "bp1_n + bp1_s";
     protected $tkn = "bp1_n";
@@ -160,6 +169,10 @@ class DataModelPaud2 extends Model
     protected $spkkbns = "bp43_n + bp43_s";
     protected $spkkbn = "bp43_n";
     protected $spkkbs = "bp43_s";
+    
+    protected $paudqns = "bp45_n + bp45_s";
+    protected $paudqn = "bp45_n";
+    protected $paudqs = "bp45_s";
     
     protected $spktkns = "bp52_n + bp52_s";
     protected $spktkn = "bp52_n";
@@ -259,6 +272,7 @@ class DataModelPaud2 extends Model
                     (".$this->tpans.") as tpa,
                     (".$this->spsns.") as sps,
                     (".$this->spkkbns.") as spkkb,
+                    (".$this->paudqns.") as paudq,
                     nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah
                     WHERE mst_kode_wilayah=:kode:";
                 else if ($status=="s1")
@@ -267,6 +281,7 @@ class DataModelPaud2 extends Model
                     (".$this->tpan.") as tpa,
                     (".$this->spsn.") as sps,
                     (".$this->spkkbn.") as spkkb,
+                    (".$this->paudqn.") as paudq,
                     nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah
                     WHERE mst_kode_wilayah=:kode:";
                 else if ($status=="s2")
@@ -275,6 +290,7 @@ class DataModelPaud2 extends Model
                     (".$this->tpas.") as tpa,
                     (".$this->spss.") as sps,
                     (".$this->spkkbs.") as spkkb,
+                    (".$this->paudqs.") as paudq,
                     nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah
                     WHERE mst_kode_wilayah=:kode:";
             }

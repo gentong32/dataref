@@ -1044,6 +1044,21 @@ ul.navbar-nav > li > a {
   border-bottom: 1px solid #e5e5e5;
   color: #333333;
 }
+
+.dropdown-menu li2 a {
+  font-family: "Montserrat", sans-serif;
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: normal;
+  text-decoration: none;
+  padding: 15px 0;
+  letter-spacing: 0.3px;
+  border-bottom: 4px dotted #cfcccc;
+  color: #333333;
+}
+
 @media (max-width: 991px) {
   .dropdown-menu li a {
     padding: 12px 0;

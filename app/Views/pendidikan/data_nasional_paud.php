@@ -160,6 +160,7 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <th>TPA</th>
                     <th>SPS</th>
                     <th>SPK KB</th>
+                    <th>PAUDQ</th>
                     <th>Total</th>
                     <?php endif ?>
                     <?php } else {?> 
@@ -195,6 +196,7 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                             $total2 = $total2 + $value->tpa;
                             $total3 = $total3 + $value->sps;
                             $total4 = $total4 + $value->spkkb;
+                            $total5 = $total5 + $value->paudq;
                         }
                     }
                     else
@@ -238,6 +240,7 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <td><?=$value->tpa?></td>
                     <td><?=$value->sps?></td>
                     <td><?=$value->spkkb?></td>
+                    <td><?=$value->paudq?></td>
                     <?php endif;?>
                     <?php } ?>
                     <td><?=$value->total?></td>
@@ -253,7 +256,7 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <?php } else if ($jalur=="jf") { ?>
                         <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
                     <?php } else if ($jalur=="jn") { ?>
-                        <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
+                        <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
                     <?php } 
                     } else { ?>
                         <tr><th></th><th></th><th></th></tr>
@@ -281,7 +284,9 @@ $(document).ready( function () {
                 { targets: 5, render: $.fn.dataTable.render.number('.', ',', 0, '') },
                 { targets: 6, render: $.fn.dataTable.render.number('.', ',', 0, '') },
                 { className: 'text-right', targets: [3,4,5,6] },
-                
+            <?php } if ($jalur=="jn" && $bentuk=="all") { ?>
+                { targets: 7, render: $.fn.dataTable.render.number('.', ',', 0, '') },
+                { className: 'text-right', targets: [7] },
             <?php } if ($jalur=="jf" && $bentuk=="all") { ?>
                 { targets: 7, render: $.fn.dataTable.render.number('.', ',', 0, '') },
                 { targets: 8, render: $.fn.dataTable.render.number('.', ',', 0, '') },
@@ -362,6 +367,16 @@ $(document).ready( function () {
                     }, 0 );
             <?php } ?>
 
+            <?php if ($jalur=="jn" && $bentuk=="all") { ?>
+                var total6 = api
+                    .column( 7 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+                
+            <?php } ?>
+
             // Update footer by showing the total with the reference of the column index 
             var numFormat = $.fn.dataTable.render.number( '.', ',', 0, '' ).display;
 
@@ -383,6 +398,9 @@ $(document).ready( function () {
                 $( api.column( 7 ).footer() ).css({'text-align':'right','padding-right':'15px'});
                 $( api.column( 8 ).footer() ).html(numFormat(total7));
                 $( api.column( 8 ).footer() ).css({'text-align':'right','padding-right':'15px'});
+            <?php } if ($jalur=="jn" && $bentuk=="all") { ?>
+                $( api.column( 7 ).footer() ).html(numFormat(total6));
+                $( api.column( 7 ).footer() ).css({'text-align':'right','padding-right':'15px'});
             <?php }?>
         },
         "processing": true,

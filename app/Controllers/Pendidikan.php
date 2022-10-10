@@ -9,6 +9,7 @@ use App\Models\DataModelDikmas2;
 use App\Models\DataModelPendidikan;
 use App\Models\DataModelYayasan;
 use App\Models\DataModelProgram;
+use App\Models\DataModelTidakAktif;
 
 class Pendidikan extends BaseController
 {
@@ -19,8 +20,9 @@ class Pendidikan extends BaseController
         $this->datamodeldikti = new DataModelDikti2();
         $this->datamodeldikmas = new DataModelDikmas2();
         $this->datamodelpendidikan = new DataModelPendidikan();
-        $this->datamodelprogram = new DataModelProgram();
         $this->datamodelyayasan = new DataModelYayasan();
+        $this->datamodelprogram = new DataModelProgram();
+        $this->datamodeltidakaktif = new DataModelTidakAktif();
     }
 
     public function index()
@@ -436,6 +438,47 @@ class Pendidikan extends BaseController
             return view('pendidikan/daftar_kesetaraan', $data);       
         }
     }
+
+    public function tidakaktif($kode='000000', $level=0)
+    {
+        $data['tingkat'] = "ketidakaktifan";
+        $data['kode'] = $kode;
+        $data['level'] = $level;
+
+        if ($level==0) {
+            $data['namapilihan'] = "PROVINSI";
+        }
+        else {
+            $namapilihan = $this->datamodeltidakaktif->getNamaPilihan($kode);
+            $resultquery = $namapilihan->getResult();
+            $data['namapilihan'] = strToUpper($resultquery[0]->nama);
+        }
+
+        $namalevel1 = $this->datamodeltidakaktif->getNamaPilihan(substr($kode,0,2)."0000");
+        $result1 = $namalevel1->getResult();
+        $data['namalevel1'] = $result1[0]->nama;
+        $namalevel2 = $this->datamodeltidakaktif->getNamaPilihan(substr($kode,0,4)."00");
+        $result2 = $namalevel2->getResult();
+        $data['namalevel2'] = $result2[0]->nama;
+        $namalevel3 = $this->datamodeltidakaktif->getNamaPilihan(substr($kode,0,6));
+        $result3 = $namalevel3->getResult();
+        $data['namalevel3'] = $result3[0]->nama;
+
+        
+        if ($level<3) {
+            $query = $this->datamodeltidakaktif->getTotalTidakAktif($kode,$level);
+            $data['datanas'] = $query->getResult();
+            return view('pendidikan/data_nasional_tidakaktif', $data);
+        }
+        else
+        {
+            $kodebaru = substr($kode,0,6);
+            $query = $this->datamodeltidakaktif->getDaftarSetara($kodebaru);
+            $data['datanas'] = $query->getResult();
+            return view('pendidikan/daftar_tidakaktif', $data);       
+        }
+    }
+
 
     public function lifeskill($kode='000000', $level=0, $status="all")
     {

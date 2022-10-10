@@ -35,9 +35,9 @@
   <!-- Colorbox -->
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/colorbox/colorbox.css">
   <!-- Template styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v3.1">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v3.3">
   <!-- Custom styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v3.1">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v3.3">
 
   <!-- Leaflet Maps styles-->
   <link rel="stylesheet" href="<?=base_url()?>/leaflet/leaflet.css?v1.7">

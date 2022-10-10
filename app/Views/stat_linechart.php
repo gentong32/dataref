@@ -37,6 +37,7 @@ var day_data1 = [
         $tanggal = intval(substr($datarow->date,8));
         echo "{x: '".$tanggal."', 'pengunjung': ".$datarow->pengunjung."},";
     }
+    echo "{x: '".intval(substr($datapengunjunghariini->date,8))."', 'pengunjung': ".$datapengunjunghariini->pengunjung."},"; 
     ?>
 ];
 
@@ -47,6 +48,7 @@ var day_data2 = [
         $bulan = $datarow->bulan;
         echo "{x: '".$bulan."', 'pengunjung': ".$datarow->pengunjung."},";
     }
+    echo "{x: '".$datapengunjungbulanini->bulan."', 'pengunjung': ".$datapengunjungbulanini->pengunjung."},"; 
     ?>
 ];
 

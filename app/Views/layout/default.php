@@ -39,9 +39,9 @@
   <!-- Colorbox -->
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/colorbox/colorbox.css">
   <!-- Template styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v3.1">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v3.3">
  <!-- Custom styles-->
- <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v3.2">
+ <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v3.3">
 </head>
 <body>
   <div class="body-inner">
@@ -88,7 +88,9 @@
                                   <li><a href="<?=site_url('pendidikan/dikdas')?>">Pendidikan Dasar (Dikdas)</a></li>
                                   <li><a href="<?=site_url('pendidikan/dikmen')?>">Pendidikan Menengah (Dikmen)</a></li>
                                   <li><a href="<?=site_url('pendidikan/dikti')?>">Pendidikan Tinggi (Dikti)</a></li>
-                                  <li><a href="<?=site_url('pendidikan/dikmas')?>">Pendidikan Masyarakat (Dikmas)</a></li>
+                                  <li2><a href="<?=site_url('pendidikan/dikmas')?>">Pendidikan Masyarakat (Dikmas)</a></li2>
+                                  <li><a href="<?=site_url('pendidikan/tidakaktif')?>">Sekolah Tidak Aktif</a></li>
+
                                 </ul>
                             </li>
                             <li>
