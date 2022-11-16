@@ -39,6 +39,10 @@ $routes->get('/', 'Home::index');
 $routes->get('/tabs.php', 'Pendidikan::npsn');
 $routes->get('/pendidikan/program/kesetaraan', 'Pendidikan::kesetaraan');
 $routes->get('/pendidikan/program/kesetaraan/(:any)', 'Pendidikan::kesetaraan/$1');
+$routes->get('/pendidikan/program/paud', 'Pendidikan::pkbmpaud');
+$routes->get('/pendidikan/program/paud/(:any)', 'Pendidikan::pkbmpaud/$1');
+$routes->get('/pendidikan/program/terampil', 'Pendidikan::terampil');
+$routes->get('/pendidikan/program/terampil/(:any)', 'Pendidikan::terampil/$1');
 $routes->get('/pendidikan/program/lifeskill', 'Pendidikan::lifeskill');
 $routes->get('/pendidikan/program/lifeskill/(:any)', 'Pendidikan::lifeskill/$1');
 /*

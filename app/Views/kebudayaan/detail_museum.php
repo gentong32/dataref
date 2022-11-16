@@ -72,17 +72,45 @@
       <label for="tab-2">Dokumen dan Perijinan</label>
       <div class="tabby-content">
         <table>
+        <tr>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td>Status Kepemilikan</td>
+                <td>:</td>
+                <td><?php
+                if ($datapemilik)
+                echo ($datapemilik->sts_kepemilikan == "NULL") ? '-' : $datapemilik->sts_kepemilikan;?></td>
+            </tr>
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;</td>
-                <td>SK Pendirian</td>
+                <td>Nama Pemilik</td>
                 <td>:</td>
-                <td></td>
+                <td><?php 
+                if ($datapemilik)
+                echo ($datapemilik->nama_pemilik == "NULL") ? '-' : $datapemilik->nama_pemilik;?></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td>Tanggal Pendirian</td>
+                <td>Level Museum</td>
                 <td>:</td>
-                <td></td>
+                <td><?php
+                if ($datask)
+                echo ($datask->level_museum == "NULL") ? '-' : $datask->level_museum;?></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>Nomor SK</td>
+                <td>:</td>
+                <td><?php
+                if ($datask)
+                echo ($datask->sk_pendirian == "NULL") ? '-' : $datask->sk_pendirian;?></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>Tanggal SK</td>
+                <td>:</td>
+                <td><?php
+                 if ($datask)
+                 echo ($datask->tgl_pendirian == "NULL") ? '-' : $datask->tgl_pendirian;?></td>
             </tr>
         </table>
       </div>
@@ -103,7 +131,7 @@
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td>Email</td>
                 <td>:</td>
-                <td><?=($databudaya->email)?></td>
+                <td><?=($databudaya->email=='NULL') ? '-' : $databudaya->email;?></td>
             </tr>
             
             <tr>
@@ -111,7 +139,7 @@
                 <td>Website</td>
                 <td>:</td>
                 <td><?php
-                if ($databudaya->website!=null)
+                if ($databudaya->website!=null && $databudaya->website!='NULL')
                 {
                     if ($databudaya->website=="http://")
                         {
@@ -127,6 +155,8 @@
                         echo "<a class='link1' target='_blank' href='".$databudaya->website."'>".
                         $databudaya->website."</a>";
                     }
+                } else {
+                    echo "-";
                 }?></td>
             </tr>
         </table>
@@ -137,8 +167,16 @@
       <input type="radio" id="tab-4" name="tabby-tabs">
       <label for="tab-4">Peta</label>
       <div class="tabby-content">
-        <div id="maps">
+        <div class="row">
+            <div class="col-lg-6 col-md-4">
+                <div id="maps">
 
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                Lintang: <?=($databudaya->lintang=='.0000000' ? '-' : $databudaya->lintang)?><br>
+                Bujur: <?=($databudaya->bujur=='.0000000' ? '-' : $databudaya->bujur)?><br><br>
+            </div>
         </div>
       </div>
     </div>

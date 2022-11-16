@@ -39,9 +39,9 @@
   <!-- Colorbox -->
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/colorbox/colorbox.css">
   <!-- Template styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v3.3">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v3.6">
  <!-- Custom styles-->
- <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v3.3">
+ <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v3.6">
 </head>
 <body>
   <div class="body-inner">

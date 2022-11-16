@@ -12,7 +12,7 @@
                     <div class="block standar">
                         <h4>DATA REFERENSI PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</h4>
                         
-                        <p class="mb-4 pr-5" style="color:black";>Selamat datang, untuk terintegrasinya Data Pendidikan, Kebudayaan, Riset, dan Teknologi di lingkungan KEMENDIKBUDRISTEK, maka perlu dilakukan pengelolaan Data Referensi sebagai acuan sinkronisasi Data Pendidikan, Kebudayaan, Riset, dan Teknologi.
+                        <p class="mb-4 pr-5" style="color:black";>Selamat datang. Untuk terintegrasinya Data Pendidikan, Kebudayaan, Riset, dan Teknologi di lingkungan KEMENDIKBUDRISTEK, maka perlu dilakukan pengelolaan Data Referensi sebagai acuan sinkronisasi Data Pendidikan, Kebudayaan, Riset, dan Teknologi.
                         Terima kasih atas dukungan semua pihak, kami berharap Data Referensi ini dapat memberikan manfaat dan kemajuan bersama bagi pengelolaan Data Pendidikan, Kebudayaan, Riset, dan Teknologi di Indonesia.
                         <br><br>
                         Salam Kami,<br>
@@ -41,6 +41,13 @@
                 </div>
             </div>
         </div>
-    
-</div>
+    </div>
+    <div class="boxlink linkterkait">
+        Link terkait:<br>
+        <ul>
+            <li>
+           <a class="link1" href="https://referensi.data.kemdikbud.go.id/snpmb"> Dashboard Verifikasi-Validasi Satuan Pendidikan dan Peserta Didik (Data Dukung Seleksi Nasional Penerimaan Mahasiswa Baru - SNPMB PTN)</a>
+            </li>
+        </ul>
+    </div>
 <?= $this->endSection() ?>

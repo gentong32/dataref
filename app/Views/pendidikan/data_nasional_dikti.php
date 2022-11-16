@@ -137,7 +137,7 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <th><?=$judulnama?></th>
                     <?php if ($bentuk=="all" || $bentuk==null) {?>
                     <?php if ($jalur=="all" || $jalur==null) :?>
-                    <th>Akademik</th>
+                    <th>Akademi</th>
                     <th>Politeknik</th>
                     <th>Sekolah Tinggi</th>
                     <th>Institut</th>
@@ -145,7 +145,7 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
                     <th>Total</th>
                     <?php endif; 
                     if ($jalur=="jf") :?>
-                    <th>Akademik</th>
+                    <th>Akademi</th>
                     <th>Politeknik</th>
                     <th>Sekolah Tinggi</th>
                     <th>Institut</th>

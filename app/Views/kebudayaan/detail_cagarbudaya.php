@@ -70,50 +70,39 @@
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td>Status Kepemilikan</td>
                 <td>:</td>
-                <td></td>
+                <td><?php
+                if ($datapemilik)
+                echo ($datapemilik->sts_kepemilikan == "NULL") ? '-' : $datapemilik->sts_kepemilikan;?></td>
+            </tr>
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td>Nama Pemilik</td>
+                <td>:</td>
+                <td><?=($datapemilik->nama_pemilik == "NULL") ? '-' : $datapemilik->nama_pemilik;?></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td>No. SK Menteri</td>
+                <td>Level Cagar Budaya</td>
                 <td>:</td>
-                <td></td>
+                <td><?=$datask->nama_level;?></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td>Tanggal SK Menteri</td>
+                <td>Nomor SK</td>
                 <td>:</td>
-                <td></td>
+                <td><?=$datask->no_sk_cb;?></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td>No. SK Provinsi</td>
+                <td>Tanggal SK</td>
                 <td>:</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>Tanggal SK Provinsi</td>
-                <td>:</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>No. SK. Kab-Kota</td>
-                <td>:</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>Tanggal SK KabKota</td>
-                <td>:</td>
-                <td></td>
-            </tr>
-            
+                <td><?=$datask->tanggal;?></td>
+            </tr>            
         </table>
       </div>
     </div>
 
-    <div class="tabby-tab">
+    <!-- <div class="tabby-tab">
       <input type="radio" id="tab-3" name="tabby-tabs">
       <label for="tab-3">Kontak</label>
       <div class="tabby-content">
@@ -132,14 +121,26 @@
                 <td></td>
             </tr>
         </table>      </div>
-    </div>
+    </div> -->
 
     <div class="tabby-tab">
       <input type="radio" id="tab-4" name="tabby-tabs">
       <label for="tab-4">Peta</label>
       <div class="tabby-content">
-        <div id="maps">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div id="maps">
 
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                Lintang: <?=($databudaya->lintang=='.0000000' ? '-' : $databudaya->lintang)?><br>
+                Bujur: <?=($databudaya->bujur=='.0000000' ? '-' : $databudaya->bujur)?><br><br>
+                Batas Barat: <?=($databudaya->batas_barat=="NULL") ? '-' : $databudaya->batas_barat ?><br>
+                Batas Utara: <?=($databudaya->batas_utara=="NULL") ? '-' : $databudaya->batas_utara?><br>
+                Batas Timur: <?=($databudaya->batas_timur=="NULL") ? '-' : $databudaya->batas_timur?><br>
+                Batas Selatan: <?=($databudaya->batas_selatan=="NULL") ? '-' : $databudaya->batas_selatan?><br>
+            </div>
         </div>
       </div>
     </div>

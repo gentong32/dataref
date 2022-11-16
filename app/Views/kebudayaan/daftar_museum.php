@@ -50,7 +50,7 @@ if ($level==3)
                     <thead><tr>
                         <th width="10px">No</th>
                         <th>Kode</th>
-                        <th width="30%">Nama Cagar Budaya</th>
+                        <th width="30%">Nama Museum</th>
                         <th>Jenis</th>
                         <th>Alamat</th>
                     </tr>
@@ -60,15 +60,16 @@ if ($level==3)
                     <tr>
                         <td align="right"><?=$key + 1?></td>
                         <?php 
-                            $siap=false;
+                            $siap=true;
                             if ($siap) {?>
                         <td class="link1">
                             <a target="_blank" href="<?=site_url('kebudayaan/kode/'.trim($value->kode_pengelolaan))?>">
                             <?=$value->kode_pengelolaan?>
                             </a> 
                         </td>
-                        <?php } ?>
+                        <?php } else {?>
                         <td><?=$value->kode_pengelolaan?></td>
+                        <?php } ?>
                         <td><?=$value->nama?></td>
                         <td><?=strtoupper($value->jenis_mus)=="NULL" ? "-": $value->jenis_mus;?></td>
                         <td><?=$value->alamat?></td>

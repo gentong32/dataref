@@ -72,6 +72,15 @@
                 <td>:</td>
                 <td><?=$datasekolah->bentuk_pendidikan?></td>
             </tr>
+            <?php if($datasekolah->bentuk_pendidikan=="PKBM" || $datasekolah->bentuk_pendidikan=="SKB"
+            || $datasekolah->bentuk_pendidikan=="Kursus") {?>
+            <tr>
+                <td>&nbsp;</td>
+                <td>Program / Layanan</td>
+                <td>:</td>
+                <td><?=$datalayanan?></td>
+            </tr>
+            <?php } ?>
         </table>
       </div>
     </div>
@@ -94,12 +103,12 @@
                 <td><?php
                 if ($datasekolah->status_kepemilikan=="Yayasan")
                 {
-                    if ($datasekolah->nama_yayasan!=null)
+                    if ($datayayasan!=null)
                     {
-                        if (substr(strtolower($datasekolah->nama_yayasan),0,7)=="yayasan")
-                            echo $datasekolah->nama_yayasan;
+                        if (substr(strtolower($datayayasan->nama),0,7)=="yayasan")
+                            echo $datayayasan->nama;
                         else
-                            echo "Yayasan ".$datasekolah->nama_yayasan;
+                            echo "Yayasan ".$datayayasan->nama;
                     }
                 } else
                 {
@@ -111,9 +120,9 @@
                 <td>NPYP</td>
                 <td>:</td>
                 <td><?php
-                if ($datasekolah->npyp!="-")
+                if ($datayayasan!=null)
                 {?>
-                    <a class="link1" target="_blank" href="https://vervalyayasan.data.kemdikbud.go.id/index.php/Chome/profil?yayasan_id=<?=$datasekolah->yayasan_id?>"><?=$datasekolah->npyp?></a>
+                    <a class="link1" target="_blank" href="https://vervalyayasan.data.kemdikbud.go.id/index.php/Chome/profil?yayasan_id=<?=$datayayasan->yayasan_id?>"><?=$datayayasan->npyp?></a>
                 <?php }
                 else
                 {

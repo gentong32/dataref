@@ -73,7 +73,7 @@ else if ($status=="s2")
     <?=$breadcrump2;?>
     </div>
     <?php }?>
-    <div class="judulatas">JUMLAH PROGRAM LAYANAN KESETARAAN PER <?=$namapilihan?></div>
+    <div class="judulatas">JUMLAH PROGRAM / LAYANAN KESETARAAN PER <?=$namapilihan?></div>
     <div class="card-body p-0">
     <center>
         <div class="">

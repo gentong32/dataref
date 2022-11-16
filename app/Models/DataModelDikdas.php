@@ -58,7 +58,7 @@ class DataModelDikdas extends Model
                     SUM(CASE WHEN (".$this->dikdasall.") THEN 1 ELSE 0 END) total,
                     SUM(CASE WHEN (".$this->sdsederajat.") THEN 1 ELSE 0 END) sdsederajat,
                     SUM(CASE WHEN (".$this->smpsederajat.") THEN 1 ELSE 0 END) smpsederajat,
-                    w.nama, w.kode_wilayah FROM Arsip.dbo.sekolah s 
+                    w.nama, w.kode_wilayah FROM ods2.bid2.sekolah s 
                     JOIN Referensi.ref.mst_wilayah w ON LEFT(w.kode_wilayah,:nkar2:)=LEFT(s.kode_wilayah,:nkar2:) 
                     WHERE id_level_wilayah=:levelbaru: AND soft_delete=0 AND LEFT(w.kode_wilayah,:nkar:)=:kodebaru: 
                     ".$wherestatus." 
@@ -71,7 +71,7 @@ class DataModelDikdas extends Model
                     SUM(CASE WHEN (".$this->dikdasall.") THEN 1 ELSE 0 END) total,
                     SUM(CASE WHEN (".$this->sdsederajat.") THEN 1 ELSE 0 END) sdsederajat,
                     SUM(CASE WHEN (".$this->smpsederajat.") THEN 1 ELSE 0 END) smpsederajat,
-                    w.nama, w.kode_wilayah FROM Arsip.dbo.sekolah s 
+                    w.nama, w.kode_wilayah FROM ods2.bid2.sekolah s 
                     JOIN Referensi.ref.mst_wilayah w ON LEFT(w.kode_wilayah,:nkar2:)=LEFT(s.kode_wilayah,:nkar2:) 
                     WHERE id_level_wilayah=:levelbaru: AND soft_delete=0 AND LEFT(w.kode_wilayah,:nkar:)=:kodebaru: 
                     ".$wherestatus." 
@@ -82,7 +82,7 @@ class DataModelDikdas extends Model
             {
                 $sql = "SELECT 
                     SUM(CASE WHEN (s.bentuk_pendidikan_id=99999) THEN 1 ELSE 0 END) total,
-                    w.nama, w.kode_wilayah FROM Arsip.dbo.sekolah s 
+                    w.nama, w.kode_wilayah FROM ods2.bid2.sekolah s 
                     JOIN Referensi.ref.mst_wilayah w ON LEFT(w.kode_wilayah,:nkar2:)=LEFT(s.kode_wilayah,:nkar2:) 
                     WHERE id_level_wilayah=:levelbaru: AND soft_delete=0 AND LEFT(w.kode_wilayah,:nkar:)=:kodebaru: 
                     ".$wherestatus." 
@@ -102,7 +102,7 @@ class DataModelDikdas extends Model
             $sql   = "SELECT SUM(CASE WHEN 
                 (s.bentuk_pendidikan_id=:bentuknya:) 
                 THEN 1 ELSE 0 END) total,
-                w.nama, w.kode_wilayah FROM Arsip.dbo.sekolah s 
+                w.nama, w.kode_wilayah FROM ods2.bid2.sekolah s 
                 JOIN Referensi.ref.mst_wilayah w ON LEFT(w.kode_wilayah,:nkar2:)=LEFT(s.kode_wilayah,:nkar2:) 
                     WHERE id_level_wilayah=:levelbaru: AND soft_delete=0 AND LEFT(w.kode_wilayah,:nkar:)=:kodebaru: 
                     ".$wherestatus." 
@@ -178,7 +178,7 @@ class DataModelDikdas extends Model
                 $sql = "SELECT npsn, nama, alamat_jalan, desa_kelurahan, 
                     kode_wilayah, 
                     CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
-                    FROM Arsip.dbo.sekolah s 
+                    FROM ods2.bid2.sekolah s 
                     WHERE (".$this->dikdasall.") 
                     AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
                     ".$wherestatus." 
@@ -189,7 +189,7 @@ class DataModelDikdas extends Model
                 $sql  = "SELECT npsn, nama, alamat_jalan, desa_kelurahan, 
                     kode_wilayah, 
                     CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
-                    FROM Arsip.dbo.sekolah s 
+                    FROM ods2.bid2.sekolah s 
                     WHERE (".$this->dikdasall.") 
                     AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
                     ".$wherestatus." 
@@ -200,7 +200,7 @@ class DataModelDikdas extends Model
                 $sql = "SELECT npsn, nama, alamat_jalan, desa_kelurahan, 
                     kode_wilayah, 
                     CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
-                    FROM Arsip.dbo.sekolah s 
+                    FROM ods2.bid2.sekolah s 
                     WHERE (".$this->dikdasnonformal.") 
                     AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
                     ".$wherestatus." 
@@ -216,7 +216,7 @@ class DataModelDikdas extends Model
             $sql = "SELECT npsn, nama, alamat_jalan, desa_kelurahan, 
                 kode_wilayah, 
                 CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
-                FROM Arsip.dbo.sekolah s 
+                FROM ods2.bid2.sekolah s 
                 WHERE (".$this->dikdasall.") 
                 AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
                 AND s.bentuk_pendidikan_id=:bentuknya: 

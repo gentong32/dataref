@@ -28,6 +28,16 @@ if ($level==3)
     $breadcrump3 = ">> ".$namalevel3;
 }
 
+$pilstatus=[];
+
+for ($a=1;$a<=5;$a++)
+{
+    $pilstatus[$a] = "";
+    if ($kategori==$a)
+        $pilstatus[$a] = "selected";
+}
+
+
 ?>
 
 <?= $this->extend('layout/default') ?>
@@ -45,11 +55,22 @@ if ($level==3)
     <div class="judulatas">DAFTAR CAGAR BUDAYA <?=strtoupper($tingkat)?> PER <?=$namapilihan?></div>
     <div class="card-body p-0">
         <center>
-        <div class="">
+        <div class="" style="display:inline-block;">
             <select class="combobox1" id="jenis_cb" name="jenis_cb">
-                <option value="jn">Semua Jenis</option>
+                <option value="">--Semua Kategori--</option>
+                <?php 
+                $idx=0;
+                foreach($daftarkategori as $value)
+                {
+                    $idx++;
+                    echo '<option '.$pilstatus[$idx].' value='.$value->jenis_id.'>'.$value->Jenis.'</option>';
+                }
+                ?>
             </select>
         </div>
+        <button onclick="filterdata()" class="tb_utama" type="button">
+            Terapkan
+        </button>
         </center>
         <div style="margin:30px;">
             <div class="">
@@ -58,7 +79,7 @@ if ($level==3)
                         <th width="10px">No</th>
                         <th>Kode</th>
                         <th width="50%">Nama Cagar Budaya</th>
-                        <th>Jenis</th>
+                        <th>Kategori</th>
                         <th>Alamat</th>
                     </tr>
                     </thead>
@@ -67,15 +88,16 @@ if ($level==3)
                     <tr>
                         <td align="right"><?=$key + 1?></td>
                         <?php 
-                            $siap=false;
+                            $siap=true;
                             if ($siap) {?>
                         <td class="link1">
                             <a target="_blank" href="<?=site_url('kebudayaan/kode/'.trim($value->kode_pengelolaan))?>">
                             <?=$value->kode_pengelolaan?>
                             </a> 
                         </td>
-                        <?php } ?>
+                        <?php } else {?>
                         <td><?=$value->kode_pengelolaan?></td>
+                        <?php } ?>
                         <td><?=$value->nama?></td>
                         <td><?=$value->Jenis?></td>
                         <td><?=$value->alamat?></td>
@@ -98,6 +120,12 @@ $(document).ready( function () {
         ]
     });
 } );
+
+function filterdata()
+{
+    window.open("<?=site_url('kebudayaan/cagarbudaya')."/".$kode."/".$level?>"+
+    "/"+$('#jenis_cb').val(), target="_self");
+}
 
 </script>
 <?= $this->endSection() ?>

@@ -294,6 +294,8 @@ class DataModelDikmen2 extends Model
 
     public function getDaftarSekolahDikmen($status,$kodebaru,$jalur,$bentuk)
     {
+        $this->db = \Config\Database::connect("dbnpsn");
+        
         if ($status=="all")
             $wherestatus = "";
         else if ($status=="s1")
@@ -308,7 +310,7 @@ class DataModelDikmen2 extends Model
                 $sql = "SELECT npsn, nama, alamat_jalan, desa_kelurahan, 
                     kode_wilayah, 
                     CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
-                    FROM Arsip.dbo.sekolah s 
+                    FROM ods2.bid2.sekolah s 
                     WHERE (".$this->dikmenall.") 
                     AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
                     ".$wherestatus." 
@@ -319,7 +321,7 @@ class DataModelDikmen2 extends Model
                 $sql  = "SELECT npsn, nama, alamat_jalan, desa_kelurahan, 
                     kode_wilayah, 
                     CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
-                    FROM Arsip.dbo.sekolah s 
+                    FROM ods2.bid2.sekolah s 
                     WHERE (".$this->dikmenall.") 
                     AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
                     ".$wherestatus." 
@@ -330,7 +332,7 @@ class DataModelDikmen2 extends Model
                 $sql = "SELECT npsn, nama, alamat_jalan, desa_kelurahan, 
                     kode_wilayah, 
                     CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
-                    FROM Arsip.dbo.sekolah s 
+                    FROM ods2.bid2.sekolah s 
                     WHERE (".$this->dikmennonformal.") 
                     AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
                     ".$wherestatus." 
@@ -346,7 +348,7 @@ class DataModelDikmen2 extends Model
             $sql = "SELECT npsn, nama, alamat_jalan, desa_kelurahan, 
                 kode_wilayah, 
                 CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
-                FROM Arsip.dbo.sekolah s 
+                FROM ods2.bid2.sekolah s 
                 WHERE (".$this->dikmenall.") 
                 AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
                 AND s.bentuk_pendidikan_id=:bentuknya: 

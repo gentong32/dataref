@@ -97,7 +97,7 @@ $cekjalurbentukstatus = "/".$jalur."/".$bentuk."/".$status;
         <center>
         <div class="">
             <select class="combobox1" id="jalur_pendidikan" name="jalur_pendidikan">
-                <option <?=$piljalur3?> value="jn">Jalur Non formal</option>
+                <option <?=$piljalur3?> value="jn">Jalur Nonformal</option>
             </select>
             <div id="dbentukpendidikan" style="display:inline-block;">
             <select class="combobox1" id="bentuk_pendidikan" name="bentuk_pendidikan">

@@ -31,6 +31,7 @@ if ($level==3)
 $pilstatus1 = "";
 $pilstatus2 = "";
 $pilstatus3 = "";
+$centang="&#10004";
 
 if ($status=="all")
     $pilstatus1 = "selected";
@@ -53,7 +54,7 @@ else if ($status=="s2")
         <?=$breadcrump2;?>
         <?=$breadcrump3;?>
     </div>
-    <div class="judulatas">DAFTAR PROGRAM LAYANAN KESETARAAN PER <?=$namapilihan?></div>
+    <div class="judulatas">DAFTAR PROGRAM / LAYANAN KESETARAAN PER <?=$namapilihan?></div>
     <div class="card-body p-0">
         <center>
             <div id="cbok2" style="display:inline-block;">
@@ -88,9 +89,9 @@ else if ($status=="s2")
                         <td align="right"><?=$key + 1?></td>
                         <td class="link1"><a target="_blank" href="<?=site_url('pendidikan/npsn/'.trim($value->npsn))?>"><?=$value->npsn?></a></td>
                         <td><?=$value->nama?></td>
-                        <td style="padding-left:32px;"><?=($value->paket_a == '1') ? 'v' : '-';?></td>
-                        <td style="padding-left:32px;"><?=($value->paket_b == '1') ? 'v' : '-';?></td>
-                        <td style="padding-left:32px;"><?=($value->paket_c == '1') ? 'v' : '-';?></td>
+                        <td style="padding-left:32px;"><?=($value->paket_a == '1') ? $centang : '-';?></td>
+                        <td style="padding-left:32px;"><?=($value->paket_b == '1') ? $centang : '-';?></td>
+                        <td style="padding-left:32px;"><?=($value->paket_c == '1') ? $centang : '-';?></td>
                         <td><?=$value->alamat_jalan?></td>
                         <td><?=$value->desa_kelurahan?></td>
                         <td><?=$value->status_skl?></td>
@@ -155,7 +156,7 @@ function getdaftarbentuk() {
 
 function filterdata()
 {
-    window.open("<?=site_url('pendidikan/'.$tingkat)."/".$kode."/".$level?>"+
+    window.open("<?=site_url('pendidikan/program/'.$tingkat)."/".$kode."/".$level?>"+
     "/"+$('#status_sekolah').val(), target="_self");
 }
 

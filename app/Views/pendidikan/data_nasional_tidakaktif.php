@@ -1,11 +1,6 @@
 <?php
 $totalsemua = 0;
 $total1 = 0;
-$total2 = 0;
-$total3 = 0;
-$total4 = 0;
-$total5 = 0;
-$total6 = 0;
 
 $link1 = site_url('pendidikan/tidakaktif')."/".substr($kode, 0, 2)."0000"."/1/";
 $link2 = site_url('pendidikan/tidakaktif')."/".substr($kode, 0, 4)."00"."/2/";
@@ -68,11 +63,6 @@ $styletabel = "max-width:700px;";
                             <thead><tr>
                                 <th width="10px">No</th>
                                 <th><?=$judulnama?></th>
-                                <th class="text-center">1 smst</th>
-                                <th class="text-center">2 smst</th>
-                                <th class="text-center">3 smst</th>
-                                <th class="text-center">4 smst</th>
-                                <th class="text-center">5 smst</th>
                                 <th >Total</th>
                             </tr>
                             </thead>
@@ -82,7 +72,7 @@ $styletabel = "max-width:700px;";
                             <tr>
                                 <td><?=$key + 1?></td>
                                 <td align="left" class="link1">
-                                    <?php if($level<2) {?>
+                                    <?php if($level<=2) {?>
                                     <a href="<?=site_url('pendidikan/tidakaktif/'.
                                         trim($value->kode_wilayah).'/'.($level+1))?>"><?php
                                         if ($level==0 && $value->nama!="Luar Negeri")
@@ -113,22 +103,18 @@ $styletabel = "max-width:700px;";
                                         }
                                     }?>
                                 </td>
-                                <td><?=$value->kode_5?></td>
-                                <td><?=$value->kode_4?></td>
-                                <td><?=$value->kode_3?></td>
-                                <td><?=$value->kode_2?></td>
-                                <td><?=$value->kode_1?></td>
-                                <td><?=$value->total?></td>
+                                <td><?=$value->kode_6?></td>
                             </tr>
                             
                             <?php endforeach;?>
                             </tbody>
 
                             <tfoot align="right">
-                                <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
+                                <tr><th></th><th></th><th></th></tr>
                             </tfoot>
                         
                         </table>
+                        <!-- <span style="color:darkgrey;padding-bottom:25px;"><i>*) smst = semester</i></span><br><br> -->
                         </div>
                     </div>
                 </div>
@@ -146,11 +132,6 @@ $(document).ready( function () {
         columnDefs: [
             { responsivePriority: 1, targets: -1 },
             { targets: 2, render: $.fn.dataTable.render.number('.', ',', 0, '') },
-            { targets: 3, render: $.fn.dataTable.render.number('.', ',', 0, '') },
-            { targets: 4, render: $.fn.dataTable.render.number('.', ',', 0, '') },
-            { targets: 5, render: $.fn.dataTable.render.number('.', ',', 0, '') },
-            { targets: 6, render: $.fn.dataTable.render.number('.', ',', 0, '') },
-            { targets: 7, render: $.fn.dataTable.render.number('.', ',', 0, '') },
             { className: 'text-right', targets: [2] },            
         ],
         "footerCallback": function ( row, data, start, end, display ) {
@@ -177,36 +158,6 @@ $(document).ready( function () {
                 .reduce( function (a, b) {
                     return intVal(a) + intVal(b);
                 }, 0 );
-	        var total2 = api
-                .column( 3 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-	        var total3 = api
-                .column( 4 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-	        var total4 = api
-                .column( 5 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-	        var total5 = api
-                .column( 6 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-	        var total6 = api
-                .column( 7 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
             
             // Update footer by showing the total with the reference of the column index 
             var numFormat = $.fn.dataTable.render.number( '.', ',', 0, '' ).display;
@@ -215,16 +166,6 @@ $(document).ready( function () {
             $( api.column( 1 ).footer() ).html('TOTAL SEMUA');
             $( api.column( 2 ).footer() ).html(numFormat(total1));
             $( api.column( 2 ).footer() ).css({'text-align':'right','padding-right':'15px'});
-            $( api.column( 3 ).footer() ).html(numFormat(total2));
-            $( api.column( 3 ).footer() ).css({'text-align':'right','padding-right':'15px'});
-            $( api.column( 4 ).footer() ).html(numFormat(total3));
-            $( api.column( 4 ).footer() ).css({'text-align':'right','padding-right':'15px'});
-            $( api.column( 5 ).footer() ).html(numFormat(total4));
-            $( api.column( 5 ).footer() ).css({'text-align':'right','padding-right':'15px'});
-            $( api.column( 6 ).footer() ).html(numFormat(total5));
-            $( api.column( 6 ).footer() ).css({'text-align':'right','padding-right':'15px'});
-            $( api.column( 7 ).footer() ).html(numFormat(total6));
-            $( api.column( 7 ).footer() ).css({'text-align':'right','padding-right':'15px'});
         },
         "processing": true,
     });

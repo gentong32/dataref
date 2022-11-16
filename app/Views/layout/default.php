@@ -39,9 +39,9 @@
   <!-- Colorbox -->
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/colorbox/colorbox.css">
   <!-- Template styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v3.3">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v4.1">
  <!-- Custom styles-->
- <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v3.3">
+ <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v4.2">
 </head>
 <body>
   <div class="body-inner">
@@ -77,8 +77,8 @@
                 <div id="navbar-collapse" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav mr-auto">
 
-					<li class="nav-item"><a class="nav-link" href="<?=site_url('/')?>">Beranda</a></li>
-          <li class="nav-item dropdown">
+                      <li class="nav-item"><a class="nav-link" href="<?=site_url('/')?>">Beranda</a></li>
+                      <li class="nav-item dropdown">
                           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Data Pendidikan <i class="fa fa-angle-down"></i></a>
                           <ul class="dropdown-menu" role="menu">
                             <li class="dropdown-submenu">
@@ -89,7 +89,10 @@
                                   <li><a href="<?=site_url('pendidikan/dikmen')?>">Pendidikan Menengah (Dikmen)</a></li>
                                   <li><a href="<?=site_url('pendidikan/dikti')?>">Pendidikan Tinggi (Dikti)</a></li>
                                   <li2><a href="<?=site_url('pendidikan/dikmas')?>">Pendidikan Masyarakat (Dikmas)</a></li2>
-                                  <li><a href="<?=site_url('pendidikan/tidakaktif')?>">Sekolah Tidak Aktif</a></li>
+                                  <li><a class="redlink" href="<?=site_url('pendidikan/tidakupdate')?>">Residu Update Data</a></li>
+                                  <li><a class="redlink" href="<?=site_url('pendidikan/tidakaktif')?>">Residu Tidak Aktif</a></li>
+                                  <!-- <lib><span style="font-weight:bold;font-family: Montserrat;font-size: 12px;">RESIDU SATUAN PENDIDIKAN</span></lib> -->
+                                  <!-- <li><a href="<?php //echo site_url('pendidikan/tidakaktif')?>">Residu Satuan Pendidikan</a></li> -->
 
                                 </ul>
                             </li>
@@ -97,22 +100,41 @@
                                 <a href="<?=site_url('pendidikan/yayasan')?>">Yayasan Pendidikan</a>                                
                             </li>
                             <li class="dropdown-submenu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Program Layanan</a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Program / Layanan</a>
                                 <ul class="dropdown-menu">
+                                  <li><a href="<?=site_url('pendidikan/program/paud')?>">Paud</a></li>
                                   <li><a href="<?=site_url('pendidikan/program/kesetaraan')?>">Kesetaraan</a></li>
-                                  <li><span style="font-weight:bold;font-family: Montserrat;font-size: 12px;">LIFE SKILL</span></li>
+                                  <li><a href="<?=site_url('pendidikan/program/terampil')?>">Keterampilan Kerja</a></li>
+                                  <!-- <li><span style="font-weight:bold;font-family: Montserrat;font-size: 12px;">KETRAMPILAN KERJA</span></li> -->
                                 </ul>
                             </li>
                           </ul>
                       </li>
                       <li class="nav-item dropdown">
-                          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Data Kebudayaan <i class="fa fa-angle-down"></i></a>
+                          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Data Kebudayaan dan Kebahasaan <i class="fa fa-angle-down"></i></a>
                           <ul class="dropdown-menu" role="menu">
-                            <li><a href="<?=site_url('kebudayaan/cagarbudaya')?>">Cagar Budaya</a></li>
-                            <li><a href="<?=site_url('kebudayaan/museum')?>">Museum</a></li>
-                            <li><span style="font-weight:bold;font-family: Montserrat;font-size: 12px;">WARISAN BUDAYA TAK BENDA</span></li>
+                            <li class="dropdown-submenu">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data Kebudayaan</a>
+                                <ul class="dropdown-menu">
+                                  <li><a href="<?=site_url('kebudayaan/cagarbudaya')?>">Cagar Budaya</a></li>
+                                  <li><a href="<?=site_url('kebudayaan/museum')?>">Museum</a></li>
+                                  <li><a href="<?=site_url('kebudayaan/wbtb')?>">Warisan Budaya Tak Benda</a></li>
+                                  <li><a href="<?=site_url('kebudayaan/sanggar')?>">Sanggar</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data Kebahasaan</a>
+                                <ul class="dropdown-menu">
+                                  <!-- <li><a href="<?=site_url('kebudayaan/bahasadaerah')?>">Bahasa Daerah</a></li> -->
+                                  <!-- <li><a href="<?=site_url('kebudayaan/komunitasbahasa')?>">Komunitas Bahasa/Sastra</a></li> -->
+                                  <lib><span style="font-weight:bold;font-family: Montserrat;font-size: 12px;">BAHASA DAERAH</span></lib><br>
+                                  <lib><span style="font-weight:bold;font-family: Montserrat;font-size: 12px;">KOMUNITAS BAHASA/SASTRA</span></lib>
+                                </ul>
+                            </li>
+                            <!-- <li><span style="font-weight:bold;font-family: Montserrat;font-size: 12px;">WARISAN BUDAYA TAK BENDA</span></li> -->
                           </ul>
                       </li>
+                      <li class="nav-item"><a class="nav-link" href="<?=site_url('pustaka')?>">Pustaka</a></li>
                     </ul>
                 </div>
               </nav>
@@ -186,9 +208,11 @@
 
   <!-- initialize jQuery Library -->
   <script src="<?=base_url()?>/template/plugins/jQuery/jquery.min.js"></script>
+  <!-- <script src="<?=base_url()?>/template/js/jquery-3.5.1.js"></script> -->
   <!-- Bootstrap jQuery -->
   <script src="<?=base_url()?>/template/plugins/bootstrap/bootstrap.min.js" defer></script>
   <!-- DataTables -->
+    
   <script src="<?=base_url()?>/template/js/jquery.dataTables.min.js"></script>
   <script src="<?=base_url()?>/template/js/dataTables.responsive.min.js"></script>
   <script src="<?=base_url()?>/template/js/dataTables.fixedColumns.min.js"></script>

@@ -10,7 +10,9 @@ class DataModelPendidikan extends Model
 
     public function getCariNamaAtauNPSN($kode)
     {
-        $sql = "SELECT s.*, b.nama as bentuk_pendidikan, k.nama as status_kepemilikan, CASE WHEN npyp IS NULL THEN '-' ELSE npyp END AS npyp, 
+        $this->db = \Config\Database::connect("dbnpsn");
+
+        $sql = "SELECT s.*, b.nama as bentuk_pendidikan, k.nama as status_kepemilikan, 
          CASE WHEN s.bentuk_pendidikan_id IN (9,10,16,17,34,36,37,38,56,39,41,57,58,59,
                  60,44,45,61,62,63,64,65) THEN 'Kementerian Agama'
              WHEN s.npsn IN ('10646356', '30314295', '69734022') THEN 'Kementerian Pertanian'
@@ -19,14 +21,12 @@ class DataModelPendidikan extends Model
              WHEN s.npsn IN ('69924881','69769420','69772845','10112822','10310815',
                  '30112509','60404134','69787011','60104523') THEN 'Kementerian Kelautan dan Perikanan'
              ELSE 'Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi' 
-         END AS kementerian_pembina, y.nama as nama_yayasan,
-         CASE WHEN y.kode_wilayah IS NULL THEN '-' ELSE y.kode_wilayah END AS kode_wilayah_yayasan,     
+         END AS kementerian_pembina,
          CASE WHEN s.status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_sekolah     
-         FROM Arsip.dbo.sekolah s 
-         LEFT JOIN Arsip.dbo.yayasan y ON y.yayasan_id = s.yayasan_id 
-         LEFT JOIN Referensi.ref.bentuk_pendidikan b ON b.bentuk_pendidikan_id = s.bentuk_pendidikan_id 
-         LEFT JOIN Referensi.ref.status_kepemilikan k ON k.status_kepemilikan_id = s.status_kepemilikan_id  
-         WHERE npsn = :npsn:";
+         FROM ods2.bid2.sekolah s 
+         LEFT JOIN ref.bentuk_pendidikan b ON b.bentuk_pendidikan_id = s.bentuk_pendidikan_id 
+         LEFT JOIN ref.status_kepemilikan k ON k.status_kepemilikan_id = s.status_kepemilikan_id  
+         WHERE npsn = :npsn: AND s.soft_delete=0";         
 
         // $sql = "SELECT s.*, CASE WHEN npyp IS NULL THEN '-' ELSE npyp END AS npyp, 
         //  CASE WHEN s.bentuk_pendidikan_id IN (9,10,16,17,34,36,37,38,56,39,41,57,58,59,
@@ -42,6 +42,20 @@ class DataModelPendidikan extends Model
         //  FROM Datamart.datamart.sekolah s 
         //  LEFT JOIN Arsip.dbo.yayasan y ON y.yayasan_id = s.yayasan_id 
         //  WHERE npsn = :npsn:";
+
+        $query = $this->db->query($sql, [
+            'npsn'  => $kode
+        ]);
+
+        $this->db = \Config\Database::connect("");
+
+        return $query;
+    }
+
+    public function getYayasanId($kode)
+    {
+        $sql = "SELECT * FROM Arsip.dbo.sekolah 
+         WHERE npsn = :npsn:";
 
         $query = $this->db->query($sql, [
             'npsn'  => $kode
@@ -83,14 +97,33 @@ class DataModelPendidikan extends Model
 
         $this->db = \Config\Database::connect("dbnpsn");
 
-    
-        $sql = "SELECT o.*, max(insert_date) as tgl_path 
-        FROM bid2.skoperasional o 
+        $sql = "SELECT MAX(insert_date) as tgl_path,  MAX(pathfile) as pathfile, sekolah_id 
+        FROM bid2.skoperasional 
         WHERE soft_delete = 0 AND sekolah_id = :sekolahid: 
-        GROUP BY sekolah_id,pathfile,insert_date,soft_delete";
+        GROUP BY sekolah_id";
 
         $query = $this->db->query($sql, [
                 'sekolahid'  => $sekolahid
+            ]);
+
+        if (!$query)
+        {
+            $this->db = \Config\Database::connect("");
+            $query = $this->db->query("select * from Arsip.dbo.yayasan where nama='9999999'");
+        }
+
+        return $query;
+    }
+
+    public function getYayasan($yayasanid)
+    {
+        
+        $sql = "SELECT * 
+        FROM Arsip.dbo.yayasan  
+        WHERE yayasan_id = :yayasanid:";
+
+        $query = $this->db->query($sql, [
+                'yayasanid'  => $yayasanid
             ]);
 
         if (!$query)
@@ -120,7 +153,7 @@ class DataModelPendidikan extends Model
     public function getCariDaftarSekolah($kode)
     {
         // $keywordsMany = explode(' ',$kode);
-
+        $this->db = \Config\Database::connect("dbnpsn");
 
         $isiwhere = "s.nama like :kode:";
 		// for ($a=0;$a<count($keywordsMany);$a++) {
@@ -130,12 +163,13 @@ class DataModelPendidikan extends Model
 		// for ($a=0;$a<count($keywordsMany);$a++) {
 		// 	$isiwhere = $isiwhere . " OR npsn like '%".$keywordsMany[$a]."%'";
 		// }
-
+        
+        // -- FROM [Arsip].[dbo].[sekolah] s 
         $sql = "SELECT TOP 3000 s.nama, s.npsn,s.alamat_jalan,s.desa_kelurahan, 
         CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl, 
         b.nama as bentuk_pendidikan 
-        FROM [Arsip].[dbo].[sekolah] s 
-        JOIN Referensi.ref.bentuk_pendidikan b ON b.bentuk_pendidikan_id = s.bentuk_pendidikan_id 
+        FROM [ods2].[bid2].[sekolah] s
+        JOIN ref.bentuk_pendidikan b ON b.bentuk_pendidikan_id = s.bentuk_pendidikan_id 
         WHERE soft_delete=0 AND ($isiwhere)"; 
 
         $query = $this->db->query($sql,[
@@ -167,6 +201,7 @@ class DataModelPendidikan extends Model
 
     public function getCariDaftarYayasan($kode)
     {
+        $this->db = \Config\Database::connect("");
         // $keywordsMany = explode(' ',$kode);
         $isiwhere = "s.nama like :kode:";
 		// for ($a=0;$a<count($keywordsMany);$a++) {
@@ -176,10 +211,11 @@ class DataModelPendidikan extends Model
 		// for ($a=0;$a<count($keywordsMany);$a++) {
 		// 	$isiwhere = $isiwhere . " OR npsn like '%".$keywordsMany[$a]."%'";
 		// }
-
+        
+        // FROM [Arsip].[dbo].[yayasan] s 
         $sql = "SELECT TOP 5000 s.nama, s.npyp, s.yayasan_id, s.alamat_jalan,s.desa_kelurahan,
         CASE WHEN RTRIM(LTRIM(s.nama))=:kode2: THEN '0' ELSE '1' END AS tepat 
-        FROM [Arsip].[dbo].[yayasan] s 
+        FROM [Arsip].[dbo].[yayasan] s
         WHERE soft_delete=0 AND ($isiwhere) 
         ORDER BY tepat";
        
@@ -187,6 +223,18 @@ class DataModelPendidikan extends Model
             'kode'  => "%".$kode."%",
             'kode2'  => $kode,
         ]);
+
+        return $query;
+    }
+
+    public function getLayananSekolah($idsekolah)
+    {
+        // $this->db = \Config\Database::connect("dbproses");
+        $sql = "select *  
+        from [Dataprocess].[dbo].[sekolah_jenis_layanan]
+        where sekolah_id='".$idsekolah."'";
+
+        $query = $this->db->query($sql);
 
         return $query;
     }
@@ -203,6 +251,8 @@ class DataModelPendidikan extends Model
         // $sql0=$sql0."kode_wilayah char(8),
         //     PRIMARY KEY (ID)
         // );";
+
+        // $this->db = \Config\Database::connect("dbproses");
 
         $level=intval($level);
         $nkar = $level*2;
@@ -258,6 +308,8 @@ class DataModelPendidikan extends Model
                 $query = $this->db->query($sql3);
              }
          }
+
+         $this->db = \Config\Database::connect("");
      
 
         // echo "<pre>";
@@ -267,27 +319,34 @@ class DataModelPendidikan extends Model
 
     public function getpengunjung($ip, $date)
     {
+        // $this->db = \Config\Database::connect("dbproses");
         $sql = "SELECT * FROM Dataprocess.dev.statdataref 
         WHERE ip='".$ip."' AND date='".$date."'";
         // echo $sql;
         $query = $this->db->query($sql)->getResult();
+        $this->db = \Config\Database::connect("");
         return $query;
     }
 
     public function addpengunjung($ip, $date, $waktu, $timeinsert, $regionname, $city, $mobile)
     {
+        // $this->db = \Config\Database::connect("dbproses");
         $this->db->query("INSERT INTO Dataprocess.dev.statdataref (ip, date, hits, online, time, regionname, city, device) 
         VALUES('".$ip."','".$date."','1','".$waktu."','".$timeinsert."','".$regionname."','".$city."','".$mobile."')");
+        $this->db = \Config\Database::connect("");
     }
 
     public function updatepengunjung($ip, $date, $waktu)
     {
+        // $this->db = \Config\Database::connect("dbproses");
         $this->db->query("UPDATE Dataprocess.dev.statdataref SET hits=hits+1, online='".$waktu."' 
         WHERE ip='".$ip."' AND date='".$date."'");
+        $this->db = \Config\Database::connect("");
     }
 
     public function jmlpengunjungharini($date)
     {
+        // $this->db = \Config\Database::connect("dbproses");
         // $query = $this->db->query("SELECT ip, date, hits, online, regionname, city, device FROM Dataprocess.dev.statdataref 
         // WHERE date='".$date."' GROUP BY ip, date, hits, online, regionname, city, device")->getResult();
         // return $query;
@@ -300,11 +359,14 @@ class DataModelPendidikan extends Model
             'date'  => $date,
         ]);
 
+
         return $query->getRow();
+        
     }
 
     public function jmlpengunjungbulanini($tahun, $bulan)
     {
+        // $this->db = \Config\Database::connect("dbproses");
         $sql = "select month(date) as bulan, count(*) as pengunjung 
         from [Dataprocess].[dev].[statdataref] 
         where year(date)=:tahun: AND month(date)=:bulan: 
@@ -318,10 +380,28 @@ class DataModelPendidikan extends Model
         return $query->getRow();
     }
 
+    public function jmlmobilebulanini($tahun, $bulan)
+    {
+        // $this->db = \Config\Database::connect("dbproses");
+        $sql = "select month(date) as bulan, 
+        SUM(CASE WHEN device='mobile' THEN 1 ELSE 0 END) as total_mobile, 
+        SUM(CASE WHEN device='komputer' THEN 1 ELSE 0 END) as total_komputer 
+        from [Dataprocess].[dev].[statdataref] 
+        where year(date)=:tahun: AND month(date)=:bulan: 
+        group by datepart(month, date),month(date)";
+       
+        $query = $this->db->query($sql,[
+            'tahun'  => $tahun,
+            'bulan'  => $bulan
+        ]);
+
+        return $query->getRow();
+    }
     
 
     public function totalpengunjung()
     {
+        // $this->db = \Config\Database::connect("dbproses");
         $query = $this->db->query("SELECT COUNT(hits) as hits 
         FROM Dataprocess.dev.statdataref")->getRow();
         return $query;
@@ -329,13 +409,16 @@ class DataModelPendidikan extends Model
 
     public function pengunjungonline($bataswaktu)
     {
+        // $this->db = \Config\Database::connect("dbproses");
         $query = $this->db->query("SELECT * FROM Dataprocess.dev.statdataref 
         WHERE online > '".$bataswaktu."'")->getResult();
+        
         return $query;
     }    
 
     public function cek_pengunjung_kemarin()
     {
+        // $this->db = \Config\Database::connect("dbproses");
         $tglkemarin = date('Y-m-d',strtotime("-1 days"));
         $sql = "select *  
         from [Dataprocess].[dev].[rekapdatarefharian] 
@@ -359,6 +442,8 @@ class DataModelPendidikan extends Model
             $tahun--;
         }
 
+        // $this->db = \Config\Database::connect("dbproses");
+
         $sql = "select * 
         from [Dataprocess].[dev].[rekapdatarefbulanan] 
         where bulan='".$bulankemarin."' AND tahun='".$tahun."'";
@@ -372,6 +457,8 @@ class DataModelPendidikan extends Model
 
     public function getdata_pengunjung_harian($tahun,$bulan)
     {
+        // $this->db = \Config\Database::connect("dbproses");
+
         $sql = "select tanggal as date, jumlah as pengunjung 
         from [Dataprocess].[dev].[rekapdatarefharian] 
         where year(tanggal) = :tahun: AND month(tanggal) = :bulan: 
@@ -389,6 +476,8 @@ class DataModelPendidikan extends Model
 
     public function getdata_pengunjung_bulanan($tahun)
     {
+        // $this->db = \Config\Database::connect("dbproses");
+
         $sql = "select bulan, jumlah as pengunjung 
         from [Dataprocess].[dev].[rekapdatarefbulanan] 
         where tahun=:tahun: 
@@ -406,6 +495,8 @@ class DataModelPendidikan extends Model
 
         // $sql0 = "TRUNCATE TABLE Dataprocess.dev.rekapdatarefharian";
         // $this->db->query($sql0);
+
+        // $this->db = \Config\Database::connect("dbproses");
         
         $sql = "select date, count(*) as pengunjung 
         from [Dataprocess].[dev].[statdataref] 
@@ -425,6 +516,7 @@ class DataModelPendidikan extends Model
             
             $query2 = $this->db->query($sql2);
             }
+
     }
 
     public function setdatapengunjungkemarin()
@@ -433,6 +525,8 @@ class DataModelPendidikan extends Model
         // $sql0 = "TRUNCATE TABLE Dataprocess.dev.rekapdatarefharian";
         // $this->db->query($sql0);
         $tglkemarin = date('Y-m-d',strtotime("-1 days"));
+
+        // $this->db = \Config\Database::connect("dbproses");
         
         $sql = "select date, count(*) as pengunjung 
         from [Dataprocess].[dev].[statdataref] 
@@ -449,6 +543,7 @@ class DataModelPendidikan extends Model
             
             $query2 = $this->db->query($sql2);
             }
+
     }
 
     public function setdatapengunjungbulankemarin()
@@ -461,7 +556,9 @@ class DataModelPendidikan extends Model
             $bulankemarin = 12;
             $tahun--;
         }
-        
+
+        // $this->db = \Config\Database::connect("dbproses");
+
         $sql = "select month(date) as bulan, count(*) as pengunjung 
         from [Dataprocess].[dev].[statdataref] 
         where year(date)=:tahun: AND month(date)=:bulankemarin:  
@@ -480,6 +577,7 @@ class DataModelPendidikan extends Model
             
             $query2 = $this->db->query($sql2);
             }
+
     }
 
     // public function getdata_pengunjung_harian_old($tahun,$bulan)
@@ -510,4 +608,126 @@ class DataModelPendidikan extends Model
 
     //     return $query->getResult();
     // }
+    public function getkodesaved()
+    {
+        $sql="SELECT [kode_wilayah]
+        FROM [Dataprocess].[dev].[areamapkabkota]
+        group by kode_wilayah";
+        $query = $this->db->query($sql);
+        return $query->getResult();
+    }
+
+    public function getsemuakota()
+    {
+        $sql = "SELECT [kode_wilayah],[nama] FROM [Referensi].[ref].[mst_wilayah] where id_level_wilayah=2 ORDER BY kode_wilayah";
+        $query = $this->db->query($sql);
+        return $query->getResult();
+    }
+
+    public function getdatabesar($str, $kodewilayah)
+    {
+        $baris = 0;
+        $myFile = site_url("/template/js/geojson_kabkot_indonesia.js");
+        $lines = file($myFile);//file in to an array
+        foreach ($lines as $lineNumber => $line) {
+            $baris++;
+            $kabkot = substr($str,0,3);
+            $namasaja = substr($str,5);
+            $str2 = str_replace(" ","",$str);
+            $namasaja2 = strtolower(substr($str2,4));
+
+            // echo "2".$poskabkot;
+            // echo "3".$kabkot;
+            // $line = str_replace(" ","",$line);
+           
+            if (strpos(strtolower($line), strtolower($namasaja)) !== false) {
+                // echo "1".$namasaja;
+                $poskabkot = substr($line,strpos($line, 'TYPE_2')+10,3);
+                if ($poskabkot==$kabkot)
+                {
+                    // echo "Baris: ".$baris; 
+                    $line = str_replace("[ [ [","[",$line);
+                    $line = str_replace("[ [","[",$line);
+                    $line = str_replace("] ] ]","]",$line);
+                    $line = str_replace("] ]","]",$line);
+                    $line = str_replace(" ","",$line);
+                    $pos = strpos($line, 'coordinates')+13;
+                    $line2 = substr($line,$pos,-4);
+                    $batasakhir = strrpos($line2,"[");
+                    $mulai=0;
+                    $pos1=0;
+                    $barisvalue=0;
+                    echo $line2;
+                    
+                    while ($pos1<$batasakhir)
+                    {
+                        $barisvalue++;
+                        if ($barisvalue==1)
+                        {
+                            $sudahjalan=0;
+                            $sql="INSERT INTO Dataprocess.dev.areamapkabkota (kode_wilayah,lintang,bujur) VALUES ";
+                        }
+                        $pos1=strpos($line2, "[", $mulai);
+                        $poskoma=strpos($line2, ",", $pos1);
+                        $pos2=strpos($line2, "]", $poskoma);
+                        $panjangkekoma=$poskoma-$pos1-1;
+                        $panjangkepos2=$pos2-$poskoma-1;
+                        // echo "POS [ = ".$pos1;
+                        // echo "<br>POS , = ".$poskoma;
+                        // echo "<br>POS ] = ".$pos2;
+                        $lintang=substr($line2,$pos1+1,$panjangkekoma);
+                        $bujur=substr($line2,$poskoma+1,$panjangkepos2);
+                        $mulai=$pos2;
+                        // echo ">".$lintang."<br>";
+                        // echo ">".$bujur."<br>";
+                        $sql = $sql."('".$kodewilayah."',".$lintang.",".$bujur."),";
+                        if ($barisvalue==999)
+                        {
+                            $sudahjalan=1;
+                            $sql = substr($sql,0,-1);
+                            $query = $this->db->query($sql);
+                            $barisvalue=0;
+                        }
+                    }
+
+                    if ($barisvalue>0 && $sudahjalan==0)
+                    {
+                        $sql = substr($sql,0,-1);
+                        $query = $this->db->query($sql);
+                    }
+
+                    // echo substr($sql,0,-1);
+                    
+                    
+                }
+            }
+        }
+
+        // $sql = "
+        // DECLARE @batch INT = 10000;
+        // DECLARE @page INT = 0
+        // DECLARE @lastCount INT = 1
+        
+        // WHILE @lastCount > 0
+        // BEGIN
+        // BEGIN TRANSACTION
+        
+        //     INSERT into table2
+        //     SELECT col1, col2, ... -- list columns explicitly
+        //     FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY YourPrimaryKey ) AS RowNum, *
+        //               FROM      table1
+        //             ) AS RowConstrainedResult
+        //     WHERE   RowNum >= (@page * @batch) AND RowNum < ((@page+1) * @batch)
+        //     SET @lastCount = @@ROWCOUNT
+        //     SET @page = @page + 1
+        
+        // COMMIT TRANSACTION
+        
+        // END";
+       
+        // $query = $this->db->query($sql);
+
+        // return $query->getResult();
+    }
+    
 }

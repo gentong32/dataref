@@ -35,9 +35,9 @@
   <!-- Colorbox -->
   <link rel="stylesheet" href="<?=base_url()?>/template/plugins/colorbox/colorbox.css">
   <!-- Template styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v3.3">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v3.7">
   <!-- Custom styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v3.3">
+  <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v3.7">
 
   <!-- Leaflet Maps styles-->
   <link rel="stylesheet" href="<?=base_url()?>/leaflet/leaflet.css?v1.7">
@@ -109,7 +109,7 @@
         var code = (e.keyCode ? e.keyCode : e.which);
         if (code == 13) { //Enter keycode                        
             e.preventDefault();
-            alert ("cihuy");
+            // alert ("cihuy");
             // $("yourFormId").submit();
         }
     };

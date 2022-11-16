@@ -439,7 +439,129 @@ class Pendidikan extends BaseController
         }
     }
 
-    public function tidakaktif($kode='000000', $level=0)
+    public function pkbmpaud($kode='000000', $level=0, $status="all")
+    {
+        $data['tingkat'] = "paud";
+        $data['kode'] = $kode;
+        $data['level'] = $level;
+        $data['status'] = $status;
+
+        if ($level==0) {
+            $data['namapilihan'] = "PROVINSI";
+        }
+        else {
+            $namapilihan = $this->datamodelprogram->getNamaPilihan($kode);
+            $resultquery = $namapilihan->getResult();
+            $data['namapilihan'] = strToUpper($resultquery[0]->nama);
+        }
+
+        $namalevel1 = $this->datamodelprogram->getNamaPilihan(substr($kode,0,2)."0000");
+        $result1 = $namalevel1->getResult();
+        $data['namalevel1'] = $result1[0]->nama;
+        $namalevel2 = $this->datamodelprogram->getNamaPilihan(substr($kode,0,4)."00");
+        $result2 = $namalevel2->getResult();
+        $data['namalevel2'] = $result2[0]->nama;
+        $namalevel3 = $this->datamodelprogram->getNamaPilihan(substr($kode,0,6));
+        $result3 = $namalevel3->getResult();
+        $data['namalevel3'] = $result3[0]->nama;
+
+        
+        if ($level<3) {
+            $query = $this->datamodelprogram->getTotalPKBMPaud($status,$kode,$level);
+            $data['datanas'] = $query->getResult();
+            return view('pendidikan/data_nasional_pkbmpaud', $data);
+        }
+        else
+        {
+            $kodebaru = substr($kode,0,6);
+            $query = $this->datamodelprogram->getDaftarPKBMPaud($status,$kodebaru);
+            $data['datanas'] = $query->getResult();
+            return view('pendidikan/daftar_pkbmpaud', $data);       
+        }
+    }
+
+    public function terampil($kode='000000', $level=0, $status="all")
+    {
+        $data['tingkat'] = "trampil";
+        $data['kode'] = $kode;
+        $data['level'] = $level;
+        $data['status'] = $status;
+
+        if ($level==0) {
+            $data['namapilihan'] = "PROVINSI";
+        }
+        else {
+            $namapilihan = $this->datamodelprogram->getNamaPilihan($kode);
+            $resultquery = $namapilihan->getResult();
+            $data['namapilihan'] = strToUpper($resultquery[0]->nama);
+        }
+
+        $namalevel1 = $this->datamodelprogram->getNamaPilihan(substr($kode,0,2)."0000");
+        $result1 = $namalevel1->getResult();
+        $data['namalevel1'] = $result1[0]->nama;
+        $namalevel2 = $this->datamodelprogram->getNamaPilihan(substr($kode,0,4)."00");
+        $result2 = $namalevel2->getResult();
+        $data['namalevel2'] = $result2[0]->nama;
+        $namalevel3 = $this->datamodelprogram->getNamaPilihan(substr($kode,0,6));
+        $result3 = $namalevel3->getResult();
+        $data['namalevel3'] = $result3[0]->nama;
+
+        
+        if ($level<3) {
+            $query = $this->datamodelprogram->getTotalTrampil($status,$kode,$level);
+            $data['datanas'] = $query->getResult();
+            return view('pendidikan/data_nasional_trampil', $data);
+        }
+        else
+        {
+            $kodebaru = substr($kode,0,6);
+            $query = $this->datamodelprogram->getDaftarTrampil($status,$kodebaru);
+            $data['datanas'] = $query->getResult();
+            return view('pendidikan/daftar_trampil', $data);       
+        }
+    }
+
+    public function tidakupdate($kode='000000', $level=0)
+    {
+        $data['tingkat'] = "tidakupdate";
+        $data['kode'] = $kode;
+        $data['level'] = $level;
+
+        if ($level==0) {
+            $data['namapilihan'] = "PROVINSI";
+        }
+        else {
+            $namapilihan = $this->datamodeltidakaktif->getNamaPilihan($kode);
+            $resultquery = $namapilihan->getResult();
+            $data['namapilihan'] = strToUpper($resultquery[0]->nama);
+        }
+
+        $namalevel1 = $this->datamodeltidakaktif->getNamaPilihan(substr($kode,0,2)."0000");
+        $result1 = $namalevel1->getResult();
+        $data['namalevel1'] = $result1[0]->nama;
+        $namalevel2 = $this->datamodeltidakaktif->getNamaPilihan(substr($kode,0,4)."00");
+        $result2 = $namalevel2->getResult();
+        $data['namalevel2'] = $result2[0]->nama;
+        $namalevel3 = $this->datamodeltidakaktif->getNamaPilihan(substr($kode,0,6));
+        $result3 = $namalevel3->getResult();
+        $data['namalevel3'] = $result3[0]->nama;
+
+        
+        if ($level<3) {
+            $query = $this->datamodeltidakaktif->getTotalTidakUpdate($kode,$level);
+            $data['datanas'] = $query->getResult();
+            return view('pendidikan/data_nasional_tidakupdate', $data);
+        }
+        else
+        {
+            $kodebaru = substr($kode,0,6);
+            $query = $this->datamodeltidakaktif->getDaftarTidakUpdate($kodebaru);
+            $data['datanas'] = $query->getResult();
+            return view('pendidikan/daftar_tidakupdate', $data);      
+        }
+    }
+
+    public function _tidakaktif($kode='000000', $level=0)
     {
         $data['tingkat'] = "ketidakaktifan";
         $data['kode'] = $kode;
@@ -473,12 +595,51 @@ class Pendidikan extends BaseController
         else
         {
             $kodebaru = substr($kode,0,6);
-            $query = $this->datamodeltidakaktif->getDaftarSetara($kodebaru);
+            $query = $this->datamodeltidakaktif->getDaftarTidakAktif($kodebaru);
             $data['datanas'] = $query->getResult();
-            return view('pendidikan/daftar_tidakaktif', $data);       
+            return view('pendidikan/daftar_tidakaktif', $data);      
         }
     }
 
+    public function tidakaktif($kode='000000', $level=0)
+    {
+        $data['tingkat'] = "ketidakaktifan";
+        $data['kode'] = $kode;
+        $data['level'] = $level;
+
+        if ($level==0) {
+            $data['namapilihan'] = "PROVINSI";
+        }
+        else {
+            $namapilihan = $this->datamodeltidakaktif->getNamaPilihan($kode);
+            $resultquery = $namapilihan->getResult();
+            $data['namapilihan'] = strToUpper($resultquery[0]->nama);
+        }
+
+        $namalevel1 = $this->datamodeltidakaktif->getNamaPilihan(substr($kode,0,2)."0000");
+        $result1 = $namalevel1->getResult();
+        $data['namalevel1'] = $result1[0]->nama;
+        $namalevel2 = $this->datamodeltidakaktif->getNamaPilihan(substr($kode,0,4)."00");
+        $result2 = $namalevel2->getResult();
+        $data['namalevel2'] = $result2[0]->nama;
+        $namalevel3 = $this->datamodeltidakaktif->getNamaPilihan(substr($kode,0,6));
+        $result3 = $namalevel3->getResult();
+        $data['namalevel3'] = $result3[0]->nama;
+
+        
+        if ($level<3) {
+            $query = $this->datamodeltidakaktif->getTotalTutup($kode,$level);
+            $data['datanas'] = $query->getResultArray();
+            return view('pendidikan/data_nasional_tutup', $data);
+        }
+        else
+        {
+            $kodebaru = substr($kode,0,6);
+            $query = $this->datamodeltidakaktif->getDaftarTutup($kodebaru);
+            $data['datanas'] = $query->getResult();
+            return view('pendidikan/daftar_tutup', $data);      
+        }
+    }
 
     public function lifeskill($kode='000000', $level=0, $status="all")
     {
@@ -512,8 +673,29 @@ class Pendidikan extends BaseController
 
         $query = $this->datamodelpendidikan->getCariNamaAtauNPSN($kode);
         $datasekolah = $query->getRow();
+        if ($datasekolah)
+        {
         $kodwil = $datasekolah->kode_wilayah;
+        // $query = $this->datamodelpendidikan->getCariNamaAtauNPSN("00000111111");
+        }
+        else
+        {
+            $data['tingkat'] = "sekolah";
+            $query = $this->datamodelpendidikan->getCariDaftarYayasan("8878787878787");
+            $data['datanas'] = $query->getResult();
+            return view('pendidikan/hasilcari_sekolahkosong', $data);
+        }
+        
         $data['datasekolah'] = $datasekolah;
+
+        $queryyayasanid = $this->datamodelpendidikan->getYayasanId($kode);
+        $resultyayasanid = $queryyayasanid->getRow();
+
+        $idyayasan = $resultyayasanid->yayasan_id;
+
+        $query = $this->datamodelpendidikan->getYayasan($idyayasan);
+        $datayayasan = $query->getRow();
+        $data['datayayasan'] = $datayayasan;
 
         $query2 = $this->datamodelpendidikan->getCariNamaAtauNPSN_sekunder($kode);
         $datasekolah2 = $query2->getRow();
@@ -531,8 +713,107 @@ class Pendidikan extends BaseController
         $query5 = $this->datamodelpendidikan->getAkreditasi($datasekolah->sekolah_id);
         $data['dataakreditasi'] = $query5->getRow(); 
 
-        //print_r($query->getRow());
-        // die();
+        if($datasekolah->bentuk_pendidikan=="PKBM" || $datasekolah->bentuk_pendidikan=="SKB"
+        || $datasekolah->bentuk_pendidikan=="Kursus")
+        {
+            $query6 = $this->datamodelpendidikan->getLayananSekolah($datasekolah->sekolah_id);
+            $daflayanan = $query6->getRow();
+            // echo var_dump($daflayanan);
+            $totallayanan = 0;
+            if ($daflayanan)
+            {
+                if ($daflayanan->paket_a!=null)
+                {
+                    if ($daflayanan->paket_a==1)
+                    {
+                        $layanan[] = "Paket A";
+                        $totallayanan++;
+                    }
+                }
+                if ($daflayanan->paket_b==1)
+                {
+                    $layanan[] = "Paket B";
+                    $totallayanan++;
+                }
+                if ($daflayanan->paket_c==1)
+                {
+                    $layanan[] = "Paket C";
+                    $totallayanan++;
+                } 
+                if ($daflayanan->paud==1)
+                {
+                    $layanan[] = "PAUD";
+                    $totallayanan++; 
+                }  
+                if ($daflayanan->kkni_level_1==1)
+                {
+                    $layanan[] = "KKNI Level 1";
+                    $totallayanan++; 
+                }  
+                if ($daflayanan->kkni_level_2==1)
+                {
+                    $layanan[] = "KKNI Level 2";
+                    $totallayanan++; 
+                }  
+                if ($daflayanan->kkni_level_3==1)
+                {
+                    $layanan[] = "KKNI Level 3";
+                    $totallayanan++; 
+                }  
+                if ($daflayanan->kkni_level_4==1)
+                {
+                    $layanan[] = "KKNI Level 4";
+                    $totallayanan++; 
+                }  
+                if ($daflayanan->kkni_level_5==1)
+                {
+                    $layanan[] = "KKNI Level 5";
+                    $totallayanan++; 
+                }  
+                if ($daflayanan->kkni_level_6==1)
+                {
+                    $layanan[] = "KKNI Level 6";
+                    $totallayanan++; 
+                }  
+                if ($daflayanan->kkni_level_7==1)
+                {
+                    $layanan[] = "KKNI Level 7";
+                    $totallayanan++; 
+                }  
+                if ($daflayanan->kkni_level_8==1)
+                {
+                    $layanan[] = "KKNI Level 8";
+                    $totallayanan++; 
+                }  
+                if ($daflayanan->kkni_level_9==1)
+                {
+                    $layanan[] = "KKNI Level 9";
+                    $totallayanan++; 
+                }  
+                $layanansemua = "";
+                $batasakhir = $totallayanan-2;
+                for ($a=0;$a<$totallayanan;$a++)
+                {
+                    $layanansemua = $layanansemua . $layanan[$a];
+                    if ($a<=$batasakhir && $totallayanan>2)
+                        $layanansemua = $layanansemua . ", ";
+                    if ($a==$batasakhir)
+                        $layanansemua = $layanansemua . " dan ";
+                }
+            }
+            else
+            {
+                $layanansemua = "-";
+            }
+            
+            
+            
+            
+            
+
+            $data['datalayanan'] = $layanansemua;
+        }
+
         
         return view('pendidikan/detail_sekolah', $data);
     }
@@ -637,6 +918,35 @@ class Pendidikan extends BaseController
         $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] 
         WHERE (".$this->datamodelpaud->getbentukpaudsemua().")";
         echo $sql;
+    }
+
+    public function permen812013pasal3()
+    {
+        $data['tingkat']="pasal";
+        return view('pendidikan/permen812013pasal3', $data); 
+    }
+
+    public function permen812013pasal4()
+    {
+        $data['tingkat']="pasal";
+        return view('pendidikan/permen812013pasal4', $data); 
+    }
+
+    public function permen_satuanpendidikan()
+    {
+        $data['tingkat']="pasal";
+        return view('pendidikan/permen_satuanpendidikan', $data); 
+    }
+
+    public function permen_layananpendidikan()
+    {
+        $data['tingkat']="pasal";
+        return view('pendidikan/permen_layananpendidikan', $data); 
+    }
+
+    public function downloadpdf()
+    {
+        return $this->response->download('permen/permendikbud812013.pdf', null);
     }
     
 }
