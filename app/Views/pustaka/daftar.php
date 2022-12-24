@@ -94,6 +94,11 @@
                                         <a class="link1" href="<?=site_url('pustaka/keterampilankerja')?>">Keterampilan Kerja</a>
                                     </span>
                                 </li>
+                                <li>
+                                    <span>
+                                        Sekolah Luar Biasa
+                                    </span>
+                                </li>
                             </ul>
                         </td>
                     </tr>

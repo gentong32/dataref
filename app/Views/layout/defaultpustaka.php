@@ -105,6 +105,7 @@
                                   <li><a href="<?=site_url('pendidikan/program/paud')?>">Paud</a></li>
                                   <li><a href="<?=site_url('pendidikan/program/kesetaraan')?>">Kesetaraan</a></li>
                                   <li><a href="<?=site_url('pendidikan/program/terampil')?>">Keterampilan Kerja</a></li>
+                                  <li><a href="<?=site_url('pendidikan/program/slb')?>">Sekolah Luar Biasa</a></li>
                                   <!-- <li><span style="font-weight:bold;font-family: Montserrat;font-size: 12px;">KETRAMPILAN KERJA</span></li> -->
                                 </ul>
                             </li>
@@ -125,13 +126,10 @@
                             <li class="dropdown-submenu">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data Kebahasaan</a>
                                 <ul class="dropdown-menu">
-                                  <!-- <li><a href="<?=site_url('kebudayaan/bahasadaerah')?>">Bahasa Daerah</a></li> -->
-                                  <!-- <li><a href="<?=site_url('kebudayaan/komunitasbahasa')?>">Komunitas Bahasa/Sastra</a></li> -->
-                                  <lib><span style="font-weight:bold;font-family: Montserrat;font-size: 12px;">BAHASA DAERAH</span></lib><br>
-                                  <lib><span style="font-weight:bold;font-family: Montserrat;font-size: 12px;">KOMUNITAS BAHASA/SASTRA</span></lib>
+                                  <li><a href="<?=site_url('kebahasaan/bahasadaerah')?>">Bahasa Daerah</a></li>
+                                  <li><a href="<?=site_url('kebahasaan/komunitasbahasa')?>">Komunitas Bahasa/Sastra</a></li>
                                 </ul>
                             </li>
-                            <!-- <li><span style="font-weight:bold;font-family: Montserrat;font-size: 12px;">WARISAN BUDAYA TAK BENDA</span></li> -->
                           </ul>
                       </li>
                       <li class="nav-item"><a class="nav-link" href="<?=site_url('pustaka')?>">Pustaka</a></li>

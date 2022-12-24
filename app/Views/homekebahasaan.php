@@ -11,7 +11,7 @@
                 <div style="margin:10px;">
                     <div class="block standar">
                         <center>
-                        <i>** DATA KEBUDAYAAN **</i>
+                        <i>** DATA KEBAHASAAN **</i>
                         </center>
                     </div>
                 </div>

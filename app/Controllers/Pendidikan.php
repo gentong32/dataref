@@ -521,6 +521,47 @@ class Pendidikan extends BaseController
         }
     }
 
+    public function slb($kode='000000', $level=0, $status="all")
+    {
+        $data['tingkat'] = "slb";
+        $data['kode'] = $kode;
+        $data['level'] = $level;
+        $data['status'] = $status;
+
+        if ($level==0) {
+            $data['namapilihan'] = "PROVINSI";
+        }
+        else {
+            $namapilihan = $this->datamodelprogram->getNamaPilihan($kode);
+            $resultquery = $namapilihan->getResult();
+            $data['namapilihan'] = strToUpper($resultquery[0]->nama);
+        }
+
+        $namalevel1 = $this->datamodelprogram->getNamaPilihan(substr($kode,0,2)."0000");
+        $result1 = $namalevel1->getResult();
+        $data['namalevel1'] = $result1[0]->nama;
+        $namalevel2 = $this->datamodelprogram->getNamaPilihan(substr($kode,0,4)."00");
+        $result2 = $namalevel2->getResult();
+        $data['namalevel2'] = $result2[0]->nama;
+        $namalevel3 = $this->datamodelprogram->getNamaPilihan(substr($kode,0,6));
+        $result3 = $namalevel3->getResult();
+        $data['namalevel3'] = $result3[0]->nama;
+
+        
+        if ($level<3) {
+            $query = $this->datamodelprogram->getTotalSLB($status,$kode,$level);
+            $data['datanas'] = $query->getResult();
+            return view('pendidikan/data_nasional_slb', $data);
+        }
+        else
+        {
+            $kodebaru = substr($kode,0,6);
+            $query = $this->datamodelprogram->getDaftarSLB($status,$kodebaru);
+            $data['datanas'] = $query->getResult();
+            return view('pendidikan/daftar_slb', $data);       
+        }
+    }
+
     public function tidakupdate($kode='000000', $level=0)
     {
         $data['tingkat'] = "tidakupdate";
@@ -689,6 +730,9 @@ class Pendidikan extends BaseController
         $data['datasekolah'] = $datasekolah;
 
         $queryyayasanid = $this->datamodelpendidikan->getYayasanId($kode);
+
+        // echo var_dump($queryyayasanid->getRow());
+        // die();
         $resultyayasanid = $queryyayasanid->getRow();
 
         $idyayasan = $resultyayasanid->yayasan_id;
@@ -714,7 +758,7 @@ class Pendidikan extends BaseController
         $data['dataakreditasi'] = $query5->getRow(); 
 
         if($datasekolah->bentuk_pendidikan=="PKBM" || $datasekolah->bentuk_pendidikan=="SKB"
-        || $datasekolah->bentuk_pendidikan=="Kursus")
+        || $datasekolah->bentuk_pendidikan=="Kursus" || $datasekolah->bentuk_pendidikan=="SLB")
         {
             $query6 = $this->datamodelpendidikan->getLayananSekolah($datasekolah->sekolah_id);
             $daflayanan = $query6->getRow();
@@ -789,7 +833,27 @@ class Pendidikan extends BaseController
                 {
                     $layanan[] = "KKNI Level 9";
                     $totallayanan++; 
-                }  
+                }
+                if ($daflayanan->tklb==1)
+                {
+                    $layanan[] = "TKLB";
+                    $totallayanan++;
+                }
+                if ($daflayanan->sdlb==1)
+                {
+                    $layanan[] = "SDLB";
+                    $totallayanan++;
+                }
+                if ($daflayanan->smplb==1)
+                {
+                    $layanan[] = "SMPLB";
+                    $totallayanan++;
+                }
+                if ($daflayanan->smlb==1)
+                {
+                    $layanan[] = "SMLB";
+                    $totallayanan++;
+                }
                 $layanansemua = "";
                 $batasakhir = $totallayanan-2;
                 for ($a=0;$a<$totallayanan;$a++)

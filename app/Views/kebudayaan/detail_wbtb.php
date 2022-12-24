@@ -10,7 +10,7 @@
     <div class="tabs">
     <div class="tabby-tab">
       <input type="radio" id="tab-1" name="tabby-tabs" checked>
-      <label for="tab-1">Identitas Cagar Budaya</label>
+      <label for="tab-1">Identitas WBTB</label>
       <div class="tabby-content">
         <table>
             <tr>

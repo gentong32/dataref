@@ -6,97 +6,66 @@ use CodeIgniter\Model;
 
 class DataModelDikmen2 extends Model
 {
-    protected $dikmenall = "s.bentuk_pendidikan_id=7 OR 
-    s.bentuk_pendidikan_id=8 OR 
-    s.bentuk_pendidikan_id=13 OR 
-    s.bentuk_pendidikan_id=14 OR 
+    ////////// 7, 8, 14, 42 dibuang (itu turunan SLB jadi bentuk layanan //////////)
+    protected $dikmenall = "s.bentuk_pendidikan_id=13 OR 
     s.bentuk_pendidikan_id=15 OR 
     s.bentuk_pendidikan_id=16 OR 
     s.bentuk_pendidikan_id=17 OR 
     s.bentuk_pendidikan_id=29 OR 
     s.bentuk_pendidikan_id=37 OR 
     s.bentuk_pendidikan_id=39 OR 
-    s.bentuk_pendidikan_id=42 OR 
     s.bentuk_pendidikan_id=44 OR 
     s.bentuk_pendidikan_id=55 OR 
     s.bentuk_pendidikan_id=60 OR 
     s.bentuk_pendidikan_id=64 OR 
     s.bentuk_pendidikan_id=65";
 
-    protected $dikmenallns = "bp7_n + bp7_s +  
-    bp8_n + bp8_s + 
-    bp13_n + bp13_s + 
-    bp14_n + bp14_s + 
+    protected $dikmenallns = "bp13_n + bp13_s + 
     bp15_n + bp15_s + 
     bp16_n + bp16_s + 
     bp17_n + bp17_s + 
     bp29_n + bp29_s + 
     bp37_n + bp37_s + 
     bp39_n + bp39_s + 
-    bp42_n + bp42_s + 
     bp44_n + bp44_s + 
     bp55_n + bp55_s + 
     bp60_n + bp60_s + 
     bp64_n + bp64_s + 
     bp65_n + bp65_s";
 
-    protected $dikmenalln = "bp7_n + 
-    bp8_n + 
-    bp13_n + 
-    bp14_n + 
+    protected $dikmenalln = "bp13_n + 
     bp15_n + 
     bp16_n + 
     bp17_n + 
     bp29_n + 
     bp37_n + 
     bp39_n + 
-    bp42_n + 
     bp44_n + 
     bp55_n + 
     bp60_n + 
     bp64_n + 
     bp65_n";
 
-    protected $dikmenalls = "bp7_s + 
-    bp8_s + 
-    bp13_s + 
-    bp14_s + 
+    protected $dikmenalls = "bp13_s + 
     bp15_s + 
     bp16_s + 
     bp17_s + 
     bp29_s + 
     bp37_s + 
     bp39_s + 
-    bp42_s + 
     bp44_s + 
     bp55_s + 
     bp60_s + 
     bp64_s + 
     bp65_s";
     
-    protected $slb = "s.bentuk_pendidikan_id=7 OR 
-    s.bentuk_pendidikan_id=8 OR 
-    s.bentuk_pendidikan_id=14 OR 
-    s.bentuk_pendidikan_id=29 OR 
-    s.bentuk_pendidikan_id=42";
+    protected $slb = "s.bentuk_pendidikan_id=29";
     
-    protected $slbns = "bp7_n + bp7_s +
-    bp8_n + bp8_s +
-    bp14_n + bp14_s +
-    bp29_n + bp29_s +
-    bp42_n + bp42_s";
+    protected $slbns = "bp29_n + bp29_s";
     
-    protected $slbn = "bp7_n + 
-    bp8_n + 
-    bp14_n + 
-    bp29_n + 
-    bp42_n";
+    protected $slbn = "bp29_n";
     
-    protected $slbs = "bp7_s + 
-    bp8_s + 
-    bp14_s + 
-    bp29_s + 
-    bp42_s";
+    protected $slbs = "bp29_s";
 
     protected $smasederajat = "s.bentuk_pendidikan_id=13 OR  
     s.bentuk_pendidikan_id=16 OR 

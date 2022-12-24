@@ -232,6 +232,45 @@ class DataModelProgram extends Model
     protected $pauds = "bp27_s_paud + 
     bp40_s_paud";
 
+
+    /////////////////////// SLB  ---7, 8, 14, 42 -----------------
+    protected $slball = "s.bentuk_pendidikan_id=7 OR 
+    s.bentuk_pendidikan_id=8 OR 
+    s.bentuk_pendidikan_id=14 OR 
+    s.bentuk_pendidikan_id=29 OR 
+    s.bentuk_pendidikan_id=42";
+
+    protected $slbns = "bp29_n_tk + bp29_s_tk + 
+    bp29_n_sd + bp29_s_sd + 
+    bp29_n_smp + bp29_s_smp + 
+    bp29_n_sma + bp29_s_sma";
+
+    protected $slbn = "bp29_n_tk + 
+    bp29_n_sd + 
+    bp29_n_smp + 
+    bp29_n_sma";
+
+    protected $slbs = "bp29_s_tk + 
+    bp29_s_sd + 
+    bp29_s_smp + 
+    bp29_s_sma";
+
+    protected $tklbns = "bp29_n_tk + bp29_s_tk";
+    protected $tklbn = "bp29_n_tk";
+    protected $tklbs = "bp29_s_tk";
+
+    protected $sdlbns = "bp29_n_sd + bp29_s_sd";
+    protected $sdlbn = "bp29_n_sd";
+    protected $sdlbs = "bp29_s_sd";
+
+    protected $smplbns = "bp29_n_smp + bp29_s_smp";
+    protected $smplbn = "bp29_n_smp";
+    protected $smplbs = "bp29_s_smp";
+
+    protected $smlbns = "bp29_n_sma + bp29_s_sma";
+    protected $smlbn = "bp29_n_sma";
+    protected $smlbs = "bp29_s_sma";
+
     /////////////------------------------------------
 
     public function getTotalSetara($status,$kode,$level) {
@@ -457,6 +496,81 @@ class DataModelProgram extends Model
 
         return $query;
     }
+
+
+    //////////////// PROGRAM SLB /////////////////////////
+    public function getTotalSLB($status,$kode,$level) {
+
+        $nkar = $level * 2;
+        $nkar2 = $nkar + 2;
+        $levelbaru = $level+1;
+        $kodebaru = substr($kode,0,$nkar);
+
+        if ($status=="all")
+            $statusns = "ns";
+        else if ($status=="s1")
+            $statusns = "n";
+        else if ($status=="s2")
+            $statusns = "s";
+        
+        if ($status=="all")
+        $sql = "SELECT (".$this->slbns.") as total,
+            (".$this->tklbns.") as tklb,
+            (".$this->sdlbns.") as sdlb,
+            (".$this->smplbns.") as smplb,
+            (".$this->smlbns.") as smlb,
+            nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah s 
+            WHERE mst_kode_wilayah=:kode:";
+        else if ($status=="s1")
+        $sql = "SELECT (".$this->slbn.") as total,
+            (".$this->tklbn.") as tklb,
+            (".$this->sdlbn.") as sdlb,
+            (".$this->smplbn.") as smplb,
+            (".$this->smlbn.") as smlb,
+            nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah s 
+            WHERE mst_kode_wilayah=:kode:";
+        else if ($status=="s2")
+        $sql = "SELECT (".$this->slbs.") as total,
+            (".$this->tklbs.") as tklb,
+            (".$this->sdlbs.") as sdlb,
+            (".$this->smplbs.") as smplb,
+            (".$this->smlbs.") as smlb,
+            nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah 
+            WHERE mst_kode_wilayah=:kode:";
+           
+        $query = $this->db->query($sql, [
+            'kode' => $kode,
+        ]);
+        
+        return $query;
+    }
+
+    public function getDaftarSLB($status,$kodebaru)
+    {
+        if ($status=="all")
+            $wherestatus = "";
+        else if ($status=="s1")
+            $wherestatus = " AND status_sekolah = 1 ";
+        else if ($status=="s2")
+            $wherestatus = " AND status_sekolah = 2 ";
+
+        $sql = "SELECT npsn, nama, alamat_jalan, desa_kelurahan, 
+        kode_wilayah, tklb, sdlb, smplb,smlb, 
+        CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
+        FROM Arsip.dbo.sekolah s 
+        JOIN Dataprocess.dbo.sekolah_jenis_layanan d on d.sekolah_id=s.sekolah_id 
+        WHERE (".$this->slball.") 
+        AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
+        ".$wherestatus." 
+        ORDER BY nama";
+
+        $query = $this->db->query($sql, [
+            'kodebaru'  => $kodebaru
+        ]);
+
+        return $query;
+    }
+    //////////////////////////////////////////////////////
 
     public function getBentukPendidikan($bentuk)
     {

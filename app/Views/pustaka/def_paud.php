@@ -30,7 +30,7 @@ Penyajian data PAUD sebagai bentuk Satuan Pendidikan, berbeda dengan PAUD sebaga
   <b>PAUD sebagai Program/Layanan</b> menyajikan program/layanan PAUD yang diselenggarakan oleh satuan-satuan pendidikan pada jenjang pendidikan nonformal/Pendidikan Masyarakat (Dikmas), seperti: <br>
   <ul type="-">
     <li>PKBM yang menyelenggarakan Program/Layanan KB, atau </li>
-    <li>SKB yang menyelenggarakan Program/Layanan TPA; sedangkan </li>
+    <li>SKB yang menyelenggarakan Program/Layanan TPA. </li>
   </ul>
   </li>
 </ul>

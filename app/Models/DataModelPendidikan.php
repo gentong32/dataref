@@ -54,12 +54,19 @@ class DataModelPendidikan extends Model
 
     public function getYayasanId($kode)
     {
+        // $this->db = \Config\Database::connect("dbnpsn");
+
         $sql = "SELECT * FROM Arsip.dbo.sekolah 
          WHERE npsn = :npsn:";
+
+        // $sql = "SELECT * FROM [ods2].[bid2].[sekolah] 
+        // WHERE npsn = :npsn:";
 
         $query = $this->db->query($sql, [
             'npsn'  => $kode
         ]);
+        
+        $this->db = \Config\Database::connect("");
 
         return $query;
     }
@@ -80,10 +87,11 @@ class DataModelPendidikan extends Model
     {
         $this->db = \Config\Database::connect("");
         
-        $sql = "select sekolah_id,max(tahun) as tahun,r.nama as akreditasi from Arsip.dbo.akreditasi a 
+        $sql = " select sekolah_id, tahun, r.nama as akreditasi from Arsip.dbo.akreditasi a 
         left join Referensi.ref.akreditasi r ON r.akreditasi_id = a.akreditasi_id 
-        where sekolah_id=:sekolah_id: 
-        group by sekolah_id,nama";
+        where sekolah_id=:sekolah_id:   
+        group by sekolah_id,tanggal_sk,tahun,nama,a.last_sync 
+		order by a.last_sync desc";
 
         $query = $this->db->query($sql, [
             'sekolah_id'  => $sekolah_id

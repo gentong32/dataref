@@ -73,7 +73,7 @@
                 <td><?=$datasekolah->bentuk_pendidikan?></td>
             </tr>
             <?php if($datasekolah->bentuk_pendidikan=="PKBM" || $datasekolah->bentuk_pendidikan=="SKB"
-            || $datasekolah->bentuk_pendidikan=="Kursus") {?>
+            || $datasekolah->bentuk_pendidikan=="Kursus" || $datasekolah->bentuk_pendidikan=="SLB") {?>
             <tr>
                 <td>&nbsp;</td>
                 <td>Program / Layanan</td>

@@ -14,6 +14,7 @@ class DataModelPaud2 extends Model
     s.bentuk_pendidikan_id=41 OR 
     s.bentuk_pendidikan_id=43 OR 
     s.bentuk_pendidikan_id=45 OR 
+    s.bentuk_pendidikan_id=51 OR 
     s.bentuk_pendidikan_id=52 OR 
     s.bentuk_pendidikan_id=57 OR 
     s.bentuk_pendidikan_id=61";
@@ -21,6 +22,7 @@ class DataModelPaud2 extends Model
     protected $paudjf = "s.bentuk_pendidikan_id=1 OR 
     s.bentuk_pendidikan_id=34 OR 
     s.bentuk_pendidikan_id=41 OR 
+    s.bentuk_pendidikan_id=51 OR 
     s.bentuk_pendidikan_id=52 OR 
     s.bentuk_pendidikan_id=57 OR 
     s.bentuk_pendidikan_id=61";
@@ -40,7 +42,8 @@ class DataModelPaud2 extends Model
 
     protected $kbsederajat = "s.bentuk_pendidikan_id=2 OR 
     s.bentuk_pendidikan_id=43 OR
-    s.bentuk_pendidikan_id=45";
+    s.bentuk_pendidikan_id=45 
+    s.bentuk_pendidikan_id=51";
 
     protected $paudallns = "bp1_n + bp1_s + 
     bp2_n + bp2_s + 
@@ -50,6 +53,7 @@ class DataModelPaud2 extends Model
     bp41_n + bp41_s + 
     bp43_n + bp43_s + 
     bp45_n + bp45_s + 
+    bp51_n + bp51_s + 
     bp52_n + bp52_s + 
     bp57_n + bp57_s + 
     bp61_n + bp61_s";
@@ -62,6 +66,7 @@ class DataModelPaud2 extends Model
     bp41_n +  
     bp43_n +  
     bp45_n +  
+    bp51_n + 
     bp52_n + 
     bp57_n +  
     bp61_n";
@@ -74,6 +79,7 @@ class DataModelPaud2 extends Model
     bp41_s + 
     bp43_s + 
     bp45_s + 
+    bp51_s + 
     bp52_s + 
     bp57_s + 
     bp61_s";
@@ -81,6 +87,7 @@ class DataModelPaud2 extends Model
     protected $paudjfns = "bp1_n + bp1_s + 
     bp34_n + bp34_s + 
     bp41_n + bp41_s + 
+    bp51_n + bp51_s + 
     bp52_n + bp52_s + 
     bp57_n + bp57_s + 
     bp61_n + bp61_s";
@@ -88,6 +95,7 @@ class DataModelPaud2 extends Model
     protected $paudjfn = "bp1_n + 
     bp34_n + 
     bp41_n + 
+    bp51_n + 
     bp52_n + 
     bp57_n + 
     bp61_n";
@@ -95,6 +103,7 @@ class DataModelPaud2 extends Model
     protected $paudjfs = "bp1_s + 
     bp34_s + 
     bp41_s + 
+    bp51_s + 
     bp52_s + 
     bp57_s + 
     bp61_s";
@@ -138,9 +147,9 @@ class DataModelPaud2 extends Model
     bp57_s + 
     bp61_s";
     
-    protected $kbsederajatns = "bp2_n + bp2_s + bp43_n + bp43_s + bp45_n + bp45_s";
-    protected $kbsederajatn = "bp2_n + bp43_n + bp45_n";
-    protected $kbsederajats = "bp2_s + bp43_s + bp45_s";
+    protected $kbsederajatns = "bp2_n + bp2_s + bp43_n + bp43_s + bp45_n + bp45_s + bp51_n + bp51_s";
+    protected $kbsederajatn = "bp2_n + bp43_n + bp45_n + bp51_n";
+    protected $kbsederajats = "bp2_s + bp43_s + bp45_s + bp51_s";
 
     protected $tkns = "bp1_n + bp1_s";
     protected $tkn = "bp1_n";
@@ -174,6 +183,10 @@ class DataModelPaud2 extends Model
     protected $paudqn = "bp45_n";
     protected $paudqs = "bp45_s";
     
+    protected $spkpgns = "bp51_n + bp51_s";
+    protected $spkpgn = "bp51_n";
+    protected $spkpgs = "bp51_s";
+
     protected $spktkns = "bp52_n + bp52_s";
     protected $spktkn = "bp52_n";
     protected $spktks = "bp52_s";
@@ -237,6 +250,7 @@ class DataModelPaud2 extends Model
                     (".$this->tkns.") as tk,
                     (".$this->rans.") as ra,
                     (".$this->seminarins.") as seminari,
+                    (".$this->spkpgns.") as spkpg,
                     (".$this->spktkns.") as spktk,
                     (".$this->pratamans.") as pratama,
                     (".$this->navans.") as nava,
@@ -247,6 +261,7 @@ class DataModelPaud2 extends Model
                     (".$this->tkn.") as tk,
                     (".$this->ran.") as ra,
                     (".$this->seminarin.") as seminari,
+                    (".$this->spkpgn.") as spkpg,
                     (".$this->spktkn.") as spktk,
                     (".$this->prataman.") as pratama,
                     (".$this->navan.") as nava,
@@ -257,6 +272,7 @@ class DataModelPaud2 extends Model
                     (".$this->tks.") as tk,
                     (".$this->ras.") as ra,
                     (".$this->seminaris.") as seminari,
+                    (".$this->spkpgs.") as spkpg,
                     (".$this->spktks.") as spktk,
                     (".$this->pratamas.") as pratama,
                     (".$this->navas.") as nava,

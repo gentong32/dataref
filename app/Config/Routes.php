@@ -43,6 +43,8 @@ $routes->get('/pendidikan/program/paud', 'Pendidikan::pkbmpaud');
 $routes->get('/pendidikan/program/paud/(:any)', 'Pendidikan::pkbmpaud/$1');
 $routes->get('/pendidikan/program/terampil', 'Pendidikan::terampil');
 $routes->get('/pendidikan/program/terampil/(:any)', 'Pendidikan::terampil/$1');
+$routes->get('/pendidikan/program/slb', 'Pendidikan::slb');
+$routes->get('/pendidikan/program/slb/(:any)', 'Pendidikan::slb/$1');
 $routes->get('/pendidikan/program/lifeskill', 'Pendidikan::lifeskill');
 $routes->get('/pendidikan/program/lifeskill/(:any)', 'Pendidikan::lifeskill/$1');
 /*
