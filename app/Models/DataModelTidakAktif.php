@@ -84,25 +84,25 @@ class DataModelTidakAktif extends Model
 
         $nkar = $level * 2;
         $nkar2 = $nkar + 2;
-        $min1 = date ("Y")-1;
-
-        $tahun = "[".date ("Y")."] as t".date ("Y");
-        $tahun_1 = "[".$min1."] as t".$min1; 
-        $tahun_2 = "[".(date ("Y")-2)."] as t".(date ("Y")-2);  
-        $tahun_3 = "[".(date ("Y")-3)."] as t".(date ("Y")-3);  
-        $tahun_4 = "kurang_dari_".((date ("Y"))-3)." as t".(date ("Y")-4);
-        $total = "([".date ("Y")."] + [".((date ("Y")-1))."] + [".
-        (date ("Y")-2)."] + [".((date ("Y"))-3)."] + kurang_dari_".
-        (date ("Y")-3).") as total";
+        // $min1 = $tahunsekarang-1;
+        
+        $tahunsekarang = date ("Y")-1;
+        $tahun = "[".$tahunsekarang."] as t".$tahunsekarang;
+        $tahun_1 = "[".($tahunsekarang-1)."] as t".($tahunsekarang-1);
+        $tahun_2 = "[".($tahunsekarang-2)."] as t".($tahunsekarang-2);
+        $tahun_3 = "[".($tahunsekarang-3)."] as t".($tahunsekarang-3);
+        $tahun_4 = "kurang_dari_".(($tahunsekarang)-3)." as t".($tahunsekarang-4);
+        $total = "([".$tahunsekarang."] + [".(($tahunsekarang-1))."] + [".
+        ($tahunsekarang-2)."] + [".(($tahunsekarang)-3)."] + kurang_dari_".
+        ($tahunsekarang-3).") as total";
 
         $sql = "SELECT kode_wilayah,nama,".$tahun.",".$tahun_1.",".$tahun_2.",".
         $tahun_3.",".$tahun_4.",".$total."  
                 FROM Dataprocess.rpt.sekolah_tutup 
                 WHERE mst_kode_wilayah=:kodebaru: 
                 ORDER BY kode_wilayah";
-
-            
-        $query = $this->db->query($sql, [
+       
+       $query = $this->db->query($sql, [
             'nkar2' => $nkar2,
             'nkar'  => $nkar,
             'kodebaru'  => $kode,
