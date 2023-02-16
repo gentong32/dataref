@@ -85,15 +85,32 @@ class DataModelTidakAktif extends Model
         $nkar = $level * 2;
         $nkar2 = $nkar + 2;
         // $min1 = $tahunsekarang-1;
-        
+
+        $tahunsekarang = date ("Y");
+        $sql = "SELECT TOP 1 * FROM Dataprocess.rpt.sekolah_tutup ";
+        $query = $this->db->query($sql);
+
+        $row =$query->getRow();
+        $nemu=0;
+        foreach($row as $key=>$val)
+        {
+            if ($key=="t_".$tahunsekarang && $val!=null)
+            {
+                $nemu=1;
+            }            
+        }
+
+        if ($nemu==0)
         $tahunsekarang = date ("Y")-1;
-        $tahun = "[".$tahunsekarang."] as t".$tahunsekarang;
-        $tahun_1 = "[".($tahunsekarang-1)."] as t".($tahunsekarang-1);
-        $tahun_2 = "[".($tahunsekarang-2)."] as t".($tahunsekarang-2);
-        $tahun_3 = "[".($tahunsekarang-3)."] as t".($tahunsekarang-3);
+
+        $tahunsekarang = date ("Y")-1;
+        $tahun = "[t_".$tahunsekarang."] as t".$tahunsekarang;
+        $tahun_1 = "[t_".($tahunsekarang-1)."] as t".($tahunsekarang-1);
+        $tahun_2 = "[t_".($tahunsekarang-2)."] as t".($tahunsekarang-2);
+        $tahun_3 = "[t_".($tahunsekarang-3)."] as t".($tahunsekarang-3);
         $tahun_4 = "kurang_dari_".(($tahunsekarang)-3)." as t".($tahunsekarang-4);
-        $total = "([".$tahunsekarang."] + [".(($tahunsekarang-1))."] + [".
-        ($tahunsekarang-2)."] + [".(($tahunsekarang)-3)."] + kurang_dari_".
+        $total = "([t_".$tahunsekarang."] + [t_".(($tahunsekarang-1))."] + [t_".
+        ($tahunsekarang-2)."] + [t_".(($tahunsekarang)-3)."] + kurang_dari_".
         ($tahunsekarang-3).") as total";
 
         $sql = "SELECT kode_wilayah,nama,".$tahun.",".$tahun_1.",".$tahun_2.",".

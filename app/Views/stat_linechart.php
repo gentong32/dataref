@@ -29,7 +29,11 @@
                                 
                             </select>
                             <select class="itahun" id="tahunstat" name="tahunstat">
-                                <option value="2022">2022</option>
+                                <?php for($a=date("Y"); $a>=2022; $a--)
+                                {
+                                    echo "<option value='".$a."'>".$a."</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                     </center>
