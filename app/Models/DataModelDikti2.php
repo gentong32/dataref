@@ -53,150 +53,133 @@ class DataModelDikti2 extends Model
     protected $sekolahtinggis = "bp21_s";
     protected $instituts = "bp22_s";
     protected $universitass = "bp23_s";
-    
+
     protected $diktiformal = "s.bentuk_pendidikan_id=19 OR 
     s.bentuk_pendidikan_id=20 OR 
     s.bentuk_pendidikan_id=21 OR 
     s.bentuk_pendidikan_id=22 OR 
     s.bentuk_pendidikan_id=23";
-    
+
     protected $diktiformalns = "bp19_n + bp19_s + 
     bp20_n + bp20_s + 
     bp21_n + bp21_s + 
     bp22_n + bp22_s + 
     bp23_n + bp23_s";
-    
+
     protected $diktiformaln = "bp19_n + 
     bp20_n + 
     bp21_n + 
     bp22_n + 
     bp23_n";
-    
+
     protected $diktiformals = "bp19_s + 
     bp20_s + 
     bp21_s + 
     bp22_s + 
     bp23_s";
 
-    protected $diktinonformal = "s.bentuk_pendidikan_id=99999"; 
+    protected $diktinonformal = "s.bentuk_pendidikan_id=99999";
 
-    public function getTotalDikti($status,$kode,$level,$jalur,$bentuk) {
+    public function getTotalDikti($status, $kode, $level, $jalur, $bentuk)
+    {
 
         $nkar = $level * 2;
         $nkar2 = $nkar + 2;
-        $levelbaru = $level+1;
-        $kodebaru = substr($kode,0,$nkar);
+        $levelbaru = $level + 1;
+        $kodebaru = substr($kode, 0, $nkar);
 
-        if ($status=="all")
+        if ($status == "all")
             $statusns = "ns";
-        else if ($status=="s1")
+        else if ($status == "s1")
             $statusns = "n";
-        else if ($status=="s2")
+        else if ($status == "s2")
             $statusns = "s";
 
 
-        if ($bentuk=="all")
-        {
-            if ($jalur=="all")
-            {
-                if ($status=="all")
-                $sql = "SELECT (".$this->diktiallns.") as total,
-                (".$this->akademikns.") as akademik,
-                (".$this->politeknikns.") as politeknik,
-                (".$this->sekolahtinggins.") as sekolahtinggi,
-                (".$this->institutns.") as institut,
-                (".$this->universitasns.") as universitas,
+        if ($bentuk == "all") {
+            if ($jalur == "all") {
+                if ($status == "all")
+                    $sql = "SELECT (" . $this->diktiallns . ") as total,
+                (" . $this->akademikns . ") as akademik,
+                (" . $this->politeknikns . ") as politeknik,
+                (" . $this->sekolahtinggins . ") as sekolahtinggi,
+                (" . $this->institutns . ") as institut,
+                (" . $this->universitasns . ") as universitas,
                 nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah s 
                 WHERE mst_kode_wilayah=:kode:";
-                else if ($status=="s1")
-                $sql = "SELECT (".$this->diktialln.") as total,
-                (".$this->akademikn.") as akademik,
-                (".$this->politeknikn.") as politeknik,
-                (".$this->sekolahtinggin.") as sekolahtinggi,
-                (".$this->institutn.") as institut,
-                (".$this->universitasn.") as universitas,
+                else if ($status == "s1")
+                    $sql = "SELECT (" . $this->diktialln . ") as total,
+                (" . $this->akademikn . ") as akademik,
+                (" . $this->politeknikn . ") as politeknik,
+                (" . $this->sekolahtinggin . ") as sekolahtinggi,
+                (" . $this->institutn . ") as institut,
+                (" . $this->universitasn . ") as universitas,
                 nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah s 
                 WHERE mst_kode_wilayah=:kode:";
-                else if ($status=="s2")
-                $sql = "SELECT (".$this->diktialls.") as total,
-                (".$this->akademiks.") as akademik,
-                (".$this->politekniks.") as politeknik,
-                (".$this->sekolahtinggis.") as sekolahtinggi,
-                (".$this->instituts.") as institut,
-                (".$this->universitass.") as universitas,
+                else if ($status == "s2")
+                    $sql = "SELECT (" . $this->diktialls . ") as total,
+                (" . $this->akademiks . ") as akademik,
+                (" . $this->politekniks . ") as politeknik,
+                (" . $this->sekolahtinggis . ") as sekolahtinggi,
+                (" . $this->instituts . ") as institut,
+                (" . $this->universitass . ") as universitas,
                 nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah s 
                 WHERE mst_kode_wilayah=:kode:";
-               
-            }
-            else if ($jalur=="jf")
-            {
-                
-                if ($status=="all")
-                {
-                    $sql = "SELECT (".$this->diktiallns.") as total,
-                    (".$this->akademikns.") as akademik,
-                    (".$this->politeknikns.") as politeknik,
-                    (".$this->sekolahtinggins.") as sekolahtinggi,
-                    (".$this->institutns.") as institut,
-                    (".$this->universitasns.") as universitas,
-                    nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah s 
-                    WHERE mst_kode_wilayah=:kode:";
+            } else if ($jalur == "jf") {
 
-                    
-                }
-                else if ($status=="s1")
-                {
-                    $sql = "SELECT (".$this->diktialln.") as total,
-                    (".$this->akademikn.") as akademik,
-                    (".$this->politeknikn.") as politeknik,
-                    (".$this->sekolahtinggin.") as sekolahtinggi,
-                    (".$this->institutn.") as institut,
-                    (".$this->universitasn.") as universitas,
+                if ($status == "all") {
+                    $sql = "SELECT (" . $this->diktiallns . ") as total,
+                    (" . $this->akademikns . ") as akademik,
+                    (" . $this->politeknikns . ") as politeknik,
+                    (" . $this->sekolahtinggins . ") as sekolahtinggi,
+                    (" . $this->institutns . ") as institut,
+                    (" . $this->universitasns . ") as universitas,
+                    nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah s 
+                    WHERE mst_kode_wilayah=:kode:";
+                } else if ($status == "s1") {
+                    $sql = "SELECT (" . $this->diktialln . ") as total,
+                    (" . $this->akademikn . ") as akademik,
+                    (" . $this->politeknikn . ") as politeknik,
+                    (" . $this->sekolahtinggin . ") as sekolahtinggi,
+                    (" . $this->institutn . ") as institut,
+                    (" . $this->universitasn . ") as universitas,
+                    nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah s 
+                    WHERE mst_kode_wilayah=:kode:";
+                } else if ($status == "s2") {
+
+                    $sql = "SELECT (" . $this->diktialls . ") as total,
+                    (" . $this->akademiks . ") as akademik,
+                    (" . $this->politekniks . ") as politeknik,
+                    (" . $this->sekolahtinggis . ") as sekolahtinggi,
+                    (" . $this->instituts . ") as institut,
+                    (" . $this->universitass . ") as universitas,
                     nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah s 
                     WHERE mst_kode_wilayah=:kode:";
                 }
-                else if ($status=="s2")
-                {
-                    
-                    $sql = "SELECT (".$this->diktialls.") as total,
-                    (".$this->akademiks.") as akademik,
-                    (".$this->politekniks.") as politeknik,
-                    (".$this->sekolahtinggis.") as sekolahtinggi,
-                    (".$this->instituts.") as institut,
-                    (".$this->universitass.") as universitas,
-                    nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah s 
-                    WHERE mst_kode_wilayah=:kode:";
-                    
-                }
-                
-            }
-            else if ($jalur=="jn")
-            {
+            } else if ($jalur == "jn") {
                 $sql = "SELECT bp1_n as total,
                     nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah s 
                     WHERE mst_kode_wilayah='999909999'";
             }
 
-            $query = $this->db->query($sql,[
+            $query = $this->db->query($sql, [
                 'kode' => $kode,
             ]);
-        }
-        else
-        {
-            if($status=="all")
-            $sql   = "SELECT (bp".$bentuk."_n + bp".$bentuk."_s) as total,
+        } else {
+            if ($status == "all")
+                $sql   = "SELECT (bp" . $bentuk . "_n + bp" . $bentuk . "_s) as total,
             nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah
             WHERE mst_kode_wilayah=:kode:";
-            else if($status=="s1")
-            $sql   = "SELECT bp".$bentuk."_n as total,
+            else if ($status == "s1")
+                $sql   = "SELECT bp" . $bentuk . "_n as total,
             nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah
             WHERE mst_kode_wilayah=:kode:";
-            else if($status=="s2")
-            $sql   = "SELECT bp".$bentuk."_s as total,
+            else if ($status == "s2")
+                $sql   = "SELECT bp" . $bentuk . "_s as total,
             nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah
             WHERE mst_kode_wilayah=:kode:";
-            
-            $query = $this->db->query($sql,[
+
+            $query = $this->db->query($sql, [
                 'kode' => $kode,
             ]);
         }
@@ -209,7 +192,7 @@ class DataModelDikti2 extends Model
         $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] 
                 WHERE [bentuk_pendidikan_id]=:bentuknya: 
                 ORDER BY [bentuk_pendidikan_id]";
-        $query = $this->db->query($sql,[
+        $query = $this->db->query($sql, [
             'bentuknya' => $bentuk
         ]);
 
@@ -218,17 +201,17 @@ class DataModelDikti2 extends Model
 
     public function getDaftarBentukDikti($jalur)
     {
-        if ($jalur=="all")
+        if ($jalur == "all")
             $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s 
-            WHERE (".$this->diktiall.") 
+            WHERE (" . $this->diktiall . ") 
             ORDER BY [bentuk_pendidikan_id]";
-        else if ($jalur=="jf")
+        else if ($jalur == "jf")
             $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s 
-            WHERE (".$this->diktiformal.") 
+            WHERE (" . $this->diktiformal . ") 
             ORDER BY [bentuk_pendidikan_id]";
-        else if ($jalur=="jn")
+        else if ($jalur == "jn")
             $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s 
-            WHERE (".$this->diktinonformal.") 
+            WHERE (" . $this->diktinonformal . ") 
             ORDER BY [bentuk_pendidikan_id]";
 
         $query = $this->db->query($sql);
@@ -247,69 +230,72 @@ class DataModelDikti2 extends Model
         return $query;
     }
 
-    public function getDaftarSekolahDikti($status,$kodebaru,$jalur,$bentuk)
+    public function getDaftarSekolahDikti($status, $kodebaru, $jalur, $bentuk)
     {
-        $this->db = \Config\Database::connect("dbnpsn");
-        
-        if ($status=="all")
+        $opsi = "arsip";
+
+        if ($opsi == "ods") {
+            $this->db = \Config\Database::connect("dbnpsn");
+            $tabelbyopsi = "ods2.bid2.sekolah";
+        } else {
+            $tabelbyopsi = "arsip.dbo.sekolah";
+        }
+
+        if ($status == "all")
             $wherestatus = "";
-        else if ($status=="s1")
+        else if ($status == "s1")
             $wherestatus = " AND status_sekolah = 1 ";
-        else if ($status=="s2")
+        else if ($status == "s2")
             $wherestatus = " AND status_sekolah = 2 ";
 
-        if ($bentuk=="all")
-        {
-            if ($jalur=="all")
-            {
-                $sql = "SELECT npsn, nama, alamat_jalan, desa_kelurahan, 
-                    kode_wilayah, 
+        if ($bentuk == "all") {
+            if ($jalur == "all") {
+                $sql = "SELECT npsn, s.nama, alamat_jalan, w.nama as desa_kelurahan,
+                    s.kode_wilayah, 
                     CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
-                    FROM ods2.bid2.sekolah s 
-                    WHERE (".$this->diktiall.") 
-                    AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
-                    ".$wherestatus." 
-                    ORDER BY nama";
-            }
-            else if ($jalur=="jf")
-            {
-                $sql  = "SELECT npsn, nama, alamat_jalan, desa_kelurahan, 
-                    kode_wilayah, 
+                    FROM " . $tabelbyopsi . " s 
+                    JOIN Referensi.ref.mst_wilayah w ON s.kode_wilayah=w.kode_wilayah 
+                    WHERE (" . $this->diktiall . ") 
+                    AND LEFT(s.kode_wilayah,6)=:kodebaru: AND soft_delete=0 and s.aktif=1 
+                    " . $wherestatus . " 
+                    ORDER BY s.nama";
+            } else if ($jalur == "jf") {
+                $sql  = "SELECT npsn, s.nama, alamat_jalan, w.nama as desa_kelurahan,
+                    s.kode_wilayah, 
                     CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
-                    FROM ods2.bid2.sekolah s 
-                    WHERE (".$this->diktiformal.") 
-                    AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
-                    ".$wherestatus." 
-                    ORDER BY nama";
-            }
-            else if ($jalur=="jn")
-            {
-                $sql = "SELECT npsn, nama, alamat_jalan, desa_kelurahan, 
-                    kode_wilayah, 
+                    FROM " . $tabelbyopsi . " s 
+                    JOIN Referensi.ref.mst_wilayah w ON s.kode_wilayah=w.kode_wilayah 
+                    WHERE (" . $this->diktiformal . ") 
+                    AND LEFT(s.kode_wilayah,6)=:kodebaru: AND soft_delete=0 and s.aktif=1 
+                    " . $wherestatus . " 
+                    ORDER BY s.nama";
+            } else if ($jalur == "jn") {
+                $sql = "SELECT npsn, s.nama, alamat_jalan, w.nama as desa_kelurahan,
+                    s.kode_wilayah, 
                     CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
-                    FROM ods2.bid2.sekolah s 
-                    WHERE (".$this->diktinonformal.") 
-                    AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
-                    ".$wherestatus." 
-                    ORDER BY nama";
+                    FROM " . $tabelbyopsi . " s 
+                    JOIN Referensi.ref.mst_wilayah w ON s.kode_wilayah=w.kode_wilayah 
+                    WHERE (" . $this->diktinonformal . ") 
+                    AND LEFT(s.kode_wilayah,6)=:kodebaru: AND soft_delete=0 and s.aktif=1 
+                    " . $wherestatus . " 
+                    ORDER BY s.nama";
             }
 
             $query = $this->db->query($sql, [
                 'kodebaru'  => $kodebaru
             ]);
-        }
-        else
-        {
-            $sql = "SELECT npsn, nama, alamat_jalan, desa_kelurahan, 
-                kode_wilayah, 
+        } else {
+            $sql = "SELECT npsn, s.nama, alamat_jalan, w.nama as desa_kelurahan,
+                s.kode_wilayah, 
                 CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
-                FROM ods2.bid2.sekolah s 
-                WHERE (".$this->diktiall.") 
-                AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
+                FROM " . $tabelbyopsi . " s 
+                JOIN Referensi.ref.mst_wilayah w ON s.kode_wilayah=w.kode_wilayah 
+                WHERE (" . $this->diktiall . ") 
+                AND LEFT(s.kode_wilayah,6)=:kodebaru: AND soft_delete=0 and s.aktif=1 
                 AND s.bentuk_pendidikan_id=:bentuknya: 
-                ".$wherestatus." 
-                ORDER BY nama";
-                
+                " . $wherestatus . " 
+                ORDER BY s.nama";
+
             $query = $this->db->query($sql, [
                 'kodebaru'  => $kodebaru,
                 'bentuknya' => $bentuk
@@ -332,5 +318,4 @@ class DataModelDikti2 extends Model
     {
         return $this->diktinonformal;
     }
-
 }

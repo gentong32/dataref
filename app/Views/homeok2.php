@@ -11,7 +11,8 @@
             <div style="margin:10px;">
                 <div class="block standar">
                     <h4>DATA REFERENSI PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</h4>
-
+                    <!-- Alamat IP Anda:
+                    <p id="ip-address"></p> -->
                     <p class="mb-4 pr-5" style="color:black" ;>Selamat datang. Untuk terintegrasinya Data Pendidikan, Kebudayaan, Riset, dan Teknologi di lingkungan KEMENDIKBUDRISTEK, maka perlu dilakukan pengelolaan Data Referensi sebagai acuan sinkronisasi Data Pendidikan, Kebudayaan, Riset, dan Teknologi.
                         Terima kasih atas dukungan semua pihak, kami berharap Data Referensi ini dapat memberikan manfaat dan kemajuan bersama bagi pengelolaan Data Pendidikan, Kebudayaan, Riset, dan Teknologi di Indonesia.
                         <br><br>
@@ -57,4 +58,42 @@
         </li>
     </ul>
 </div>
+<script>
+    // Fungsi untuk mengambil alamat IP menggunakan API publik
+    function getIPAddress() {
+        // Endpoint API untuk mengambil alamat IP
+        const apiUrl = 'https://api.ipify.org?format=json';
+
+        // Menggunakan fetch API untuk melakukan permintaan ke API
+        fetch(apiUrl)
+            .then((response) => response.json())
+            .then((data) => {
+                // Mengisi elemen <p> dengan alamat IP yang diterima dari API
+                document.getElementById('ip-address').innerText = data.ip;
+                // Mengirimkan alamat IP ke server untuk disimpan di database
+                saveIPAddress(data.ip);
+            })
+            .catch((error) => {
+                console.log('Terjadi kesalahan:', error);
+            });
+    }
+
+    // Fungsi untuk mengirimkan alamat IP ke server (Controller) melalui AJAX
+    function saveIPAddress(ip) {
+
+        $.ajax({
+            type: 'POST',
+            data: {
+                ip_address: ip,
+            },
+            dataType: 'json',
+            cache: false,
+            url: '<?php echo base_url(); ?>/home/cekpengunjungip',
+            success: function(result) {}
+        });
+    }
+
+    // Memanggil fungsi untuk mengambil alamat IP saat halaman dimuat
+    getIPAddress();
+</script>
 <?= $this->endSection() ?>

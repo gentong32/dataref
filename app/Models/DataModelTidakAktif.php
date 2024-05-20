@@ -113,8 +113,7 @@ class DataModelTidakAktif extends Model
         ($tahunsekarang-2)."] + [t_".(($tahunsekarang)-3)."] + kurang_dari_".
         ($tahunsekarang-3).") as total";
 
-        $sql = "SELECT kode_wilayah,nama,".$tahun.",".$tahun_1.",".$tahun_2.",".
-        $tahun_3.",".$tahun_4.",".$total."  
+        $sql = "SELECT kode_wilayah,nama,t_1,t_2,t_3,t_4,t_5,(t_1+t_2+t_3+t_4+t_5) as total  
                 FROM Dataprocess.rpt.sekolah_tutup 
                 WHERE mst_kode_wilayah=:kodebaru: 
                 ORDER BY kode_wilayah";
@@ -137,6 +136,7 @@ class DataModelTidakAktif extends Model
                     JOIN Arsip.dbo.sekolah s on s.sekolah_id=r.sekolah_id
                     JOIN Referensi.ref.bentuk_pendidikan b on s.bentuk_pendidikan_id=b.bentuk_pendidikan_id
                     WHERE LEFT(r.kode_wilayah,6)=:kodebaru: 
+                    GROUP BY r.sekolah_id,s.nama,alamat_jalan,r.last_update,tahun,b.nama,npsn   
                     ORDER BY tahun asc, s.nama asc";
 
         $query = $this->db->query($sql, [

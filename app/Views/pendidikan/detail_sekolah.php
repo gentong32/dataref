@@ -40,7 +40,7 @@
                 <td>&nbsp;</td>
                 <td>Desa/Kelurahan</td>
                 <td>:</td>
-                <td><?=$datasekolah->desa_kelurahan?></td>
+                <td><?=strtoupper($datawilayah->kelurahan)?></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>

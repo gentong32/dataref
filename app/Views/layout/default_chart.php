@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
   <!-- Basic Page Needs
 ================================================== -->
   <meta charset="utf-8">
-  <?=$this->renderSection('titel')?>
+  <?= $this->renderSection('titel') ?>
 
   <!-- Mobile Specific Metas
 ================================================== -->
@@ -19,124 +20,127 @@
 
   <!-- Favicon
 ================================================== -->
-  <link rel="icon" type="image/png" href="<?=base_url()?>/template/images/logotut.png">
+  <link rel="icon" type="image/png" href="<?= base_url() ?>/template/images/logotut.png">
 
   <!-- CSS
 ================================================== -->
   <!-- Bootstrap -->
-  <link rel="stylesheet" href="<?=base_url()?>/template/plugins/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>/template/plugins/bootstrap/bootstrap.min.css">
   <!-- FontAwesome -->
-  <link rel="stylesheet" href="<?=base_url()?>/template/plugins/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>/template/plugins/fontawesome/css/all.min.css">
   <!-- DataTables -->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/responsive.dataTables.min.css">
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/fixedColumns.dataTables.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>/template/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>/template/css/responsive.dataTables.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>/template/css/fixedColumns.dataTables.min.css">
   <!-- Animation -->
-  <link rel="stylesheet" href="<?=base_url()?>/template/plugins/animate-css/animate.css">
+  <link rel="stylesheet" href="<?= base_url() ?>/template/plugins/animate-css/animate.css">
   <!-- slick Carousel -->
-  <link rel="stylesheet" href="<?=base_url()?>/template/plugins/slick/slick.css">
-  <link rel="stylesheet" href="<?=base_url()?>/template/plugins/slick/slick-theme.css">
+  <link rel="stylesheet" href="<?= base_url() ?>/template/plugins/slick/slick.css">
+  <link rel="stylesheet" href="<?= base_url() ?>/template/plugins/slick/slick-theme.css">
   <!-- Colorbox -->
-  <link rel="stylesheet" href="<?=base_url()?>/template/plugins/colorbox/colorbox.css">
+  <link rel="stylesheet" href="<?= base_url() ?>/template/plugins/colorbox/colorbox.css">
   <!-- Template styles-->
-  <link rel="stylesheet" href="<?=base_url()?>/template/css/style.css?v3.6">
- <!-- Custom styles-->
- <link rel="stylesheet" href="<?=base_url()?>/template/css/custom.css?v3.6">
+  <link rel="stylesheet" href="<?= base_url() ?>/template/css/style.css?v3.6">
+  <!-- Custom styles-->
+  <link rel="stylesheet" href="<?= base_url() ?>/template/css/custom.css?v3.6">
 </head>
+
 <body>
   <div class="body-inner">
 
-<!-- Header start -->
-<header id="header" class="header-one">
-  <div class="bg-white">
-    <div class="containerlogo">
-      <div class="logo-area">
-          <div class="row align-items-center">
-            <div>
-                  <img style="max-width:320px" src="<?=base_url()?>/template/images/logodataref.png" alt="logo">
+    <!-- Header start -->
+    <header id="header" class="header-one">
+      <div class="bg-white">
+        <div class="containerlogo">
+          <div class="logo-area">
+            <div class="row align-items-center">
+              <div>
+                <img style="max-width:320px" src="<?= base_url() ?>/template/images/logodatarefnew.png" alt="logo">
+              </div>
             </div>
           </div>
+        </div>
       </div>
+    </header>
+    <!--/ Header end -->
+
+    <div id="page-container">
+      <div id="content-wrap">
+        <?= $this->renderSection('content') ?>
+      </div>
+
+      <footer id="footer" class="footer bg-overlay">
+        <div class="copyright">
+          <span>Pusdatin &copy; Kemendikbudristek <script>
+              document.write(new Date().getFullYear())
+            </script></span>
+        </div>
     </div>
-  </div>
-</header>
-<!--/ Header end -->
+    </footer>
+    <div>
 
-<div id="page-container">
-<div id="content-wrap">
-    <?=$this->renderSection('content')?>
-</div>
-
-<footer id="footer" class="footer bg-overlay">
-  <div class="copyright">
-      <span>Pusdatin &copy; Kemendikbudristek <script>
-          document.write(new Date().getFullYear())
-        </script></span>
-    </div>
-  </div>
-</footer>
-<div>
-
-  <!-- Javascript Files
+      <!-- Javascript Files
   ================================================== -->
 
-  <!-- initialize jQuery Library -->
-  <script src="<?=base_url()?>/template/plugins/jQuery/jquery.min.js"></script>
-  <!-- Bootstrap jQuery -->
-  <script src="<?=base_url()?>/template/plugins/bootstrap/bootstrap.min.js" defer></script>
-  <!-- DataTables -->
-  <script src="<?=base_url()?>/template/js/jquery.dataTables.min.js"></script>
-  <script src="<?=base_url()?>/template/js/dataTables.responsive.min.js"></script>
-  <script src="<?=base_url()?>/template/js/dataTables.fixedColumns.min.js"></script>
+      <!-- initialize jQuery Library -->
+      <script src="<?= base_url() ?>/template/plugins/jQuery/jquery.min.js"></script>
+      <!-- Bootstrap jQuery -->
+      <script src="<?= base_url() ?>/template/plugins/bootstrap/bootstrap.min.js" defer></script>
+      <!-- DataTables -->
+      <script src="<?= base_url() ?>/template/js/jquery.dataTables.min.js"></script>
+      <script src="<?= base_url() ?>/template/js/dataTables.responsive.min.js"></script>
+      <script src="<?= base_url() ?>/template/js/dataTables.fixedColumns.min.js"></script>
 
-  <!-- Slick Carousel -->
-  <script src="<?=base_url()?>/template/plugins/slick/slick.min.js"></script>
-  <script src="<?=base_url()?>/template/plugins/slick/slick-animation.min.js"></script>
-  <!-- Color box -->
-  <script src="<?=base_url()?>/template/plugins/colorbox/jquery.colorbox.js"></script>
-  <!-- shuffle -->
-  <script src="<?=base_url()?>/template/plugins/shuffle/shuffle.min.js" defer></script>
+      <!-- Slick Carousel -->
+      <script src="<?= base_url() ?>/template/plugins/slick/slick.min.js"></script>
+      <script src="<?= base_url() ?>/template/plugins/slick/slick-animation.min.js"></script>
+      <!-- Color box -->
+      <script src="<?= base_url() ?>/template/plugins/colorbox/jquery.colorbox.js"></script>
+      <!-- shuffle -->
+      <script src="<?= base_url() ?>/template/plugins/shuffle/shuffle.min.js" defer></script>
 
 
 
-  <!-- Template custom -->
-  <script src="<?=base_url()?>/template/js/script.js"></script>
-  <script src="<?=base_url()?>/template/js/custom.js"></script>
-  
-  <?=$this->renderSection('scriptdata')?>
+      <!-- Template custom -->
+      <script src="<?= base_url() ?>/template/js/script.js"></script>
+      <script src="<?= base_url() ?>/template/js/custom.js"></script>
 
-  </div><!-- Body inner end -->
-  </body>
+      <?= $this->renderSection('scriptdata') ?>
 
-  </html>
+    </div><!-- Body inner end -->
+</body>
 
-  <script>
-    $("#search-field").bind("keypress", {}, keypressInBox);
+<?= $this->renderSection('scriptfooter') ?>
 
-    function keypressInBox(e) {
-        var code = (e.keyCode ? e.keyCode : e.which);
-        if (code == 13) { //Enter keycode                        
-            e.preventDefault();
-            window.open("<?php
-            if ($tingkat=="kebudayaan")
-              echo site_url('kebudayaan/cari/');
-            else if ($tingkat!="yayasan")
-              echo site_url('pendidikan/cari/');
-            else
-              echo site_url('pendidikan/cariyayasan/');
-            ?>"+$("#search-field").val(),"_self");
-            // $("yourFormId").submit();
-        }
-    };
+</html>
 
-    function yukcari() {
+<script>
+  $("#search-field").bind("keypress", {}, keypressInBox);
+
+  function keypressInBox(e) {
+    var code = (e.keyCode ? e.keyCode : e.which);
+    if (code == 13) { //Enter keycode                        
+      e.preventDefault();
       window.open("<?php
-            if ($tingkat=="kebudayaan")
-              echo site_url('kebudayaan/cari/');
-            else if ($tingkat!="yayasan")
-              echo site_url('pendidikan/cari/');
-            else
-              echo site_url('pendidikan/cariyayasan/');
-            ?>"+$("#search-field").val(),"_self");
+                    if ($tingkat == "kebudayaan")
+                      echo site_url('kebudayaan/cari/');
+                    else if ($tingkat != "yayasan")
+                      echo site_url('pendidikan/cari/');
+                    else
+                      echo site_url('pendidikan/cariyayasan/');
+                    ?>" + $("#search-field").val(), "_self");
+      // $("yourFormId").submit();
     }
-  </script>
+  };
+
+  function yukcari() {
+    window.open("<?php
+                  if ($tingkat == "kebudayaan")
+                    echo site_url('kebudayaan/cari/');
+                  else if ($tingkat != "yayasan")
+                    echo site_url('pendidikan/cari/');
+                  else
+                    echo site_url('pendidikan/cariyayasan/');
+                  ?>" + $("#search-field").val(), "_self");
+  }
+</script>

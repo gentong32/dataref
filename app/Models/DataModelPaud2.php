@@ -17,15 +17,17 @@ class DataModelPaud2 extends Model
     s.bentuk_pendidikan_id=51 OR 
     s.bentuk_pendidikan_id=52 OR 
     s.bentuk_pendidikan_id=57 OR 
-    s.bentuk_pendidikan_id=61";
-    
+    s.bentuk_pendidikan_id=61 OR
+    s.bentuk_pendidikan_id=73";
+
     protected $paudjf = "s.bentuk_pendidikan_id=1 OR 
     s.bentuk_pendidikan_id=34 OR 
     s.bentuk_pendidikan_id=41 OR 
     s.bentuk_pendidikan_id=51 OR 
     s.bentuk_pendidikan_id=52 OR 
     s.bentuk_pendidikan_id=57 OR 
-    s.bentuk_pendidikan_id=61";
+    s.bentuk_pendidikan_id=61 OR 
+    s.bentuk_pendidikan_id=73";
 
     protected $paudjn = "s.bentuk_pendidikan_id=2 OR 
     s.bentuk_pendidikan_id=3 OR 
@@ -38,7 +40,8 @@ class DataModelPaud2 extends Model
     s.bentuk_pendidikan_id=41 OR 
     s.bentuk_pendidikan_id=52 OR 
     s.bentuk_pendidikan_id=57 OR 
-    s.bentuk_pendidikan_id=61";
+    s.bentuk_pendidikan_id=61 OR 
+    s.bentuk_pendidikan_id=73";
 
     protected $kbsederajat = "s.bentuk_pendidikan_id=2 OR 
     s.bentuk_pendidikan_id=43 OR
@@ -56,7 +59,8 @@ class DataModelPaud2 extends Model
     bp51_n + bp51_s + 
     bp52_n + bp52_s + 
     bp57_n + bp57_s + 
-    bp61_n + bp61_s";
+    bp61_n + bp61_s +
+    bp73_n + bp73_s";
 
     protected $paudalln = "bp1_n +
     bp2_n + 
@@ -69,7 +73,8 @@ class DataModelPaud2 extends Model
     bp51_n + 
     bp52_n + 
     bp57_n +  
-    bp61_n";
+    bp61_n +
+    bp73_n";
 
     protected $paudalls = "bp1_s +
     bp2_s + 
@@ -82,71 +87,78 @@ class DataModelPaud2 extends Model
     bp51_s + 
     bp52_s + 
     bp57_s + 
-    bp61_s";
-    
+    bp61_s +
+    bp73_s";
+
     protected $paudjfns = "bp1_n + bp1_s + 
     bp34_n + bp34_s + 
     bp41_n + bp41_s + 
     bp51_n + bp51_s + 
     bp52_n + bp52_s + 
     bp57_n + bp57_s + 
-    bp61_n + bp61_s";
-    
+    bp61_n + bp61_s +
+    bp73_n + bp73_s";
+
     protected $paudjfn = "bp1_n + 
     bp34_n + 
     bp41_n + 
     bp51_n + 
     bp52_n + 
     bp57_n + 
-    bp61_n";
-    
+    bp61_n +
+    bp73_n";
+
     protected $paudjfs = "bp1_s + 
     bp34_s + 
     bp41_s + 
     bp51_s + 
     bp52_s + 
     bp57_s + 
-    bp61_s";
-    
+    bp61_s +
+    bp73_s";
+
     protected $paudjnns = "bp2_n + bp2_s + 
     bp3_n + bp3_s + 
     bp4_n + bp4_s + 
     bp43_n + bp43_s +
     bp45_n + bp45_s";
-    
+
     protected $paudjnn = "bp2_n + 
     bp3_n + 
     bp4_n + 
     bp43_n +
     bp45_n";
-    
+
     protected $paudjns = "bp2_s + 
     bp3_s + 
     bp4_s + 
     bp43_s + 
     bp45_s";
-    
+
     protected $tksederajatns = "bp1_n + bp1_s + 
     bp34_n + bp34_s + 
     bp41_n + bp41_s + 
     bp52_n + bp52_s + 
     bp57_n + bp57_s + 
-    bp61_n + bp61_s";
-    
+    bp61_n + bp61_s +
+    bp73_n + bp73_s";
+
     protected $tksederajatn = "bp1_n + 
     bp34_n + 
     bp41_n + 
     bp52_n + 
     bp57_n + 
-    bp61_n";
-    
+    bp61_n +
+    bp73_n";
+
     protected $tksederajats = "bp1_s + 
     bp34_s + 
     bp41_s + 
     bp52_s + 
     bp57_s + 
-    bp61_s";
-    
+    bp61_s +
+    bp73_s";
+
     protected $kbsederajatns = "bp2_n + bp2_s + bp43_n + bp43_s + bp45_n + bp45_s + bp51_n + bp51_s";
     protected $kbsederajatn = "bp2_n + bp43_n + bp45_n + bp51_n";
     protected $kbsederajats = "bp2_s + bp43_s + bp45_s + bp51_s";
@@ -170,19 +182,19 @@ class DataModelPaud2 extends Model
     protected $rans = "bp34_n + bp34_s";
     protected $ran = "bp34_n";
     protected $ras = "bp34_s";
-    
+
     protected $seminarins = "bp41_n + bp41_s";
     protected $seminarin = "bp41_n";
     protected $seminaris = "bp41_s";
-    
+
     protected $spkkbns = "bp43_n + bp43_s";
     protected $spkkbn = "bp43_n";
     protected $spkkbs = "bp43_s";
-    
+
     protected $paudqns = "bp45_n + bp45_s";
     protected $paudqn = "bp45_n";
     protected $paudqs = "bp45_s";
-    
+
     protected $spkpgns = "bp51_n + bp51_s";
     protected $spkpgn = "bp51_n";
     protected $spkpgs = "bp51_s";
@@ -190,123 +202,123 @@ class DataModelPaud2 extends Model
     protected $spktkns = "bp52_n + bp52_s";
     protected $spktkn = "bp52_n";
     protected $spktks = "bp52_s";
-    
+
     protected $pratamans = "bp57_n + bp57_s";
     protected $prataman = "bp57_n";
     protected $pratamas = "bp57_s";
-    
+
     protected $navans = "bp61_n + bp61_s";
     protected $navan = "bp61_n";
     protected $navas = "bp61_s";
 
-    public function getTotalPaud($status,$kode,$level,$jalur,$bentuk) {
+    protected $pratamalayans = "bp73_n + bp73_s";
+    protected $pratamalayan = "bp73_n";
+    protected $pratamalayas = "bp73_s";
+
+    public function getTotalPaud($status, $kode, $level, $jalur, $bentuk)
+    {
 
         $nkar = $level * 2;
         $nkar2 = $nkar + 2;
-        $levelbaru = $level+1;
-        $kodebaru = substr($kode,0,$nkar);
+        $levelbaru = $level + 1;
+        $kodebaru = substr($kode, 0, $nkar);
 
-        if ($status=="all")
+        if ($status == "all")
             $statusns = "ns";
-        else if ($status=="s1")
+        else if ($status == "s1")
             $statusns = "n";
-        else if ($status=="s2")
+        else if ($status == "s2")
             $statusns = "s";
 
-        if ($bentuk=="all")
-        {
-            if ($jalur=="all")
-            {
-                if ($status=="all")
-                $sql = "SELECT (".$this->paudallns.") as total,
-                    (".$this->tksederajatns.") as tksederajat,
-                    (".$this->kbsederajatns.") as kbsederajat,
-                    (".$this->tpans.") as tpa,
-                    (".$this->spsns.") as sps,
+        if ($bentuk == "all") {
+            if ($jalur == "all") {
+                if ($status == "all")
+                    $sql = "SELECT (" . $this->paudallns . ") as total,
+                    (" . $this->tksederajatns . ") as tksederajat,
+                    (" . $this->kbsederajatns . ") as kbsederajat,
+                    (" . $this->tpans . ") as tpa,
+                    (" . $this->spsns . ") as sps,
                     nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah s 
                     WHERE mst_kode_wilayah=:kode:";
-                else if ($status=="s1")
-                $sql = "SELECT (".$this->paudalln.") as total,
-                    (".$this->tksederajatn.") as tksederajat,
-                    (".$this->kbsederajatn.") as kbsederajat,
-                    (".$this->tpan.") as tpa,
-                    (".$this->spsn.") as sps,
+                else if ($status == "s1")
+                    $sql = "SELECT (" . $this->paudalln . ") as total,
+                    (" . $this->tksederajatn . ") as tksederajat,
+                    (" . $this->kbsederajatn . ") as kbsederajat,
+                    (" . $this->tpan . ") as tpa,
+                    (" . $this->spsn . ") as sps,
                     nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah s 
                     WHERE mst_kode_wilayah=:kode:";
-                else if ($status=="s2")
-                $sql = "SELECT (".$this->paudalls.") as total,
-                    (".$this->tksederajats.") as tksederajat,
-                    (".$this->kbsederajats.") as kbsederajat,
-                    (".$this->tpas.") as tpa,
-                    (".$this->spss.") as sps,
+                else if ($status == "s2")
+                    $sql = "SELECT (" . $this->paudalls . ") as total,
+                    (" . $this->tksederajats . ") as tksederajat,
+                    (" . $this->kbsederajats . ") as kbsederajat,
+                    (" . $this->tpas . ") as tpa,
+                    (" . $this->spss . ") as sps,
                     nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah 
                     WHERE mst_kode_wilayah=:kode:";
-
-            }
-            else if ($jalur=="jf")
-            {
-                if ($status=="all")
-                $sql = "SELECT (".$this->paudjfns.") as total,
-                    (".$this->tkns.") as tk,
-                    (".$this->rans.") as ra,
-                    (".$this->seminarins.") as seminari,
-                    (".$this->spkpgns.") as spkpg,
-                    (".$this->spktkns.") as spktk,
-                    (".$this->pratamans.") as pratama,
-                    (".$this->navans.") as nava,
+            } else if ($jalur == "jf") {
+                if ($status == "all")
+                    $sql = "SELECT (" . $this->paudjfns . ") as total,
+                    (" . $this->tkns . ") as tk,
+                    (" . $this->rans . ") as ra,
+                    (" . $this->seminarins . ") as seminari,
+                    (" . $this->spkpgns . ") as spkpg,
+                    (" . $this->spktkns . ") as spktk,
+                    (" . $this->pratamans . ") as pratama,
+                    (" . $this->navans . ") as nava,
+                    (" . $this->pratamalayans . ") as pratamalaya,
                     nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah
                     WHERE mst_kode_wilayah=:kode:";
-                else if ($status=="s1")
-                $sql = "SELECT (".$this->paudjfn.") as total,
-                    (".$this->tkn.") as tk,
-                    (".$this->ran.") as ra,
-                    (".$this->seminarin.") as seminari,
-                    (".$this->spkpgn.") as spkpg,
-                    (".$this->spktkn.") as spktk,
-                    (".$this->prataman.") as pratama,
-                    (".$this->navan.") as nava,
+                else if ($status == "s1")
+                    $sql = "SELECT (" . $this->paudjfn . ") as total,
+                    (" . $this->tkn . ") as tk,
+                    (" . $this->ran . ") as ra,
+                    (" . $this->seminarin . ") as seminari,
+                    (" . $this->spkpgn . ") as spkpg,
+                    (" . $this->spktkn . ") as spktk,
+                    (" . $this->prataman . ") as pratama,
+                    (" . $this->navan . ") as nava,
+                    (" . $this->pratamalayan . ") as pratamalaya,
                     nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah
                     WHERE mst_kode_wilayah=:kode:";
-                else if ($status=="s2")
-                $sql = "SELECT (".$this->paudjfs.") as total,
-                    (".$this->tks.") as tk,
-                    (".$this->ras.") as ra,
-                    (".$this->seminaris.") as seminari,
-                    (".$this->spkpgs.") as spkpg,
-                    (".$this->spktks.") as spktk,
-                    (".$this->pratamas.") as pratama,
-                    (".$this->navas.") as nava,
+                else if ($status == "s2")
+                    $sql = "SELECT (" . $this->paudjfs . ") as total,
+                    (" . $this->tks . ") as tk,
+                    (" . $this->ras . ") as ra,
+                    (" . $this->seminaris . ") as seminari,
+                    (" . $this->spkpgs . ") as spkpg,
+                    (" . $this->spktks . ") as spktk,
+                    (" . $this->pratamas . ") as pratama,
+                    (" . $this->navas . ") as nava,
+                    (" . $this->pratamalayas . ") as pratamalaya,
                     nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah
                     WHERE mst_kode_wilayah=:kode:";
-                
-            }
-            else if ($jalur=="jn")
-            {
-                if ($status=="all")
-                $sql = "SELECT (".$this->paudjnns.") as total,
-                    (".$this->kbns.") as kb,
-                    (".$this->tpans.") as tpa,
-                    (".$this->spsns.") as sps,
-                    (".$this->spkkbns.") as spkkb,
-                    (".$this->paudqns.") as paudq,
+            } else if ($jalur == "jn") {
+                if ($status == "all")
+                    $sql = "SELECT (" . $this->paudjnns . ") as total,
+                    (" . $this->kbns . ") as kb,
+                    (" . $this->tpans . ") as tpa,
+                    (" . $this->spsns . ") as sps,
+                    (" . $this->spkkbns . ") as spkkb,
+                    (" . $this->paudqns . ") as paudq,
                     nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah
                     WHERE mst_kode_wilayah=:kode:";
-                else if ($status=="s1")
-                $sql = "SELECT (".$this->paudjnn.") as total,
-                    (".$this->kbn.") as kb,
-                    (".$this->tpan.") as tpa,
-                    (".$this->spsn.") as sps,
-                    (".$this->spkkbn.") as spkkb,
-                    (".$this->paudqn.") as paudq,
+                else if ($status == "s1")
+                    $sql = "SELECT (" . $this->paudjnn . ") as total,
+                    (" . $this->kbn . ") as kb,
+                    (" . $this->tpan . ") as tpa,
+                    (" . $this->spsn . ") as sps,
+                    (" . $this->spkkbn . ") as spkkb,
+                    (" . $this->paudqn . ") as paudq,
                     nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah
                     WHERE mst_kode_wilayah=:kode:";
-                else if ($status=="s2")
-                $sql = "SELECT (".$this->paudjns.") as total,
-                    (".$this->kbs.") as kb,
-                    (".$this->tpas.") as tpa,
-                    (".$this->spss.") as sps,
-                    (".$this->spkkbs.") as spkkb,
-                    (".$this->paudqs.") as paudq,
+                else if ($status == "s2")
+                    $sql = "SELECT (" . $this->paudjns . ") as total,
+                    (" . $this->kbs . ") as kb,
+                    (" . $this->tpas . ") as tpa,
+                    (" . $this->spss . ") as sps,
+                    (" . $this->spkkbs . ") as spkkb,
+                    (" . $this->paudqs . ") as paudq,
                     nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah
                     WHERE mst_kode_wilayah=:kode:";
             }
@@ -314,31 +326,24 @@ class DataModelPaud2 extends Model
             $query = $this->db->query($sql, [
                 'kode' => $kode,
             ]);
-        }
-        else
-        {
-            
+        } else {
 
-            if($status=="all")
-            {
-                $sql   = "SELECT (bp".$bentuk."_n + bp".$bentuk."_s) as total,
+
+            if ($status == "all") {
+                $sql   = "SELECT (bp" . $bentuk . "_n + bp" . $bentuk . "_s) as total,
+                nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah
+                WHERE mst_kode_wilayah=:kode:";
+            } else if ($status == "s1") {
+                $sql   = "SELECT bp" . $bentuk . "_n as total,
+                nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah
+                WHERE mst_kode_wilayah=:kode:";
+            } else if ($status == "s2") {
+                $sql   = "SELECT bp" . $bentuk . "_s as total,
                 nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah
                 WHERE mst_kode_wilayah=:kode:";
             }
-            else if($status=="s1")
-            {
-                $sql   = "SELECT bp".$bentuk."_n as total,
-                nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah
-                WHERE mst_kode_wilayah=:kode:";
-            }
-            else if($status=="s2")
-            { 
-                $sql   = "SELECT bp".$bentuk."_s as total,
-                nama, kode_wilayah FROM Dataprocess.rpt.rekap_referensi_sekolah
-                WHERE mst_kode_wilayah=:kode:";
-            }
-            
-            $query = $this->db->query($sql,[
+
+            $query = $this->db->query($sql, [
                 'kode' => $kode,
             ]);
         }
@@ -351,7 +356,7 @@ class DataModelPaud2 extends Model
         $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] 
                 WHERE [bentuk_pendidikan_id]=:bentuknya: 
                 ORDER BY [bentuk_pendidikan_id]";
-        $query = $this->db->query($sql,[
+        $query = $this->db->query($sql, [
             'bentuknya' => $bentuk
         ]);
 
@@ -360,18 +365,18 @@ class DataModelPaud2 extends Model
 
     public function getDaftarBentukPaudTK($jalur)
     {
-       
-        if ($jalur=="all")
+
+        if ($jalur == "all")
             $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s 
-            WHERE (".$this->paudall.") 
-            ORDER BY [bentuk_pendidikan_id]"; 
-        else if ($jalur=="jf")
+            WHERE (" . $this->paudall . ") 
+            ORDER BY [bentuk_pendidikan_id]";
+        else if ($jalur == "jf")
             $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s 
-            WHERE (".$this->paudjf.") 
-            ORDER BY [bentuk_pendidikan_id]"; 
-        else if ($jalur=="jn")
+            WHERE (" . $this->paudjf . ") 
+            ORDER BY [bentuk_pendidikan_id]";
+        else if ($jalur == "jn")
             $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s 
-            WHERE (".$this->paudjn.") 
+            WHERE (" . $this->paudjn . ") 
             ORDER BY [bentuk_pendidikan_id]";
 
         // $sql = "SELECT * FROM [Referensi].[ref].[bentuk_pendidikan] s 
@@ -394,69 +399,73 @@ class DataModelPaud2 extends Model
         return $query;
     }
 
-    public function getDaftarSekolahPaudTK($status,$kodebaru,$jalur,$bentuk)
+    public function getDaftarSekolahPaudTK($status, $kodebaru, $jalur, $bentuk)
     {
-        $this->db = \Config\Database::connect("dbnpsn");
-        if ($status=="all")
+        $opsi = "arsip";
+
+        if ($opsi == "ods") {
+            $this->db = \Config\Database::connect("dbnpsn");
+            $tabelbyopsi = "ods2.bid2.sekolah";
+        } else {
+            $tabelbyopsi = "arsip.dbo.sekolah";
+        }
+
+        if ($status == "all")
             $wherestatus = "";
-        else if ($status=="s1")
+        else if ($status == "s1")
             $wherestatus = " AND status_sekolah = 1 ";
-        else if ($status=="s2")
+        else if ($status == "s2")
             $wherestatus = " AND status_sekolah = 2 ";
 
-        if ($bentuk=="all")
-        {
-            if ($jalur=="all")
-            {
-                $sql = "SELECT npsn, nama, alamat_jalan, desa_kelurahan, 
-                    kode_wilayah, 
+        if ($bentuk == "all") {
+            if ($jalur == "all") {
+                $sql = "SELECT npsn, s.nama, alamat_jalan, w.nama as desa_kelurahan,
+                    s.kode_wilayah, 
                     CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
-                    FROM ods2.bid2.sekolah s 
-                    WHERE (".$this->paudall.") 
-                    AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
-                    ".$wherestatus." 
-                    ORDER BY nama";
-            }
-            else if ($jalur=="jf")
-            {
-                $sql  = "SELECT npsn, nama, alamat_jalan, desa_kelurahan, 
-                    kode_wilayah, 
+                    FROM " . $tabelbyopsi . " s 
+                    JOIN Referensi.ref.mst_wilayah w ON s.kode_wilayah=w.kode_wilayah
+                    WHERE (" . $this->paudall . ") 
+                    AND LEFT(s.kode_wilayah,6)=:kodebaru: AND soft_delete=0 and s.aktif=1
+                    " . $wherestatus . " 
+                    ORDER BY s.nama";
+            } else if ($jalur == "jf") {
+                $sql  = "SELECT npsn, s.nama, alamat_jalan, w.nama as desa_kelurahan,
+                    s.kode_wilayah, 
                     CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
-                    FROM ods2.bid2.sekolah s 
-                    WHERE (".$this->tksederajatjf.") 
-                    AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
-                    ".$wherestatus." 
-                    ORDER BY nama";
-            }
-            else if ($jalur=="jn")
-            {
-                $sql = "SELECT npsn, nama, alamat_jalan, desa_kelurahan, 
-                    kode_wilayah, 
+                    FROM " . $tabelbyopsi . " s 
+                    JOIN Referensi.ref.mst_wilayah w ON s.kode_wilayah=w.kode_wilayah 
+                    WHERE (" . $this->paudjf . ") 
+                    AND LEFT(s.kode_wilayah,6)=:kodebaru: AND soft_delete=0 and s.aktif=1 
+                    " . $wherestatus . " 
+                    ORDER BY s.nama";
+            } else if ($jalur == "jn") {
+                $sql = "SELECT npsn, s.nama, alamat_jalan, w.nama as desa_kelurahan,
+                    s.kode_wilayah, 
                     CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
-                    FROM ods2.bid2.sekolah s 
-                    WHERE (".$this->paudjn.") 
-                    AND LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
-                    ".$wherestatus." 
-                    ORDER BY nama";
+                    FROM " . $tabelbyopsi . " s 
+                    JOIN Referensi.ref.mst_wilayah w ON s.kode_wilayah=w.kode_wilayah
+                    WHERE (" . $this->paudjn . ") 
+                    AND LEFT(s.kode_wilayah,6)=:kodebaru: AND soft_delete=0 and s.aktif=1 
+                    " . $wherestatus . " 
+                    ORDER BY s.nama";
             }
 
             $query = $this->db->query($sql, [
                 'kodebaru'  => $kodebaru
             ]);
-        }
-        else
-        {
-            $sql = "SELECT npsn, nama, alamat_jalan, desa_kelurahan, 
-                kode_wilayah, 
+        } else {
+            $sql = "SELECT npsn, s.nama, alamat_jalan, w.nama as desa_kelurahan,
+                s.kode_wilayah, 
                 CASE WHEN status_sekolah=1 THEN 'NEGERI' ELSE 'SWASTA' END AS status_skl
-                FROM ods2.bid2.sekolah s 
-                WHERE LEFT(kode_wilayah,6)=:kodebaru: AND soft_delete=0 
+                FROM " . $tabelbyopsi . " s 
+                JOIN Referensi.ref.mst_wilayah w ON s.kode_wilayah=w.kode_wilayah
+                WHERE LEFT(s.kode_wilayah,6)=:kodebaru: AND soft_delete=0 and s.aktif=1 
                 AND s.bentuk_pendidikan_id=:bentuknya: 
-                ".$wherestatus." 
-                ORDER BY nama";
+                " . $wherestatus . " 
+                ORDER BY s.nama";
 
-                
-                
+
+
             $query = $this->db->query($sql, [
                 'kodebaru'  => $kodebaru,
                 'bentuknya' => $bentuk
@@ -479,5 +488,4 @@ class DataModelPaud2 extends Model
     {
         return $this->paudjn;
     }
-
 }

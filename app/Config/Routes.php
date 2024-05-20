@@ -36,6 +36,7 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->post('/home/cekpengunjungip', 'Home::cekpengunjungip');
 $routes->get('/tabs.php', 'Pendidikan::npsn');
 $routes->get('/pendidikan/program/kesetaraan', 'Pendidikan::kesetaraan');
 $routes->get('/pendidikan/program/kesetaraan/(:any)', 'Pendidikan::kesetaraan/$1');
